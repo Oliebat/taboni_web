@@ -33,9 +33,9 @@ const Links = styled.div`
 //   height: 50px;
 // `;
 
-// TitleSite with nice font
+
 const TitleSite = styled.h1`
-  font-size: 90px;
+    font-size: 90px;
   font-weight: bold;
   cursor: pointer;
   color: transparent;
@@ -53,7 +53,7 @@ const TitleSite = styled.h1`
     position: absolute;
     top: 0;
     left: 0;
-    color: pink;
+    color: #A3333D;
     width: 0px;
     overflow: hidden;
     white-space: nowrap;
@@ -100,12 +100,36 @@ const Icon = styled.img`
 const Button = styled.button`
   width: 120px;
   padding: 10px;
-  background-color: #da4ea2;
+  background-color: #A3333D;
   color: white;
   border: none;
   border-radius: 5px;
   cursor: pointer;
+
+   /* hover effect*/
+   display: inline-block;
+  vertical-align: middle;
+  transform: perspective(1px) translateZ(0);
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+  transition-duration: 0.3s;
+  transition-property: transform;
+
+  &:hover, 
+  &:focus, 
+  &:active {
+    transform: scale(1.1) rotate(4deg);
+  }
 `;
+
+const scrollToSection = (id) => {
+  const element = document.getElementById(id);
+  if (element) {
+    element.scrollIntoView({
+      behavior: "smooth"
+    });
+  }
+};
+
 
 const Navbar = () => {
   return (
@@ -114,14 +138,14 @@ const Navbar = () => {
         <Links>
           <TitleSite>Taboni Web</TitleSite>
           <List>
-            <ListItem>Home</ListItem>
-            <ListItem>Studio</ListItem>
-            <ListItem>Works</ListItem>
-            <ListItem>Contact</ListItem>
+            <ListItem onClick={() => scrollToSection("home")}>Home</ListItem>
+            <ListItem onClick={() => scrollToSection("studio")}>Studio</ListItem>
+            <ListItem onClick={() => scrollToSection("works")}>Works</ListItem>
+            <ListItem onClick={() => scrollToSection("contact")}>Contact</ListItem>
           </List>
         </Links>
         <Icons>
-          <Button>Contactez nous</Button>
+          <Button onClick={() => scrollToSection("contact")}>Contactez nous</Button>
         </Icons>
       </Container>
     </Section>

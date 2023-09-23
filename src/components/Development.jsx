@@ -6,7 +6,7 @@ import styled from "styled-components";
 
 const Desc = styled.div`
   width: 200px;
-  height: 70px;
+  /* height: 70px; */
   padding: 20px;
   background-color: white;
   border-radius: 10px;
@@ -26,15 +26,14 @@ const Desc = styled.div`
 const Development = () => {
   return (
     <>
-      <Canvas camera={{ position: [0, 0, 10] }}>
+      <Canvas camera={{ position: [0, 0, 10] }} style={{ cursor: 'grab' }}>
         <Suspense fallback={null}>
           <Atom />
           <OrbitControls enableZoom={false} autoRotate />
         </Suspense>
       </Canvas>
       <Desc>
-        We design products with a strong focus on both world class design and
-        ensuring your product is a market success.
+        Des solutions sur mesure pour répondre précisément à vos besoins spécifiques.
       </Desc>
     </>
   );

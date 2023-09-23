@@ -1,7 +1,7 @@
 import React, { Suspense } from "react";
 import { OrbitControls, Stage } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
-import Mobile from "./Mobile";
+import Handshake from "./Handshake";
 import styled from "styled-components";
 
 const Desc = styled.div`
@@ -11,7 +11,7 @@ const Desc = styled.div`
   background-color: white;
   border-radius: 10px;
   position: absolute;
-  bottom: 200px;
+  bottom: 150px;
   right: 100px;
 
   @media only screen and (max-width: 768px) {
@@ -23,22 +23,22 @@ const Desc = styled.div`
   }
 `;
 
-const ProductDesign = () => {
+const Proximite = () => {
   return (
     <>
-      <Canvas style={{ cursor: 'grab' }}>
+      <Canvas camera={{  position: [0, 0, 10] }} style={{ cursor: 'grab' }}>
         <Suspense fallback={null}>
           <Stage environment="city" intensity={0.6}>
-            <Mobile scale={[0.1, 0.1, 0.1]} />
+            <Handshake scale={[0.009, 0.009, 0.009]} />
           </Stage>
           <OrbitControls enableZoom={false} autoRotate />
         </Suspense>
       </Canvas>
       <Desc>
-        Restez connecté avec vos utilisateurs grâce à nos applications mobiles performantes.
+        Toujours à vos côtés pour vous conseiller et vous guider dans votre parcours numérique.
       </Desc>
     </>
   );
 };
 
-export default ProductDesign;
+export default Proximite;

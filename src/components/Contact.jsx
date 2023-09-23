@@ -1,7 +1,8 @@
 import React, { useRef, useState } from "react";
 import emailjs from "@emailjs/browser";
-import styled from "styled-components";
+import styled, { css, keyframes } from "styled-components";
 import Map from "./Map";
+
 
 const Section = styled.div`
   height: 100vh;
@@ -27,7 +28,7 @@ const Left = styled.div`
 `;
 
 const Title = styled.h1`
-  font-weight: 200;
+  font-size: 40px;
 `;
 
 const Form = styled.form`
@@ -56,13 +57,27 @@ const TextArea = styled.textarea`
 `;
 
 const Button = styled.button`
-  background-color: #da4ea2;
+background-color: #A93F55;
   color: white;
   border: none;
   font-weight: bold;
   cursor: pointer;
   border-radius: 5px;
   padding: 20px;
+  
+  /* hover effect*/
+  display: inline-block;
+  vertical-align: middle;
+  transform: perspective(1px) translateZ(0);
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+  transition-duration: 0.3s;
+  transition-property: transform;
+
+  &:hover, 
+  &:focus, 
+  &:active {
+    transform: scale(1.1) rotate(4deg);
+  }
 `;
 
 const Right = styled.div`
@@ -73,58 +88,87 @@ const Right = styled.div`
   }
 `;
 
-const Contact = () => {
+const fadeOut = keyframes`
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+`;
+
+const SuccessMessage = styled.div`
+  ${({ startFadeOut }) =>
+    startFadeOut &&
+    css`
+      animation: ${fadeOut} 2s forwards;
+    `}
+`;
+
+const Contact = ({ id }) => {
   const ref = useRef();
-  const [success, setSuccess] = useState(null);
-  const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState(false);
+  const [errorMessage, setErrorMessage] = useState(null);
+  const [startFadeOut, setStartFadeOut] = useState(false);
+  const APP_SERVICE_ID = import.meta.env.VITE_REACT_APP_SERVICE_ID;
+  const APP_TEMPLATE_ID = import.meta.env.VITE_REACT_APP_TEMPLATE_ID;
+  const APP_PUBLIC_KEY = import.meta.env.VITE_REACT_APP_PUBLIC_KEY;
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setLoading(true);
 
     emailjs
       .sendForm(
-        process.env.REACT_APP_SERVICE_ID,
-        process.env.REACT_APP_TEMPLATE_ID,
+        APP_SERVICE_ID,
+        APP_TEMPLATE_ID,
         ref.current,
-        process.env.REACT_APP_PUBLIC_KEY
+        APP_PUBLIC_KEY
       )
       .then(
         (result) => {
           console.log(result.text);
           setSuccess(true);
+          setErrorMessage(null);
+          ref.current.reset();
+
+          setTimeout(() => {
+            setStartFadeOut(true);
+          }, 8000);
+
+          setTimeout(() => {
+            setSuccess(false);
+            setStartFadeOut(false);
+          }, 10000);
         },
         (error) => {
           console.log(error.text);
           setSuccess(false);
+          setErrorMessage("Une erreur est survenue. Veuillez réessayer.");
         }
-      )
-      .finally(() => {
-        setLoading(false);
-      });
+      );
   };
 
   return (
-    <Section>
+    <Section id={id}>
       <Container>
         <Left>
           <Form ref={ref} onSubmit={handleSubmit}>
-            <Title>Contactez nous</Title>
-            <Input placeholder="Nom" name="LastName" />
-            <Input placeholder="Prénom" name="FirstName" />
-            <Input placeholder="Sujet" name="Subject" />
-            <Input placeholder="Email" name="Email" />
+            <Title>Contactez Nous</Title>
+            <Input placeholder="Nom" name="name" required />
+            <Input placeholder="Email" name="email" type="email" required />
             <TextArea
               placeholder="Message"
               name="message"
               rows={10}
+              required
             />
             <Button type="submit">Envoyer</Button>
-            {success === true && 
-              "Votre message a été envoyé. Nous vous répondrons bientôt :)"}
-            {success === false && 
-              "Une erreur s'est produite lors de l'envoi du message."}
-            {loading && "Envoi en cours..."}
+            {success && (
+              <SuccessMessage startFadeOut={startFadeOut}>
+                Votre message a été envoyé. Nous vous répondrons bientôt !
+              </SuccessMessage>
+            )}
+            {errorMessage && <div style={{ color: "red" }}>{errorMessage}</div>}
           </Form>
         </Left>
         <Right>

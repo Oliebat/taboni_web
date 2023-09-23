@@ -64,7 +64,7 @@ const Line = styled.img`
 `;
 
 const Subtitle = styled.h2`
-  color: #da4ea2;
+  color: #A93F55;
 `;
 
 const Desc = styled.p`
@@ -77,7 +77,7 @@ const Desc = styled.p`
 `;
 
 const Button = styled.button`
-  background-color: #da4ea2;
+  background-color: #A93F55;
   color: white;
   font-weight: 500;
   width: 120px;
@@ -85,6 +85,20 @@ const Button = styled.button`
   border: none;
   border-radius: 5px;
   cursor: pointer;
+
+   /* hover effect*/
+   display: inline-block;
+  vertical-align: middle;
+  transform: perspective(1px) translateZ(0);
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+  transition-duration: 0.3s;
+  transition-property: transform;
+
+  &:hover, 
+  &:focus, 
+  &:active {
+    transform: scale(1.1) rotate(4deg);
+  }
 `;
 
 const Right = styled.div`
@@ -98,7 +112,7 @@ const Right = styled.div`
 
 const Img = styled.img`
   width: 800px;
-  height: 600px;
+  height: 400px;
   object-fit: contain;
   position: absolute;
   top: 0;
@@ -120,9 +134,15 @@ const Img = styled.img`
   }
 `;
 
-const Hero = () => {
+const Hero = ({ id }) => {
+  
+  const handleButtonClick = () => {
+    const section = document.getElementById("studio");
+    section.scrollIntoView({ behavior: "smooth" });
+  };
+
   return (
-    <Section>
+    <Section id={id}>
       <Navbar />
       <Container>
         <Left>
@@ -134,7 +154,7 @@ const Hero = () => {
           <Desc>
             Nous rendons le digital chaleureux et humain
           </Desc>
-          <Button>En savoir plus</Button>
+          <Button onClick={handleButtonClick}>En savoir plus</Button>
         </Left>
         <Right>
           <Canvas>
@@ -144,7 +164,7 @@ const Hero = () => {
               <directionalLight position={[3, 2, 1]} />
               <Sphere args={[1, 100, 200]} scale={2.4}>
                 <MeshDistortMaterial
-                  color="#3d1c56"
+                  color="#5DA7C5"
                   attach="material"
                   distort={0.5}
                   speed={2}
@@ -152,7 +172,7 @@ const Hero = () => {
               </Sphere>
             </Suspense>
           </Canvas>
-          <Img src="./img/moon.png" />
+          <Img src="./img/earth.png" />
         </Right>
       </Container>
     </Section>

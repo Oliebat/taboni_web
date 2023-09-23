@@ -1,7 +1,7 @@
 import React, { Suspense } from "react";
 import { OrbitControls, Stage } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
-import Mobile from "./Mobile";
+import Safe from "./Safe";
 import styled from "styled-components";
 
 const Desc = styled.div`
@@ -23,22 +23,22 @@ const Desc = styled.div`
   }
 `;
 
-const ProductDesign = () => {
+const Securite = () => {
   return (
     <>
-      <Canvas style={{ cursor: 'grab' }}>
+      <Canvas camera={{  position: [0, 0, 10] }} style={{ cursor: 'grab' }}>
         <Suspense fallback={null}>
           <Stage environment="city" intensity={0.6}>
-            <Mobile scale={[0.1, 0.1, 0.1]} />
+          <Safe scale={[0.01, 0.01, 0.01]}/>
           </Stage>
-          <OrbitControls enableZoom={false} autoRotate />
+          <OrbitControls enableZoom={false} maxDistance={1000} autoRotate />
         </Suspense>
       </Canvas>
       <Desc>
-        Restez connecté avec vos utilisateurs grâce à nos applications mobiles performantes.
+      Protégez votre présence en ligne avec nos solutions de sécurité robustes.
       </Desc>
     </>
   );
 };
 
-export default ProductDesign;
+export default Securite;

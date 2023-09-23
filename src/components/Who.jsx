@@ -59,7 +59,7 @@ const Line = styled.img`
 `;
 
 const Subtitle = styled.h2`
-  color: #da4ea2;
+  color: #A3333D;
 `;
 
 const Desc = styled.p`
@@ -68,7 +68,7 @@ const Desc = styled.p`
 `;
 
 const Button = styled.button`
-  background-color: #da4ea2;
+  background-color: #A3333D;
   color: white;
   font-weight: 500;
   width: 120px;
@@ -76,14 +76,39 @@ const Button = styled.button`
   border: none;
   border-radius: 5px;
   cursor: pointer;
+
+   /* hover effect*/
+   display: inline-block;
+  vertical-align: middle;
+  transform: perspective(1px) translateZ(0);
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+  transition-duration: 0.3s;
+  transition-property: transform;
+
+  &:hover, 
+  &:focus, 
+  &:active {
+    transform: scale(1.1) rotate(4deg);
+  }
 `;
 
-const Who = () => {
+const Who = ({ id }) => {
+
+  const scrollToSection = (id) => {
+    const element = document.getElementById(id);
+    if (element) {
+      element.scrollIntoView({
+        behavior: "smooth"
+      });
+    }
+  };
+
+  
   return (
-    <Section>
+    <Section id={id}>
       <Container>
         <Left>
-          <Canvas camera={{ position: [5, 5, 5], fov: 25 }}>
+          <Canvas camera={{ position: [5, 5, 5], fov: 25 }} style={{ cursor: 'grab' }}>
             <Suspense fallback={null}>
               <ambientLight intensity={0.5} />
               <directionalLight position={[3, 2, 1]} />
@@ -93,7 +118,7 @@ const Who = () => {
           </Canvas>
         </Left>
         <Right>
-          <Title>Dépassez les limites du cadre</Title>
+          <Title>Dépassez les limites du cadre établi.</Title>
           <WhatWeDo>
             <Line src="./img/line.png" />
             <Subtitle>
@@ -103,7 +128,7 @@ const Who = () => {
           <Desc>
             Un developpeur web passionné par le code et les nouvelles technologies.
           </Desc>
-          <Button>See our works</Button>
+          <Button onClick={() => scrollToSection("works")}>Voir plus</Button>
         </Right>
       </Container>
     </Section>

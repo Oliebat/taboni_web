@@ -6,7 +6,6 @@ import Mac from "./Mac";
 
 const Desc = styled.div`
   width: 200px;
-  height: 70px;
   padding: 20px;
   background-color: white;
   border-radius: 10px;
@@ -26,7 +25,7 @@ const Desc = styled.div`
 const WebDesign = () => {
   return (
     <>
-      <Canvas>
+      <Canvas style={{ cursor: 'grab' }}>
         <Suspense fallback={null}>
           <Stage environment="city" intensity={0.6}>
             <Mac />
@@ -35,8 +34,7 @@ const WebDesign = () => {
         </Suspense>
       </Canvas>
       <Desc>
-        We design products with a strong focus on both world class design and
-        ensuring your product is a market success.
+        Distinguez-vous en ligne grâce à nos conceptions web uniques.
       </Desc>
     </>
   );

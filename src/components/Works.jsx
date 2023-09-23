@@ -3,13 +3,15 @@ import styled from "styled-components";
 import Development from "./Development";
 import ProductDesign from "./ProductDesign";
 import WebDesign from "./WebDesign";
+import Securite from "./Securite";
+import Promixite from "./Promixite";
 
 const data = [
-  "Web Design",
-  "Development",
-  "Illustration",
-  "Product Design",
-  "Social Media",
+  "Web",
+  "Développement",
+  "Mobile",
+  "Promixité",
+  "Sécurité",
 ];
 
 const Section = styled.div`
@@ -71,7 +73,7 @@ const ListItem = styled.li`
     position: absolute;
     top: 0;
     left: 0;
-    color: pink;
+    color: #A3333D;
     width: 0px;
     overflow: hidden;
     white-space: nowrap;
@@ -94,10 +96,28 @@ const Right = styled.div`
   flex: 1;
 `;
 
-const Works = () => {
-  const [work, setWork] = useState("Web Design");
+const Works = ({ id }) => {
+  const [work, setWork] = useState("Web");
+
+  const renderRightContent = () => {
+    switch (work) {
+      case "Web":
+        return <WebDesign />;
+      case "Développement":
+        return <Development />;
+      case "Mobile":
+        return <ProductDesign />;
+      case "Sécurité":
+        return <Securite />;
+      case "Promixité":
+        return <Promixite />;
+      default:
+        return null; // ou un composant par défaut si nécessaire
+    }
+  };
+
   return (
-    <Section>
+    <Section id={id}>
       <Container>
         <Left>
           <List>
@@ -109,13 +129,7 @@ const Works = () => {
           </List>
         </Left>
         <Right>
-          {work === "Web Design" ? (
-            <WebDesign />
-          ) : work === "Development" ? (
-            <Development />
-          ) : (
-            <ProductDesign />
-          )}
+          {renderRightContent()}
         </Right>
       </Container>
     </Section>
@@ -123,3 +137,4 @@ const Works = () => {
 };
 
 export default Works;
+
