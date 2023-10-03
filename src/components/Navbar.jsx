@@ -1,5 +1,7 @@
 import React from "react";
 import styled from "styled-components";
+import 'animate.css';
+import Button from "./buttons/Button";
 
 const Section = styled.div`
   display: flex;
@@ -77,6 +79,8 @@ const List = styled.ul`
   gap: 20px;
   list-style: none;
 
+  font-weight: 600;
+
   @media only screen and (max-width: 768px) {
     display: none;
   }
@@ -84,6 +88,11 @@ const List = styled.ul`
 
 const ListItem = styled.li`
   cursor: pointer;
+  transition: transform 0.4s ease-in-out; // Ajout d'une transition
+
+  &:hover {
+    transform: scale(1.25);
+  }
 `;
 
 const Icons = styled.div`
@@ -97,29 +106,6 @@ const Icon = styled.img`
   cursor: pointer;
 `;
 
-const Button = styled.button`
-  width: 120px;
-  padding: 10px;
-  background-color: #A3333D;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-
-   /* hover effect*/
-   display: inline-block;
-  vertical-align: middle;
-  transform: perspective(1px) translateZ(0);
-  box-shadow: 0 0 1px rgba(0, 0, 0, 0);
-  transition-duration: 0.3s;
-  transition-property: transform;
-
-  &:hover, 
-  &:focus, 
-  &:active {
-    transform: scale(1.1) rotate(4deg);
-  }
-`;
 
 const scrollToSection = (id) => {
   const element = document.getElementById(id);
@@ -136,7 +122,7 @@ const Navbar = () => {
     <Section>
       <Container>
         <Links>
-          <TitleSite>Taboni Web</TitleSite>
+          <TitleSite className="animate__animated animate__bounce animate__delay-1s">Taboni Web</TitleSite>
           <List>
             <ListItem onClick={() => scrollToSection("home")}>Home</ListItem>
             <ListItem onClick={() => scrollToSection("studio")}>Studio</ListItem>
@@ -145,7 +131,7 @@ const Navbar = () => {
           </List>
         </Links>
         <Icons>
-          <Button onClick={() => scrollToSection("contact")}>Contactez nous</Button>
+          <Button onClick={() => scrollToSection("contact")}><span>Contactez-nous</span></Button>
         </Icons>
       </Container>
     </Section>

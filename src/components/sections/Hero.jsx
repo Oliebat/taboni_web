@@ -1,8 +1,10 @@
 import React, { Suspense } from "react";
 import styled from "styled-components";
-import Navbar from "./Navbar";
+import Navbar from "../Navbar";
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls, Sphere, MeshDistortMaterial } from "@react-three/drei";
+import Button from "../buttons/Button";
+import 'animate.css';
 
 const Section = styled.div`
   height: 100vh;
@@ -12,9 +14,7 @@ const Section = styled.div`
   align-items: center;
   justify-content: space-between;
 
-  @media only screen and (max-width: 768px) {
-    height: 200vh;
-  }
+
 `;
 
 const Container = styled.div`
@@ -29,6 +29,7 @@ const Container = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    position: relative;
   }
 `;
 
@@ -38,10 +39,15 @@ const Left = styled.div`
   flex-direction: column;
   justify-content: center;
   gap: 20px;
+  
+  
 
   @media only screen and (max-width: 768px) {
     flex: 1;
-    align-items: center;
+    margin: 20px;
+    position: absolute;
+    z-index: 1;
+    
   }
 `;
 
@@ -49,7 +55,7 @@ const Title = styled.h1`
   font-size: 65px;
 
   @media only screen and (max-width: 768px) {
-    text-align: center;
+    text-align: left;
   }
 `;
 
@@ -71,42 +77,23 @@ const Desc = styled.p`
   font-size: 24px;
   color: lightgray;
   @media only screen and (max-width: 768px) {
-    padding: 20px;
-    text-align: center;
-  }
-`;
-
-const Button = styled.button`
-  background-color: #A93F55;
-  color: white;
-  font-weight: 500;
-  width: 120px;
-  padding: 10px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-
-   /* hover effect*/
-   display: inline-block;
-  vertical-align: middle;
-  transform: perspective(1px) translateZ(0);
-  box-shadow: 0 0 1px rgba(0, 0, 0, 0);
-  transition-duration: 0.3s;
-  transition-property: transform;
-
-  &:hover, 
-  &:focus, 
-  &:active {
-    transform: scale(1.1) rotate(4deg);
+    text-align: left;
   }
 `;
 
 const Right = styled.div`
   flex: 3;
   position: relative;
+  animation-duration: 0ms.6;
   @media only screen and (max-width: 768px) {
     flex: 1;
     width: 100%;
+    position: relative;
+  bottom: 0; /* Il sera positionné au bas de son parent (Container) */
+  left: 0;
+  width: 100%;
+  position: relative;
+  opacity: 0.4; 
   }
 `;
 
@@ -145,7 +132,7 @@ const Hero = ({ id }) => {
     <Section id={id}>
       <Navbar />
       <Container>
-        <Left>
+        <Left className="animate__animated animate__pulse animate__delay-2s">
           <Title>Solutions web & mobile sur-mesure</Title>
           <WhatWeDo>
             <Line src="./img/line.png" />
@@ -154,9 +141,9 @@ const Hero = ({ id }) => {
           <Desc>
             Nous rendons le digital chaleureux et humain
           </Desc>
-          <Button onClick={handleButtonClick}>En savoir plus</Button>
+          <Button onClick={handleButtonClick}><span>En savoir plus</span></Button>
         </Left>
-        <Right>
+        <Right className="animate__animated animate__fadeIn animate__delay-1s">
           <Canvas>
             <Suspense fallback={null}>
               <OrbitControls enableZoom={false} />

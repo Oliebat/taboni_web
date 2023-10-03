@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import Development from "./Development";
-import ProductDesign from "./ProductDesign";
-import WebDesign from "./WebDesign";
-import Securite from "./Securite";
-import Promixite from "./Promixite";
+import Development from "../Development";
+import ProductDesign from "../ProductDesign";
+import WebDesign from "../WebDesign";
+import Securite from "../Securite";
+import Promixite from "../Promixite";
 
 const data = [
   "Web",
@@ -43,7 +43,6 @@ const Left = styled.div`
 
   @media only screen and (max-width: 768px) {
     padding: 20px;
-    justify-content: center;
   }
 `;
 
@@ -61,12 +60,6 @@ const ListItem = styled.li`
   color: transparent;
   -webkit-text-stroke: 1px white;
   position: relative;
-
-  @media only screen and (max-width: 768px) {
-    font-size: 24px;
-    color: white;
-    -webkit-text-stroke: 0px;
-  }
 
   ::after {
     content: "${(props) => props.text}";
@@ -90,7 +83,26 @@ const ListItem = styled.li`
       }
     }
   }
+
+  @media only screen and (max-width: 768px) {
+    font-size: 24px;
+    color: white;
+    -webkit-text-stroke: 0px;
+    font-size: 3rem;
+
+    ::after {
+      width: 0; // remet la largeur à 0
+      animation: none; // supprime l'animation
+    }
+
+    &:hover {
+      ::after {
+        animation: none; // supprime l'animation au survol également
+      }
+    }
+  }
 `;
+
 
 const Right = styled.div`
   flex: 1;

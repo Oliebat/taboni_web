@@ -1,7 +1,7 @@
 import React, { Suspense } from "react";
 import { OrbitControls, Stage } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
-import Safe from "./Safe";
+import Safe from "./objects/Safe";
 import styled from "styled-components";
 
 const Desc = styled.div`
@@ -15,11 +15,7 @@ const Desc = styled.div`
   right: 100px;
 
   @media only screen and (max-width: 768px) {
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    margin: auto;
+    display: none;
   }
 `;
 

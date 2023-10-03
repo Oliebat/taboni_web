@@ -2,7 +2,8 @@ import React, { Suspense } from "react";
 import styled from "styled-components";
 import { OrbitControls } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
-import Cube from "./Cube";
+import Cube from "../objects/Cube";
+import Button from "../buttons/Button";
 
 const Section = styled.div`
   height: 100vh;
@@ -67,30 +68,7 @@ const Desc = styled.p`
   color: lightgray;
 `;
 
-const Button = styled.button`
-  background-color: #A3333D;
-  color: white;
-  font-weight: 500;
-  width: 120px;
-  padding: 10px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
 
-   /* hover effect*/
-   display: inline-block;
-  vertical-align: middle;
-  transform: perspective(1px) translateZ(0);
-  box-shadow: 0 0 1px rgba(0, 0, 0, 0);
-  transition-duration: 0.3s;
-  transition-property: transform;
-
-  &:hover, 
-  &:focus, 
-  &:active {
-    transform: scale(1.1) rotate(4deg);
-  }
-`;
 
 const Who = ({ id }) => {
 
@@ -128,7 +106,7 @@ const Who = ({ id }) => {
           <Desc>
             Un developpeur web passionné par le code et les nouvelles technologies.
           </Desc>
-          <Button onClick={() => scrollToSection("works")}>Voir plus</Button>
+          <Button onClick={() => scrollToSection("works")}><span>Voir plus</span></Button>
         </Right>
       </Container>
     </Section>
