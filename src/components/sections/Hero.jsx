@@ -56,6 +56,7 @@ const Title = styled.h1`
 
   @media only screen and (max-width: 768px) {
     text-align: left;
+    font-size: 60px;
   }
 `;
 
