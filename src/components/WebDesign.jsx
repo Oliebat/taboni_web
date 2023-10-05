@@ -3,20 +3,18 @@ import { Canvas } from "@react-three/fiber";
 import React, { Suspense } from "react";
 import styled from "styled-components";
 import Mac from "./objects/Mac";
+import Desc from "./Desc";
 
-const Desc = styled.div`
-  width: 200px;
-  padding: 20px;
-  background-color: white;
-  border-radius: 10px;
+const Container = styled.div`
   position: absolute;
-  top: 100px;
-  right: 100px;
-
+  top: 140px;
+  right: 160px;
+  z-index: 999;
   @media only screen and (max-width: 768px) {
     display: none;
   }
 `;
+
 
 const WebDesign = () => {
   return (
@@ -29,9 +27,10 @@ const WebDesign = () => {
           <OrbitControls enableZoom={false} autoRotate />
         </Suspense>
       </Canvas>
-      <Desc>
-        Distinguez-vous en ligne grâce à nos conceptions web uniques.
-      </Desc>
+      <Container>
+      <Desc frontText="Distinguez-vous en ligne grâce à nos conceptions web uniques." 
+        backText="Taboni Web" />
+      </Container>
     </>
   );
 };

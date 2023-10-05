@@ -122,12 +122,12 @@ const BottomBar = styled.div`
   color: white;
   font-weight: 500;
   font-size: 14px;
-  @media only screen and (max-width: 768px) {
-    display: block;
-    font-size: 10px;
-    text-align: center;
-    height: 25px;
-  }
+    @media only screen and (max-width: 768px) {
+      display: block;
+      font-size: 10px;
+      text-align: center;
+      height: 25px;
+    }
 `;
 
 const currentYear = new Date().getFullYear();

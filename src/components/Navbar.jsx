@@ -124,9 +124,9 @@ const Navbar = () => {
         <Links>
           <TitleSite className="animate__animated animate__bounce animate__delay-1s">Taboni Web</TitleSite>
           <List>
-            <ListItem onClick={() => scrollToSection("home")}>Home</ListItem>
+            <ListItem onClick={() => scrollToSection("home")}>Accueil</ListItem>
             <ListItem onClick={() => scrollToSection("studio")}>Studio</ListItem>
-            <ListItem onClick={() => scrollToSection("works")}>Works</ListItem>
+            <ListItem onClick={() => scrollToSection("works")}>Compétences</ListItem>
             <ListItem onClick={() => scrollToSection("contact")}>Contact</ListItem>
           </List>
         </Links>

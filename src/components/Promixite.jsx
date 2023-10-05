@@ -3,16 +3,13 @@ import { OrbitControls, Stage } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
 import Handshake from "./objects/Handshake";
 import styled from "styled-components";
+import Desc from "./Desc";
 
-const Desc = styled.div`
-  width: 200px;
-  /* height: 70px; */
-  padding: 20px;
-  background-color: white;
-  border-radius: 10px;
+const Container = styled.div`
   position: absolute;
   bottom: 150px;
-  right: 100px;
+  right: 210px;
+  z-index: 999;
 
   @media only screen and (max-width: 768px) {
     display: none;
@@ -30,9 +27,10 @@ const Proximite = () => {
           <OrbitControls enableZoom={false} autoRotate />
         </Suspense>
       </Canvas>
-      <Desc>
-        Toujours à vos côtés pour vous conseiller et vous guider dans votre parcours numérique.
-      </Desc>
+      <Container>
+        <Desc frontText="Toujours à vos côtés pour vous conseiller et vous guider dans votre parcours numérique." 
+          backText="Taboni Web" />
+        </Container>
     </>
   );
 };

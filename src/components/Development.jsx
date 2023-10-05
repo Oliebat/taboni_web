@@ -3,20 +3,13 @@ import { OrbitControls } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
 import Atom from "./objects/Atom";
 import styled from "styled-components";
+import Desc from "./Desc";
 
-const Desc = styled.div`
-  width: 200px;
-  /* height: 70px; */
-  padding: 20px;
-  background-color: white;
-  border-radius: 10px;
+const Container = styled.div`
   position: absolute;
   top: 200px;
-  right: 100px;
-
-  @media only screen and (max-width: 768px) {
-   display: non;
-  }
+  right: 195px;
+  z-index: 999;
 `;
 
 const Development = () => {
@@ -28,9 +21,10 @@ const Development = () => {
           <OrbitControls enableZoom={false} autoRotate />
         </Suspense>
       </Canvas>
-      <Desc>
-        Des solutions sur mesure pour répondre précisément à vos besoins spécifiques.
-      </Desc>
+      <Container>
+      <Desc frontText="Des solutions sur mesure pour répondre précisément à vos besoins spécifiques" 
+        backText="Taboni Web" />
+      </Container>
     </>
   );
 };

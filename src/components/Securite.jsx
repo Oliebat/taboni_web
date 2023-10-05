@@ -3,16 +3,13 @@ import { OrbitControls, Stage } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
 import Safe from "./objects/Safe";
 import styled from "styled-components";
+import Desc from "./Desc";
 
-const Desc = styled.div`
-  width: 200px;
-  /* height: 70px; */
-  padding: 20px;
-  background-color: white;
-  border-radius: 10px;
+const Container = styled.div`
   position: absolute;
-  bottom: 200px;
-  right: 100px;
+  bottom: 150px;
+  right: 210px;
+  z-index: 999;
 
   @media only screen and (max-width: 768px) {
     display: none;
@@ -30,9 +27,10 @@ const Securite = () => {
           <OrbitControls enableZoom={false} maxDistance={1000} autoRotate />
         </Suspense>
       </Canvas>
-      <Desc>
-      Protégez votre présence en ligne avec nos solutions de sécurité robustes.
-      </Desc>
+      <Container>
+        <Desc frontText="Protégez votre présence en ligne avec nos solutions de sécurité robustes." 
+          backText="Taboni Web" />
+        </Container>
     </>
   );
 };

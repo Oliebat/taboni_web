@@ -3,16 +3,13 @@ import { OrbitControls, Stage } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
 import Mobile from "./objects/Mobile";
 import styled from "styled-components";
+import Desc from "./Desc";
 
-const Desc = styled.div`
-  width: 200px;
-  /* height: 70px; */
-  padding: 20px;
-  background-color: white;
-  border-radius: 10px;
+const Container = styled.div`
   position: absolute;
-  bottom: 200px;
-  right: 100px;
+  top: 140px;
+  bottom: -185px;
+  right: 190px;
 
   @media only screen and (max-width: 768px) {
     display: none;
@@ -30,9 +27,10 @@ const ProductDesign = () => {
           <OrbitControls enableZoom={false} autoRotate />
         </Suspense>
       </Canvas>
-      <Desc>
-        Restez connecté avec vos utilisateurs grâce à nos applications mobiles performantes.
-      </Desc>
+        <Container>
+        <Desc frontText="Restez connecté avec vos utilisateurs grâce à nos applications mobiles performantes." 
+          backText="Taboni Web" />
+        </Container>
     </>
   );
 };
