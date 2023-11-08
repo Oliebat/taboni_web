@@ -13,6 +13,8 @@
     "@react-three/drei": "^9.56.28",
     "@react-three/fiber": "^8.11.5",
     "@react-three/postprocessing": "^2.7.0",
+    "@studio-freight/react-lenis": "^0.0.36",
+    "@studio-freight/tempus": "^0.0.38",
     "animate.css": "^4.1.1",
     "gsap": "^3.12.2",
     "prop-types": "^15.8.1",

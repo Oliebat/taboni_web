@@ -4,6 +4,7 @@ import { Canvas } from "@react-three/fiber";
 import Mobile from "./objects/Mobile";
 import styled from "styled-components";
 import Desc from "./Desc";
+import 'animate.css';
 
 const Container = styled.div`
   position: absolute;
@@ -27,7 +28,7 @@ const ProductDesign = () => {
           <OrbitControls enableZoom={false} autoRotate />
         </Suspense>
       </Canvas>
-        <Container>
+        <Container className="animate__animated animate__fadeIn animate__slow">
         <Desc frontText="Restez connecté avec vos utilisateurs grâce à nos applications mobiles performantes." 
           backText="Taboni Web" />
         </Container>

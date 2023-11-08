@@ -60,6 +60,7 @@ const ListItem = styled.li`
   color: transparent;
   -webkit-text-stroke: 1px white;
   position: relative;
+  will-change: transform;  // Suggestion d'accélération matérielle
 
   ::after {
     content: "${(props) => props.text}";
@@ -79,6 +80,7 @@ const ListItem = styled.li`
       @keyframes moveText {
         to {
           width: 100%;
+          transform: translateZ(0);  // forcer l'accélération matérielle
         }
       }
     }
@@ -102,6 +104,7 @@ const ListItem = styled.li`
     }
   }
 `;
+
 
 
 const Right = styled.div`
@@ -132,9 +135,13 @@ const Works = ({ id }) => {
     <Section id={id}>
       <Container>
         <Left>
-          <List>
+        <List>
             {data.map((item) => (
-              <ListItem key={item} text={item} onClick={() => setWork(item)}>
+              <ListItem
+                key={item}
+                text={item}
+                onMouseOver={() => setWork(item)} 
+              >
                 {item}
               </ListItem>
             ))}

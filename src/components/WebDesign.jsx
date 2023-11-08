@@ -4,6 +4,7 @@ import React, { Suspense } from "react";
 import styled from "styled-components";
 import Mac from "./objects/Mac";
 import Desc from "./Desc";
+import 'animate.css';
 
 const Container = styled.div`
   position: absolute;
@@ -27,7 +28,7 @@ const WebDesign = () => {
           <OrbitControls enableZoom={false} autoRotate />
         </Suspense>
       </Canvas>
-      <Container>
+      <Container className="animate__animated animate__fadeIn animate__slow">
       <Desc frontText="Distinguez-vous en ligne grâce à nos conceptions web uniques." 
         backText="Taboni Web" />
       </Container>

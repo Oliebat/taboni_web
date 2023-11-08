@@ -52,11 +52,11 @@ const Left = styled.div`
 `;
 
 const Title = styled.h1`
-  font-size: 65px;
+  font-size: 60px;
 
   @media only screen and (max-width: 768px) {
     text-align: left;
-    font-size: 60px;
+    font-size: 55px;
   }
 `;
 
@@ -140,7 +140,7 @@ const Hero = ({ id }) => {
             <Subtitle>Ce que nous faisons</Subtitle>
           </WhatWeDo>
           <Desc>
-            Nous rendons le digital chaleureux et humain
+          Nous rendons le digital chaleureux et humain. Chez Taboni Web, nous croyons que la technologie doit servir les gens et non l'inverse. C'est pourquoi nous mettons un point d'honneur à créer des solutions digitales qui sont non seulement efficaces et robustes, mais aussi intuitives et agréables à utiliser.
           </Desc>
           <Button onClick={handleButtonClick}><span>En savoir plus</span></Button>
         </Left>

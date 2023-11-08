@@ -5,6 +5,7 @@ import Atom from "./objects/Atom";
 import styled from "styled-components";
 import Desc from "./Desc";
 
+
 const Container = styled.div`
   position: absolute;
   top: 200px;
@@ -21,7 +22,7 @@ const Development = () => {
           <OrbitControls enableZoom={false} autoRotate />
         </Suspense>
       </Canvas>
-      <Container>
+      <Container className="animate__animated animate__fadeIn">
       <Desc frontText="Des solutions sur mesure pour répondre précisément à vos besoins spécifiques" 
         backText="Taboni Web" />
       </Container>

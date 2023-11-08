@@ -36,8 +36,8 @@ const Links = styled.div`
 // `;
 
 
-const TitleSite = styled.h1`
-    font-size: 90px;
+const TitleSite = styled.div`
+    font-size: 70px;
   font-weight: bold;
   cursor: pointer;
   color: transparent;
