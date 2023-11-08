@@ -32,11 +32,11 @@ const Card = styled.div`
     border-radius: 20px;
     background-color: rgba(255, 255, 255, 0.45);
     box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.25);
-
     backdrop-filter: blur(21px);
-
     text-align: center;
-    line-height: 20px;
+    font-family: consolas;
+    font-size: 1.1em;
+    line-height: 1.4em;
     backface-visibility: hidden;
     border-radius: 10px;
     display: flex;

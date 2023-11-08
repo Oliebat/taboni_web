@@ -5,6 +5,9 @@ import Who from "./components/sections/Who";
 import Works from "./components/sections/Works";
 import Scroll from "./components/Scroll";
 import "./styles/scroll.css"
+import CookieBanner from "./cookies/CookieNotice";
+
+
 
 const Container = styled.div`
   min-height: 100vh;
@@ -34,6 +37,7 @@ function App() {
       <Works id="works" />
       <Contact id="contact" />
     </Container>
+    <CookieBanner />
     </Scroll>
   );
 }
