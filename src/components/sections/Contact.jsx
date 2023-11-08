@@ -209,7 +209,7 @@ const Contact = ({ id }) => {
   const APP_SERVICE_ID = import.meta.env.VITE_REACT_APP_SERVICE_ID;
   const APP_TEMPLATE_ID = import.meta.env.VITE_REACT_APP_TEMPLATE_ID;
   const APP_PUBLIC_KEY = import.meta.env.VITE_REACT_APP_PUBLIC_KEY;
-  const APP_SITE_KEY = import.meta.env.VITE_REACT_APP_SITE_KEY;
+  
 
   useEffect(() => {
     if (animatingOut && modalRef.current) {
@@ -288,7 +288,7 @@ const handleModalClose = () => {
               rows={10}
               required
             />
-            <Turnstile APP_SITE_KEY />
+            <Turnstile siteKey='0x4AAAAAAAM0j9-Umz6Vic_K' />
             <Button customWidth="100%" type="submit"><span>Envoyer</span></Button>
             {success && (
               <SuccessMessage startFadeOut={startFadeOut}>
@@ -306,7 +306,7 @@ const handleModalClose = () => {
         </Right>
       </Container>
       <BottomBar onClick={handleModalOpen}>
-    © {currentYear} Taboni Web. All rights reserved. <span style={{ textDecoration: 'underline', cursor: 'pointer', marginLeft: '2px' }}> Mentions légales</span>.
+    © {currentYear} Taboni Web. Tous droits réservés. <span style={{ textDecoration: 'underline', cursor: 'pointer', marginLeft: '2px' }}> Mentions légales</span>.
 </BottomBar>
 
 {showModal && (
@@ -319,30 +319,30 @@ const handleModalClose = () => {
       <CloseButton onClick={handleModalClose}>✖</CloseButton>
       {/* Contenu des mentions légales */}
       <section>
-    <h2>Edition du site</h2>
-    <p>Le présent site, accessible à l’URL <LegalLink href="https://taboniweb.com" target="_blank" rel="noopener noreferrer">taboniweb.com</LegalLink> (le « Site »), est édité par :</p>
-    <p>Cyril Bationo, résidant 230 Avenue de Fabron 06200 NICE, de nationalité Française (France).</p>
-</section>
+          <h2>Edition du site</h2>
+          <p>Le présent site, accessible à l’URL <LegalLink href="https://taboniweb.com" target="_blank" rel="noopener noreferrer">taboniweb.com</LegalLink> (le « Site »), est édité par :</p>
+          <p>Cyril Bationo, résidant 230 Avenue de Fabron 06200 NICE, de nationalité Française (France).</p>
+      </section>
 
-<section>
-    <h2>Hébergement</h2>
-    <p>Le Site est hébergé par la société OVH SAS, située 2 rue Kellermann - BP 80157 - 59053 Roubaix Cedex 1, (contact téléphonique ou email : 1007).</p>
-</section>
+      <section>
+          <h2>Hébergement</h2>
+          <p>Le Site est hébergé par la société OVH SAS, située 2 rue Kellermann - BP 80157 - 59053 Roubaix Cedex 1, (contact téléphonique ou email : 1007).</p>
+      </section>
 
-<section>
-    <h2>Directeur de publication</h2>
-    <p>Le Directeur de la publication du Site est Cyril Bationo.</p>
-</section>
+      <section>
+          <h2>Directeur de publication</h2>
+          <p>Le Directeur de la publication du Site est Cyril Bationo.</p>
+      </section>
 
-<section>
-    <h2>Nous contacter</h2>
-    <p>Par email : <LegalLink href="mailto:contact@taboniweb.com">contact@taboniweb.com</LegalLink></p>
-</section>
+      <section>
+          <h2>Nous contacter</h2>
+          <p>Par email : <LegalLink href="mailto:contact@taboniweb.com">contact@taboniweb.com</LegalLink></p>
+      </section>
 
-<section>
-    <h2>Données personnelles</h2>
-    <p>Le traitement de vos données à caractère personnel est régi par notre Charte du respect de la vie privée, disponible depuis la section "Charte de Protection des Données Personnelles", conformément au Règlement Général sur la Protection des Données 2016/679 du 27 avril 2016 (« RGPD »).</p>
-</section>
+      <section>
+          <h2>Données personnelles</h2>
+          <p>Le traitement de vos données à caractère personnel est régi par notre Charte du respect de la vie privée, disponible depuis la section "Charte de Protection des Données Personnelles", conformément au Règlement Général sur la Protection des Données 2016/679 du 27 avril 2016 (« RGPD »).</p>
+      </section>
 
     </ModalContent>
   </ModalBackground>
