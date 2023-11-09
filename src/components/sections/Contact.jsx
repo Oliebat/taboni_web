@@ -5,6 +5,9 @@ import Map from "../Map";
 import Button from "../buttons/Button";
 import UpButton from "../buttons/UpButton";
 // import { Turnstile } from '@marsidev/react-turnstile'
+import { FaGithub, FaLinkedin } from 'react-icons/fa';
+import { Box } from "@react-three/drei";
+
 
 
 
@@ -120,6 +123,40 @@ const LegalLink = styled.a`
   }
 `;
 
+const BoxContact = styled.div`
+  position: absolute;
+  bottom: 7%;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: 500;
+  font-size: 1.75em;
+
+  & a {
+  color: white; /* Couleur du lien */
+  margin: 0 10px; /* Espacement autour des icônes */
+  transition: color 0.3s; /* Transition pour l'effet de survol */
+      }
+
+      a:hover {
+        color: #cccccc; /* Couleur du lien au survol */
+      }
+    @media only screen and (max-width: 768px) {
+      bottom: 4%;
+      display: block;
+      font-size: 1em;
+      text-align: center;
+      height: 25px;
+    }
+`;
+
+const githubUrl = 'https://github.com/Oliebat';
+const linkedinUrl = 'https://www.linkedin.com/in/cyril-bationo-690721121';
 
 const BottomBar = styled.div`
   position: absolute;
@@ -297,6 +334,14 @@ const handleModalClose = () => {
             )}
             {errorMessage && <div style={{ color: "red" }}>{errorMessage}</div>}
           </Form>
+          <BoxContact>
+            <a href={githubUrl} target="_blank" rel="noopener noreferrer">
+              <FaGithub/>
+            </a>
+            <a href={linkedinUrl} target="_blank" rel="noopener noreferrer">
+              <FaLinkedin/>
+            </a>
+          </BoxContact>
         </Left>
         <Right>
         <UpButtonWrapper>
