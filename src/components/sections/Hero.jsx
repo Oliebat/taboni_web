@@ -56,7 +56,7 @@ const Title = styled.h1`
 
   @media only screen and (max-width: 768px) {
     text-align: left;
-    font-size: 55px;
+    font-size: 2.5em;
   }
 `;
 
@@ -75,10 +75,11 @@ const Subtitle = styled.h2`
 `;
 
 const Desc = styled.p`
-  font-size: 24px;
+  font-size: 1.50em;
   color: lightgray;
   @media only screen and (max-width: 768px) {
     text-align: left;
+    font-size: 1.1em;
   }
 `;
 

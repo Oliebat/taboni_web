@@ -80,21 +80,20 @@ const ListItem = styled.li`
       @keyframes moveText {
         to {
           width: 100%;
-          transform: translateZ(0);  // forcer l'accélération matérielle
+          transform: translateZ(0);
         }
       }
     }
   }
 
   @media only screen and (max-width: 768px) {
-    font-size: 24px;
     color: white;
     -webkit-text-stroke: 0px;
-    font-size: 3rem;
+    font-size: 2.5em;
 
     ::after {
-      width: 0; // remet la largeur à 0
-      animation: none; // supprime l'animation
+      width: 0; 
+      animation: none; 
     }
 
     &:hover {
@@ -127,7 +126,7 @@ const Works = ({ id }) => {
       case "Promixité":
         return <Promixite />;
       default:
-        return null; // ou un composant par défaut si nécessaire
+        return null; 
     }
   };
 

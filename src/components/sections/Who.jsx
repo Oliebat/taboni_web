@@ -29,10 +29,10 @@ const Left = styled.div`
 `;
 
 const Title = styled.h1`
-  font-size: 74px;
+  font-size: 4.6em;
 
   @media only screen and (max-width: 768px) {
-    font-size: 55px;
+    font-size: 3.3em;
   }
 `;
 
@@ -64,8 +64,12 @@ const Subtitle = styled.h2`
 `;
 
 const Desc = styled.p`
-  font-size: 24px;
+  font-size: 1.5em;
   color: lightgray;
+
+  @media only screen and (max-width: 768px) {
+    margin: 0 20px;
+  }
 `;
 
 
@@ -104,7 +108,7 @@ const Who = ({ id }) => {
             </Subtitle>
           </WhatWeDo>
           <Desc>
-            Un developpeur web passionné par le code et les nouvelles technologies.
+            Un développeur web passionné par le code et les nouvelles technologies.
           </Desc>
           <Button onClick={() => scrollToSection("works")}><span>Voir plus</span></Button>
         </Right>

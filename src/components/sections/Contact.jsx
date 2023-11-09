@@ -4,7 +4,7 @@ import styled, { css, keyframes } from "styled-components";
 import Map from "../Map";
 import Button from "../buttons/Button";
 import UpButton from "../buttons/UpButton";
-import { Turnstile } from '@marsidev/react-turnstile'
+// import { Turnstile } from '@marsidev/react-turnstile'
 
 
 
@@ -288,7 +288,7 @@ const handleModalClose = () => {
               rows={10}
               required
             />
-            <Turnstile siteKey='0x4AAAAAAAM0j9-Umz6Vic_K' />
+            {/* <Turnstile siteKey='0x4AAAAAAAM0j9-Umz6Vic_K' /> */}
             <Button customWidth="100%" type="submit"><span>Envoyer</span></Button>
             {success && (
               <SuccessMessage startFadeOut={startFadeOut}>
