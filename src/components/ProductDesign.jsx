@@ -13,7 +13,8 @@ const Container = styled.div`
   right: 190px;
 
   @media only screen and (max-width: 768px) {
-    display: none;
+    top: 30px;
+    right: 206px;
   }
 `;
 

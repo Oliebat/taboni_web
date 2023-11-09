@@ -42,6 +42,19 @@ const Card = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
+
+    @media only screen and (max-width: 768px) {
+      opacity: 95%;
+      background-color: rgba(6, 96, 116);
+      box-shadow: rgba(0, 0, 0, 0.3) 2px 8px 8px;
+      border: 2px rgba(255,255,255,0.4) solid;
+      border-bottom: 2px rgba(40,40,40,0.35) solid;
+      border-right: 2px rgba(40,40,40,0.35) solid;
+  }
+    
+  }
+  & .front {
+    padding: 20px;
   }
 
   & .back {

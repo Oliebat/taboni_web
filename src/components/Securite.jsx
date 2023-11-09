@@ -13,7 +13,8 @@ const Container = styled.div`
   z-index: 999;
 
   @media only screen and (max-width: 768px) {
-    display: none;
+    top: 410px;
+    right: 206px;
   }
 `;
 

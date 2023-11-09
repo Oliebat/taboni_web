@@ -8,11 +8,12 @@ import 'animate.css';
 
 const Container = styled.div`
   position: absolute;
-  top: 140px;
-  right: 160px;
+  top: 115px;
+  right: 220px;
   z-index: 999;
   @media only screen and (max-width: 768px) {
-    display: none;
+    top: 410px;
+    right: 206px;
   }
 `;
 
@@ -29,7 +30,8 @@ const WebDesign = () => {
         </Suspense>
       </Canvas>
       <Container className="animate__animated animate__fadeIn animate__slow">
-      <Desc frontText="Distinguez-vous en ligne grâce à nos conceptions web uniques." 
+      <Desc frontText="Distinguez-vous en ligne grâce à nos conceptions web uniques.
+      Site ou maintenance Wordpress, site sur mesure avec un framework JS, nous vous accompagnons dans votre projet." 
         backText="Taboni Web" />
       </Container>
     </>

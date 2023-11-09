@@ -11,6 +11,11 @@ const Container = styled.div`
   top: 200px;
   right: 195px;
   z-index: 999;
+
+  @media only screen and (max-width: 768px) {
+    top: 410px;
+    right: 206px;
+  }
 `;
 
 const Development = () => {
@@ -23,7 +28,7 @@ const Development = () => {
         </Suspense>
       </Canvas>
       <Container className="animate__animated animate__fadeIn">
-      <Desc frontText="Des solutions sur mesure pour répondre précisément à vos besoins spécifiques" 
+      <Desc frontText="Des solutions sur mesure pour répondre précisément à vos besoins spécifiques." 
         backText="Taboni Web" />
       </Container>
     </>
