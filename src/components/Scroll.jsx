@@ -24,20 +24,20 @@ if (typeof window !== 'undefined') {
 export default function Scroll({ children }) {
   const lenis = useLenis(ScrollTrigger.update)
 
-//   useEffect(() => {
-//     ScrollTrigger.refresh()
+  // useEffect(() => {
+  //   ScrollTrigger.refresh()
 
-//     const onHashChangeStart = (url) => {
-//       url = '#' + url.split('#').pop()
-//       lenis.scrollTo(url)
-//     }
+  //   const onHashChangeStart = (url) => {
+  //     url = '#' + url.split('#').pop()
+  //     lenis.scrollTo(url)
+  //   }
 
-//     // Router.events.on('hashChangeStart', onHashChangeStart)
+  //   Router.events.on('hashChangeStart', onHashChangeStart)
 
-//     return () => {
-//       Router.events.off('hashChangeStart', onHashChangeStart)
-//     }
-//   }, [lenis])
+  //   return () => {
+  //     Router.events.off('hashChangeStart', onHashChangeStart)
+  //   }
+  // }, [lenis])
 
   return (
     <ReactLenis

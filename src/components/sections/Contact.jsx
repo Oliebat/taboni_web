@@ -8,10 +8,6 @@ import UpButton from "../buttons/UpButton";
 import { FaGithub, FaLinkedin } from 'react-icons/fa';
 import { Box } from "@react-three/drei";
 
-
-
-
-
 const Section = styled.div`
 position: relative;
   height: 100vh;
@@ -138,13 +134,13 @@ const BoxContact = styled.div`
   font-size: 1.75em;
 
   & a {
-  color: white; /* Couleur du lien */
-  margin: 0 10px; /* Espacement autour des icônes */
-  transition: color 0.3s; /* Transition pour l'effet de survol */
+  color: white; 
+  margin: 0 10px; 
+  transition: color 0.3s; 
       }
 
       a:hover {
-        color: #cccccc; /* Couleur du lien au survol */
+        color: #cccccc; 
       }
     @media only screen and (max-width: 768px) {
       bottom: 4%;
@@ -158,7 +154,7 @@ const BoxContact = styled.div`
 const githubUrl = 'https://github.com/Oliebat';
 const linkedinUrl = 'https://www.linkedin.com/in/cyril-bationo-690721121';
 
-const BottomBar = styled.div`
+const Footer = styled.footer`
   position: absolute;
   bottom: 0;
   left: 0;
@@ -350,9 +346,9 @@ const handleModalClose = () => {
           <Map />
         </Right>
       </Container>
-      <BottomBar onClick={handleModalOpen}>
+      <Footer onClick={handleModalOpen}>
     © {currentYear} Taboni Web. Tous droits réservés. <span style={{ textDecoration: 'underline', cursor: 'pointer', marginLeft: '2px' }}> Mentions légales</span>.
-</BottomBar>
+  </Footer>
 
 {showModal && (
   <ModalBackground 
@@ -362,7 +358,6 @@ const handleModalClose = () => {
   onClick={handleModalClose}>
     <ModalContent onClick={(e) => e.stopPropagation()}>
       <CloseButton onClick={handleModalClose}>✖</CloseButton>
-      {/* Contenu des mentions légales */}
       <section>
           <h2>Edition du site</h2>
           <p>Le présent site, accessible à l’URL <LegalLink href="https://taboniweb.com" target="_blank" rel="noopener noreferrer">taboniweb.com</LegalLink> (le « Site »), est édité par :</p>

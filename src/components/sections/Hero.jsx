@@ -1,10 +1,10 @@
-import React, { Suspense } from "react";
+import React, { Suspense, useEffect, useRef } from "react";
 import styled from "styled-components";
-import Navbar from "../Navbar";
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls, Sphere, MeshDistortMaterial } from "@react-three/drei";
 import Button from "../buttons/Button";
-import 'animate.css';
+import gsap from "gsap";
+
 
 const Section = styled.div`
   height: 100vh;
@@ -18,7 +18,7 @@ const Section = styled.div`
 `;
 
 const Container = styled.div`
-  height: 100%;
+  height: 80%;
   scroll-snap-align: center;
   width: 1400px;
   display: flex;
@@ -91,7 +91,7 @@ const Right = styled.div`
     flex: 1;
     width: 100%;
     position: relative;
-  bottom: 0; /* Il sera positionné au bas de son parent (Container) */
+  bottom: 0; 
   left: 0;
   width: 100%;
   position: relative;
@@ -124,6 +124,40 @@ const Img = styled.img`
 `;
 
 const Hero = ({ id }) => {
+  const title = useRef(null)
+  const whatwedo = useRef(null)
+  const desc = useRef(null)
+  const button = useRef(null)
+  const canvas = useRef(null)
+  
+  const itemsLeft = useRef([]);
+
+  useEffect(() => {
+    itemsLeft.current.push(title.current, whatwedo.current, desc.current, button.current)
+
+    itemsLeft.current.forEach((item) => {
+      gsap.set(item, { x: -20, opacity: 0 })
+    })
+
+    gsap.set(canvas.current, { opacity: 0 })
+
+    const tl = gsap.timeline({
+      defaults: {
+        duration: 1, 
+        ease: "sine.out",
+        delay: 2.5
+      }
+    })
+
+    tl.to(itemsLeft.current, {
+        x: 0,
+        opacity: 1,
+        stagger: 0.2,
+      })
+      .to(canvas.current, { opacity: 1 }, 0.8)
+
+
+  })
   
   const handleButtonClick = () => {
     const section = document.getElementById("studio");
@@ -132,20 +166,19 @@ const Hero = ({ id }) => {
 
   return (
     <Section id={id}>
-      <Navbar />
       <Container>
-        <Left className="animate__animated animate__pulse animate__delay-2s">
-          <Title>Solutions web & mobile sur-mesure</Title>
-          <WhatWeDo>
+        <Left>
+          <Title ref={title}>Solutions web & mobile sur-mesure</Title>
+          <WhatWeDo ref={whatwedo}>
             <Line src="./img/line.png" />
             <Subtitle>Ce que nous faisons</Subtitle>
           </WhatWeDo>
-          <Desc>
+          <Desc ref={desc}>
           Nous rendons le digital chaleureux et humain. Chez Taboni Web, nous croyons que la technologie doit servir les gens et non l'inverse. C'est pourquoi nous mettons un point d'honneur à créer des solutions digitales qui sont non seulement efficaces et robustes, mais aussi intuitives et agréables à utiliser.
           </Desc>
-          <Button onClick={handleButtonClick}><span>En savoir plus</span></Button>
+          <Button ref={button} onClick={handleButtonClick}><span>En savoir plus</span></Button>
         </Left>
-        <Right className="animate__animated animate__fadeIn animate__delay-1s">
+        <Right ref={canvas}>
           <Canvas>
             <Suspense fallback={null}>
               <OrbitControls enableZoom={false} />

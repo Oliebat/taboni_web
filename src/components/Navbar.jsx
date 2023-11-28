@@ -1,15 +1,15 @@
-import React from "react";
+import React, { useRef, useEffect } from 'react'
 import styled from "styled-components";
-import 'animate.css';
 import Button from "./buttons/Button";
+import gsap from "gsap";
 
-const Section = styled.div`
+const Header = styled.header`
   display: flex;
   justify-content: center;
+  left: 0;
+  top: 0;
+  width: 100%;
 
-  @media only screen and (max-width: 768px) {
-    width: 100%;
-  }
 `;
 
 const Container = styled.div`
@@ -76,10 +76,14 @@ const TitleSite = styled.div`
 
 const List = styled.ul`
   display: flex;
-  gap: 20px;
+  gap: 40px;
   list-style: none;
 
   font-weight: 600;
+
+  // overflow: hidden;
+
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
 
   @media only screen and (max-width: 768px) {
     display: none;
@@ -88,10 +92,29 @@ const List = styled.ul`
 
 const ListItem = styled.li`
   cursor: pointer;
-  transition: transform 0.4s ease-in-out; // Ajout d'une transition
+  transition: width 0.8s ease, left 0.7s ease;
 
-  &:hover {
-    transform: scale(1.25);
+  color: #fff; // Text color
+  text-decoration: none;
+  
+  padding: 15px 0;
+  position: relative;
+
+  &:after {    
+    content: "";
+    display: block;
+    height: 2px;
+    left: 50%;
+    position: absolute;
+    bottom: 0;
+    background: #fff; // Underline color
+    transition: width 0.3s ease, left 0.3s ease;
+    width: 0;
+  }
+
+  &:hover:after { 
+    width: 100%; 
+    left: 0; 
   }
 `;
 
@@ -118,23 +141,49 @@ const scrollToSection = (id) => {
 
 
 const Navbar = () => {
+  const header = useRef(null);
+
+  const logo = useRef(null);
+  const list = useRef(null);
+  const button = useRef(null);
+  
+  useEffect(() => {
+    const items = list.current.querySelectorAll('li')
+
+    gsap.set(items, { yPercent: 100 });
+    gsap.set(logo.current, { opacity: 0})
+    gsap.set(button.current, { x: 20, opacity: 0 })
+
+    const tl = gsap.timeline({
+      defaults: {
+        duration: 1, 
+        ease: "sine.out",
+        delay: 1.2
+      }
+    })
+
+    tl.to(logo.current, { opacity: 1 })
+      .to(items, { yPercent: 0, stagger: 0.15 }, 0.5)
+      .to(button.current, { x: 0, opacity: 1 }, 1)
+  })
+
   return (
-    <Section>
+    <Header ref={header}>
       <Container>
         <Links>
-          <TitleSite className="animate__animated animate__bounce animate__delay-1s">Taboni Web</TitleSite>
-          <List>
+          <TitleSite ref={logo}>Taboni Web</TitleSite>
+          <List ref={list}>
             <ListItem onClick={() => scrollToSection("home")}>Accueil</ListItem>
             <ListItem onClick={() => scrollToSection("studio")}>Studio</ListItem>
             <ListItem onClick={() => scrollToSection("works")}>Compétences</ListItem>
             <ListItem onClick={() => scrollToSection("contact")}>Contact</ListItem>
           </List>
         </Links>
-        <Icons>
+        <Icons ref={button}>
           <Button onClick={() => scrollToSection("contact")}><span>Contactez-nous</span></Button>
         </Icons>
       </Container>
-    </Section>
+    </Header>
   );
 };
 

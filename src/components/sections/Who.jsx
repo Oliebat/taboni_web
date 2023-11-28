@@ -1,9 +1,15 @@
-import React, { Suspense } from "react";
+import React, { Suspense, useEffect, useRef } from "react";
 import styled from "styled-components";
 import { OrbitControls } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
 import Cube from "../objects/Cube";
 import Button from "../buttons/Button";
+import { gsap } from 'gsap'
+import { ScrollTrigger } from 'gsap/dist/ScrollTrigger'
+
+gsap.registerPlugin(ScrollTrigger)
+
+
 
 const Section = styled.div`
   height: 100vh;
@@ -72,10 +78,7 @@ const Desc = styled.p`
   }
 `;
 
-
-
 const Who = ({ id }) => {
-
   const scrollToSection = (id) => {
     const element = document.getElementById(id);
     if (element) {
@@ -85,12 +88,46 @@ const Who = ({ id }) => {
     }
   };
 
-  
+  const cube = useRef(null);
+  const section = useRef(null);
+
+  useEffect(() => { 
+    const items = gsap.utils.toArray('.whoAnimatedItems')
+
+    const tl = gsap.timeline({
+      defaults: {
+        ease: 'sine.out',
+        duration: 1,
+      },
+      scrollTrigger: {
+        trigger: section.current,
+        start: 'top bottom',
+        end: '80% bottom',
+        scrub: 2,
+      },
+    })
+
+    tl
+      .fromTo(
+        items,
+        {
+          x: -20,
+          opacity: 0,
+        },
+        {
+          x: 0,
+          opacity: 1,
+          stagger: 0.2,
+        }
+      )
+      .fromTo(cube.current, { opacity: 0 }, { opacity: 1 }, 1)
+   })
+
   return (
-    <Section id={id}>
+    <Section ref={section} id={id}>
       <Container>
         <Left>
-          <Canvas camera={{ position: [5, 5, 5], fov: 25 }} style={{ cursor: 'grab' }}>
+          <Canvas ref={cube} camera={{ position: [5, 5, 5], fov: 25 }} style={{ cursor: 'grab' }}>
             <Suspense fallback={null}>
               <ambientLight intensity={0.5} />
               <directionalLight position={[3, 2, 1]} />
@@ -100,17 +137,18 @@ const Who = ({ id }) => {
           </Canvas>
         </Left>
         <Right>
-          <Title>Dépassez les limites du cadre établi.</Title>
-          <WhatWeDo>
+          <Title className="whoAnimatedItems">Dépassez les limites du cadre établi.</Title>
+          <WhatWeDo className="whoAnimatedItems">
             <Line src="./img/line.png" />
             <Subtitle>
               Qu'est ce que Taboni Web ?
             </Subtitle>
           </WhatWeDo>
-          <Desc>
-            Un développeur web passionné par le code et les nouvelles technologies.
+          <Desc className="whoAnimatedItems">
+          Taboni Web : bien plus qu'une expertise en développement web, c'est une aventure au cœur de l'innovation technologique. Doté d'un flair pour le design et une maîtrise des langages modernes comme JavaScript, React et Node.js, je façonne des sites dynamiques et réactifs. 
+          <br></br>Chaque projet est une toile où se mêlent performance, créativité et précision technique. Je collabore étroitement avec mes clients pour métamorphoser des visions en réalités digitales percutantes. Partenaire agile, je guide chaque étape avec une promesse de qualité et de pertinence dans l'écosystème numérique d'aujourd'hui.
           </Desc>
-          <Button onClick={() => scrollToSection("works")}><span>Voir plus</span></Button>
+          <Button className="whoAnimatedItems" onClick={() => scrollToSection("works")}><span>Voir plus</span></Button>
         </Right>
       </Container>
     </Section>
