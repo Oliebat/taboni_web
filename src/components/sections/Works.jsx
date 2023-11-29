@@ -1,10 +1,16 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import Development from "../Development";
 import ProductDesign from "../ProductDesign";
 import WebDesign from "../WebDesign";
 import Securite from "../Securite";
 import Promixite from "../Promixite";
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
+// import { SplitText } from 'gsap/dist/SplitText';
+
+gsap.registerPlugin(ScrollTrigger);
+
 
 const data = [
   "Web",
@@ -113,6 +119,34 @@ const Right = styled.div`
 const Works = ({ id }) => {
   const [work, setWork] = useState("Web");
 
+  const section = useRef(null);
+
+  useEffect(() => {
+    const items = gsap.utils.toArray('.listItem');
+    console.log(items);
+
+    const tl = gsap.timeline({
+      defaults: {
+        ease: 'sine.out',
+        duration: 1,
+      },
+      scrollTrigger: {
+        trigger: section.current,
+        start: 'top bottom',
+        end: '80% bottom',
+        scrub: 2,
+      },
+    });
+
+    tl.fromTo(
+      items,
+      { x: -20, opacity: 0 },
+      { x: 0, opacity: 1, stagger: 1 }
+    );
+
+  }, []);
+  
+
   const renderRightContent = () => {
     switch (work) {
       case "Web":
@@ -131,12 +165,12 @@ const Works = ({ id }) => {
   };
 
   return (
-    <Section id={id}>
+    <Section id={id} ref={section}>
       <Container>
         <Left>
         <List>
             {data.map((item) => (
-              <ListItem
+              <ListItem id="target" className="listItem"
                 key={item}
                 text={item}
                 onMouseOver={() => setWork(item)} 

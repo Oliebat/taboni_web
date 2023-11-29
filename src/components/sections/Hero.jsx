@@ -80,6 +80,7 @@ const Desc = styled.p`
   @media only screen and (max-width: 768px) {
     text-align: left;
     font-size: 1.1em;
+    color: #ffff
   }
 `;
 
