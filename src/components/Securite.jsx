@@ -4,7 +4,7 @@ import { Canvas } from "@react-three/fiber";
 import Safe from "./objects/Safe";
 import styled from "styled-components";
 import Desc from "./Desc";
-import 'animate.css';
+
 
 const Container = styled.div`
   position: absolute;
@@ -24,12 +24,12 @@ const Securite = () => {
       <Canvas camera={{  position: [0, 0, 10] }} style={{ cursor: 'grab' }}>
         <Suspense fallback={null}>
           <Stage environment="city" intensity={0.6}>
-          <Safe scale={[0.01, 0.01, 0.01]}/>
+          <Safe scale={[3, 3, 3]}/>
           </Stage>
-          <OrbitControls enableZoom={false} maxDistance={1000} autoRotate />
+          <OrbitControls enableZoom={false}  autoRotate />
         </Suspense>
       </Canvas>
-      <Container className="animate__animated animate__fadeIn animate__slow">
+      <Container>
         <Desc frontText="Protégez votre présence en ligne avec nos solutions de sécurité robustes." 
           backText="Taboni Web" />
         </Container>

@@ -123,7 +123,7 @@ const Works = ({ id }) => {
 
   useEffect(() => {
     const items = gsap.utils.toArray('.listItem');
-    console.log(items);
+   
 
     const tl = gsap.timeline({
       defaults: {

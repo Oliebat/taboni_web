@@ -24,7 +24,7 @@ const Proximite = () => {
       <Canvas camera={{  position: [0, 0, 10] }} style={{ cursor: 'grab' }}>
         <Suspense fallback={null}>
           <Stage environment="city" intensity={0.6}>
-            <Handshake scale={[0.009, 0.009, 0.009]} />
+            <Handshake scale={[1.75, 1.75, 1.75]} />
           </Stage>
           <OrbitControls enableZoom={false} autoRotate />
         </Suspense>

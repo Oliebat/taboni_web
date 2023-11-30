@@ -7,11 +7,18 @@ import UpButton from "../buttons/UpButton";
 // import { Turnstile } from '@marsidev/react-turnstile'
 import { FaGithub, FaLinkedin } from 'react-icons/fa';
 import { Box } from "@react-three/drei";
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
+
+gsap.registerPlugin(ScrollTrigger)
+
+
 
 const Section = styled.div`
-position: relative;
+  position: relative;
   height: 100vh;
   scroll-snap-align: center;
+  overflow: hidden;
 `;
 
 const Container = styled.div`
@@ -41,6 +48,7 @@ const Form = styled.form`
   display: flex;
   flex-direction: column;
   gap: 25px;
+  resize: none;
 
   @media only screen and (max-width: 768px) {
     width: 300px;
@@ -59,6 +67,7 @@ const TextArea = styled.textarea`
   border: none;
   border-radius: 5px;
   background-color: #e8e6e6;
+  resize: none;
 `;
 
 const Right = styled.div`
@@ -244,6 +253,149 @@ const Contact = ({ id }) => {
   const APP_PUBLIC_KEY = import.meta.env.VITE_REACT_APP_PUBLIC_KEY;
   
 
+  const section = useRef(null);
+  const boxContact = useRef(null);
+  const footer = useRef(null);
+  const right = useRef(null);
+  const titleForm = useRef(null);
+  const buttonForm = useRef(null);
+
+  // const elements = useRef([]);
+
+  useEffect(() => {
+    // elements.current.push(formRef.current, map.current, boxContact.current, right.current, footer.current)
+    // console.log(map?.current)
+
+    // elements.current.forEach((element) => {
+    //   const tl = gsap.timeline({
+    //     defaults: {
+    //       ease: 'sine.out',
+    //       duration: 1.2
+    //     },
+    //     scrollTrigger: {
+    //       trigger: elements.current,
+    //       start: 'top bottom',
+    //       end: '80% bottom',
+    //       scrub: 2,
+    //     },
+    //   });
+
+    //   tl.fromTo(
+    //     formRef.current,
+    //     { x: -20, opacity: 0 },
+    //     { x: 0, opacity: 1, stagger: 0.2 }, 1
+    //   );
+    //   tl.fromTo(
+    //     map.current,
+    //     { x: -20, opacity: 0 },
+    //     { x: 0, opacity: 1, stagger: 0.2 }, 2
+    //   );
+    //   tl.fromTo(
+    //     boxContact.current,
+    //     { x: -20, opacity: 0 },
+    //     { x: 0, opacity: 1, stagger: 0.2 }, 3
+    //   );
+    //   tl.fromTo(
+    //     right.current,
+    //     { x: -20, opacity: 0 },
+    //     { x: 0, opacity: 1, stagger: 0.2 }, 4
+    //   );
+    //   tl.fromTo(
+    //     footer.current,
+    //     { x: -20, opacity: 0 },
+    //     { x: 0, opacity: 1, stagger: 0.2 }, 5
+    //   );
+
+    // })
+
+    gsap.fromTo(right.current, {
+      opacity: 0,
+    },{
+      opacity: 1,
+      ease: 'power4.out',
+      scrollTrigger: {
+        trigger: section.current,
+        start: '25% bottom',
+        end: 'bottom bottom',
+        scrub: 2,
+      },
+    })
+    
+    gsap.fromTo(formRef.current, {
+      opacity: 0,
+    },{
+      opacity: 1,
+      ease: 'power4.out',
+      scrollTrigger: {
+        trigger: section.current,
+        start: '25% bottom',
+        end: 'bottom bottom',
+        scrub: 2,
+      },
+    })
+
+    gsap.fromTo(buttonForm.current, {
+      opacity: 0,
+    },{
+      opacity: 1,
+      ease: 'power4.out',
+      scrollTrigger: {
+        trigger: section.current,
+        start: '25% bottom',
+        end: 'bottom bottom',
+        scrub: 2,
+      },
+    })
+    
+    
+    gsap.fromTo(titleForm.current, {
+      x: -20,
+      opacity: 0,
+    },{
+      x: 0,
+      opacity: 1,
+      ease: 'power4.out',
+      scrollTrigger: {
+        trigger: section.current,
+        start: '25% bottom',
+        end: 'bottom bottom',
+        scrub: 2,
+      },
+    })
+
+    gsap.fromTo(boxContact.current, {
+      y: 20,
+      opacity: 0,
+    },{
+      y: 0,
+      opacity: 1,
+      ease: 'power4.out',
+      scrollTrigger: {
+        trigger: boxContact.current,
+        start: 'top 97%',
+        end: 'bottom bottom',
+        scrub: 2,
+      },
+    })
+
+    gsap.fromTo(footer.current, {
+      y: 20,
+      opacity: 0,
+    },{
+      y: 0,
+      opacity: 1,
+      ease: 'power4.out',
+      scrollTrigger: {
+        trigger: footer.current,
+        start: 'top 97%',
+        end: 'bottom bottom',
+        scrub: 2,
+      },
+    })
+  });
+  
+  
+
   useEffect(() => {
     if (animatingOut && modalRef.current) {
         const handleAnimationEnd = () => {
@@ -308,11 +460,11 @@ const handleModalClose = () => {
   };
 
   return (
-    <Section id={id}>
+    <Section id={id} ref={section}>
       <Container>
         <Left>
           <Form ref={formRef} onSubmit={handleSubmit}>
-            <Title>Contactez-nous.</Title>
+            <Title ref={titleForm}>Contactez-nous.</Title>
             <Input placeholder="Nom" name="name" required />
             <Input placeholder="Email" name="email" type="email" required />
             <TextArea
@@ -322,7 +474,7 @@ const handleModalClose = () => {
               required
             />
             {/* <Turnstile siteKey='0x4AAAAAAAM0j9-Umz6Vic_K' /> */}
-            <Button customWidth="100%" type="submit"><span>Envoyer</span></Button>
+            <Button ref={buttonForm} customWidth="100%" type="submit"><span>Envoyer</span></Button>
             {success && (
               <SuccessMessage startFadeOut={startFadeOut}>
                 Votre message a été envoyé. Nous vous répondrons bientôt !
@@ -330,7 +482,7 @@ const handleModalClose = () => {
             )}
             {errorMessage && <div style={{ color: "red" }}>{errorMessage}</div>}
           </Form>
-          <BoxContact>
+          <BoxContact ref={boxContact}>
             <a href={githubUrl} target="_blank" rel="noopener noreferrer">
               <FaGithub/>
             </a>
@@ -339,14 +491,14 @@ const handleModalClose = () => {
             </a>
           </BoxContact>
         </Left>
-        <Right>
+        <Right ref={right}>
         <UpButtonWrapper>
           <UpButton onClick={() => scrollToSection("home")} />
         </UpButtonWrapper>
-          <Map />
+        <Map/>
         </Right>
       </Container>
-      <Footer onClick={handleModalOpen}>
+      <Footer ref={footer} onClick={handleModalOpen}>
     © {currentYear} Taboni Web. Tous droits réservés. <span style={{ textDecoration: 'underline', cursor: 'pointer', marginLeft: '2px' }}> Mentions légales</span>.
   </Footer>
 
@@ -361,7 +513,7 @@ const handleModalClose = () => {
       <section>
           <h2>Edition du site</h2>
           <p>Le présent site, accessible à l’URL <LegalLink href="https://taboniweb.com" target="_blank" rel="noopener noreferrer">taboniweb.com</LegalLink> (le « Site »), est édité par :</p>
-          <p>Cyril Bationo, résidant 230 Avenue de Fabron 06200 NICE, de nationalité Française (France).</p>
+          <p>Cyril Bationo, résidant à NICE, de nationalité Française (France).</p>
       </section>
 
       <section>
