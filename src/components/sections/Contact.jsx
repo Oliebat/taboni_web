@@ -259,6 +259,9 @@ const Contact = ({ id }) => {
   const right = useRef(null);
   const titleForm = useRef(null);
   const buttonForm = useRef(null);
+  const inputName = useRef(null);
+  const inputEmail = useRef(null);
+  const inputMessage = useRef(null);
 
   // const elements = useRef([]);
 
@@ -334,20 +337,66 @@ const Contact = ({ id }) => {
       },
     })
 
+    gsap.fromTo(inputName.current, {
+      y: 20,
+      opacity: 0,
+    },{
+      y: 0,
+      opacity: 1,
+      ease: 'power4.out',
+      scrollTrigger: {
+        trigger: inputName.current,
+        start: 'top 95%',
+        end: 'bottom bottom',
+        scrub: 2,
+      },
+    })
+
+    gsap.fromTo(inputEmail.current, {
+      y: 20,
+      opacity: 0,
+    },{
+      y: 0,
+      opacity: 1,
+      ease: 'power4.out',
+      scrollTrigger: {
+        trigger: inputEmail.current,
+        start: 'top 95%',
+        end: 'bottom bottom',
+        scrub: 2,
+      },
+    })
+
+    gsap.fromTo(inputMessage.current, {
+      y: 20,
+      opacity: 0,
+    },{
+      y: 0,
+      opacity: 1,
+      ease: 'power4.out',
+      scrollTrigger: {
+        trigger: inputMessage.current,
+        start: 'top 95%',
+        end: 'bottom bottom',
+        scrub: 2,
+      },
+    })
+
     gsap.fromTo(buttonForm.current, {
       y: 20,
       opacity: 0,
     },{
       y: 0,
+      opacity: 1,
       ease: 'power4.out',
       scrollTrigger: {
         trigger: buttonForm.current,
-        start: 'top 97%',
+        start: 'top 95%',
         end: 'bottom bottom',
         scrub: 2,
       },
     })
-    
+
     
     gsap.fromTo(titleForm.current, {
       x: -20,
@@ -466,9 +515,10 @@ const handleModalClose = () => {
         <Left>
           <Form ref={formRef} onSubmit={handleSubmit}>
             <Title ref={titleForm}>Contactez-nous.</Title>
-            <Input placeholder="Nom" name="name" required />
-            <Input placeholder="Email" name="email" type="email" required />
+            <Input ref={inputName} placeholder="Nom" name="name" required />
+            <Input ref={inputEmail} placeholder="Email" name="email" type="email" required />
             <TextArea
+              ref={inputMessage}
               placeholder="Message"
               name="message"
               rows={10}
