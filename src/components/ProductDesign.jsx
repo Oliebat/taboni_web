@@ -8,13 +8,12 @@ import 'animate.css';
 
 const Container = styled.div`
   position: absolute;
-  top: 140px;
-  bottom: -185px;
-  right: 190px;
-
+  top: 115px;
+  right: 220px;
+  z-index: 999;
   @media only screen and (max-width: 768px) {
-    top: 30px;
-    right: 206px;
+    top: 70%;
+    
   }
 `;
 

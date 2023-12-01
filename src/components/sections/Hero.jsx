@@ -30,6 +30,7 @@ const Container = styled.div`
     align-items: center;
     justify-content: center;
     position: relative;
+    margin-top: 10%;
   }
 `;
 
@@ -96,7 +97,6 @@ const Right = styled.div`
   left: 0;
   width: 100%;
   position: relative;
-  opacity: 0.4; 
   }
 `;
 
@@ -132,6 +132,7 @@ const Hero = ({ id }) => {
   const canvas = useRef(null)
   
   const itemsLeft = useRef([]);
+  const mm = gsap.matchMedia();
 
   useEffect(() => {
     itemsLeft.current.push(title.current, whatwedo.current, desc.current, button.current)
@@ -150,16 +151,28 @@ const Hero = ({ id }) => {
       }
     })
 
-    tl.to(itemsLeft.current, {
+    mm.add("(min-width: 768px)", () => {
+      tl.to(itemsLeft.current, {
         x: 0,
         opacity: 1,
         stagger: 0.2,
       })
       .to(canvas.current, { opacity: 1 }, 0.8)
+    })
 
-
+    mm.add("(max-width: 768px)", () => {
+      tl.to(itemsLeft.current, {
+        x: 0,
+        opacity: 1,
+        stagger: 0.2,
+      })
+      .to(canvas.current, { opacity: 0.3 }, 0.8)
+    })
   })
-  
+
+
+
+
   const handleButtonClick = () => {
     const section = document.getElementById("studio");
     section.scrollIntoView({ behavior: "smooth" });

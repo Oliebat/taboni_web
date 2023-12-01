@@ -4,17 +4,17 @@ import { Canvas } from "@react-three/fiber";
 import Safe from "./objects/Safe";
 import styled from "styled-components";
 import Desc from "./Desc";
+import 'animate.css';
 
 
 const Container = styled.div`
   position: absolute;
-  bottom: 150px;
-  right: 210px;
+  top: 115px;
+  right: 220px;
   z-index: 999;
-
   @media only screen and (max-width: 768px) {
-    top: 410px;
-    right: 206px;
+    top: 70%;
+    
   }
 `;
 
@@ -29,7 +29,7 @@ const Securite = () => {
           <OrbitControls enableZoom={false}  autoRotate />
         </Suspense>
       </Canvas>
-      <Container>
+      <Container className="animate__animated animate__fadeIn animate__slow">
         <Desc frontText="Protégez votre présence en ligne avec nos solutions de sécurité robustes." 
           backText="Taboni Web" />
         </Container>

@@ -8,16 +8,14 @@ import Desc from "./Desc";
 
 const Container = styled.div`
   position: absolute;
-  top: 200px;
-  right: 195px;
+  top: 115px;
+  right: 220px;
   z-index: 999;
-
   @media only screen and (max-width: 768px) {
-    top: 410px;
-    right: 206px;
-  }
+    top: 70%;
+    
+  } 
 `;
-
 const Development = () => {
   return (
     <>

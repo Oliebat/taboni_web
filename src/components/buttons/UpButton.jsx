@@ -45,9 +45,9 @@ const Button = styled.button`
       background: #443ffc;
     }
 
-    &:hover .textcircle {
+    /* &:hover .textcircle {
       animation: ${rotateIt} 7s linear infinite;
-    }
+    } */
 
     &:hover .eye__lashes-up,
     &:hover .eye__inner,
@@ -65,6 +65,7 @@ const TextCircle = styled.svg`
   position: relative;
   display: block;
   width: 200px;
+  animation: ${rotateIt} 15s linear infinite;
 
   text {
     font-size: 32px;

@@ -335,13 +335,14 @@ const Contact = ({ id }) => {
     })
 
     gsap.fromTo(buttonForm.current, {
+      y: 20,
       opacity: 0,
     },{
-      opacity: 1,
+      y: 0,
       ease: 'power4.out',
       scrollTrigger: {
-        trigger: section.current,
-        start: '25% bottom',
+        trigger: buttonForm.current,
+        start: 'top 97%',
         end: 'bottom bottom',
         scrub: 2,
       },
@@ -387,7 +388,7 @@ const Contact = ({ id }) => {
       ease: 'power4.out',
       scrollTrigger: {
         trigger: footer.current,
-        start: 'top 97%',
+        start: 'top bottom',
         end: 'bottom bottom',
         scrub: 2,
       },
@@ -493,7 +494,7 @@ const handleModalClose = () => {
         </Left>
         <Right ref={right}>
         <UpButtonWrapper>
-          <UpButton onClick={() => scrollToSection("home")} />
+          <UpButton onClick={() => scrollToSection("navbar")} />
         </UpButtonWrapper>
         <Map/>
         </Right>

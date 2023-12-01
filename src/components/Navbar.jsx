@@ -168,7 +168,7 @@ const Navbar = () => {
   })
 
   return (
-    <Header ref={header}>
+    <Header id="navbar" ref={header}>
       <Container>
         <Links>
           <TitleSite ref={logo}>Taboni Web</TitleSite>

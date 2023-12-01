@@ -38,7 +38,7 @@ const Title = styled.h1`
   font-size: 4.6em;
 
   @media only screen and (max-width: 768px) {
-    font-size: 3em;
+    font-size: 2.5em;
   }
 `;
 
@@ -76,7 +76,7 @@ const Desc = styled.p`
   @media only screen and (max-width: 768px) {
     margin: 0 20px;
     font-size: 1.2em;
-    line-height: 1.5em;
+    line-height: 1.3em;
   }
 `;
 
