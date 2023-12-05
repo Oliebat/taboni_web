@@ -32,13 +32,15 @@ const Section = styled.div`
 `;
 
 const Container = styled.div`
-  width: 1400px;
+  width: 100%;
   display: flex;
   justify-content: space-between;
 
   @media only screen and (max-width: 768px) {
     width: 100%;
     flex-direction: column;
+    align-items: center;
+    justify-content: center;
   }
 `;
 
@@ -60,14 +62,13 @@ const List = styled.ul`
 `;
 
 const ListItem = styled.li`
-  font-size: 90px;
+  font-size: 6.5vw;
   font-weight: bold;
   cursor: pointer;
   color: transparent;
   -webkit-text-stroke: 1px white;
   position: relative;
-  will-change: transform;  // Suggestion d'accélération matérielle
-
+  will-change: transform;
   ::after {
     content: "${(props) => props.text}";
     position: absolute;

@@ -13,11 +13,12 @@ const Header = styled.header`
 `;
 
 const Container = styled.div`
-  width: 1400px;
+  width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 10px 0px;
+  margin: 0 2% 0 2%;
 
   @media only screen and (max-width: 768px) {
     width: 100%;
@@ -37,7 +38,7 @@ const Links = styled.div`
 
 
 const TitleSite = styled.div`
-    font-size: 70px;
+  font-size: 3.65vw;
   font-weight: bold;
   cursor: pointer;
   color: transparent;
@@ -93,7 +94,7 @@ const List = styled.ul`
 const ListItem = styled.li`
   cursor: pointer;
   transition: width 0.8s ease, left 0.7s ease;
-
+  font-size: 1.2vw;
   color: #fff; // Text color
   text-decoration: none;
   

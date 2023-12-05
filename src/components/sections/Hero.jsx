@@ -20,7 +20,7 @@ const Section = styled.div`
 const Container = styled.div`
   height: 80%;
   scroll-snap-align: center;
-  width: 1400px;
+  width: 100%;
   display: flex;
   justify-content: space-between;
 
@@ -32,17 +32,20 @@ const Container = styled.div`
     position: relative;
     margin-top: 10%;
   }
+
 `;
 
 const Left = styled.div`
-  flex: 2;
+  flex: 1;
   display: flex;
   flex-direction: column;
   justify-content: center;
   gap: 20px;
+  margin-left: 2%;
+  @media only screen and (max-width: 1350px) {
+    flex: 1;
+  }
   
-  
-
   @media only screen and (max-width: 768px) {
     flex: 1;
     margin: 20px;
@@ -53,7 +56,11 @@ const Left = styled.div`
 `;
 
 const Title = styled.h1`
-  font-size: 60px;
+  font-size: 3vw;
+
+  @media only screen and (max-width: 1350px) {
+    font-size: 3vw;
+  }
 
   @media only screen and (max-width: 768px) {
     text-align: left;
@@ -73,10 +80,15 @@ const Line = styled.img`
 
 const Subtitle = styled.h2`
   color: #A93F55;
+  font-size: 2vw;
+  @media only screen and (max-width: 768px) {
+    text-align: left;
+    font-size: 1.2em;
+  }
 `;
 
 const Desc = styled.p`
-  font-size: 1.50em;
+  font-size: 1.2vw;
   color: lightgray;
   @media only screen and (max-width: 768px) {
     text-align: left;
@@ -86,13 +98,15 @@ const Desc = styled.p`
 `;
 
 const Right = styled.div`
-  flex: 3;
+  flex: 1;
   position: relative;
   animation-duration: 0ms.6;
-  @media only screen and (max-width: 768px) {
+  @media only screen and (max-width: 1350px) {
     flex: 1;
-    width: 100%;
-    position: relative;
+
+  }
+  @media only screen and (max-width: 768px) {
+  flex: 1;
   bottom: 0; 
   left: 0;
   width: 100%;
@@ -101,8 +115,8 @@ const Right = styled.div`
 `;
 
 const Img = styled.img`
-  width: 800px;
-  height: 400px;
+  width: 80%;
+  height: 70%;
   object-fit: contain;
   position: absolute;
   top: 0;
@@ -112,9 +126,14 @@ const Img = styled.img`
   margin: auto;
   animation: animate 2s infinite ease alternate;
 
+  @media only screen and (max-width: 1350px) {
+    width: 60%;
+    height: 60%;
+  }
+
   @media only screen and (max-width: 768px) {
-    width: 300px;
-    height: 300px;
+    width: 80%;
+    height: 80%;
   }
 
   @keyframes animate {

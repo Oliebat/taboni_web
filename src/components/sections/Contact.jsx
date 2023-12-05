@@ -34,13 +34,20 @@ const Left = styled.div`
   display: flex;
   align-items: center;
   justify-content: flex-end;
+  @media only screen and (max-width: 1350px) {
+    margin-left: 2%;
+    flex: 1;
+  }
   @media only screen and (max-width: 768px) {
     justify-content: center;
   }
 `;
 
 const Title = styled.h1`
-  font-size: 40px;
+  font-size: 3.35vw;
+  @media only screen and (max-width: 768px) {
+    font-size: 2em;
+  }
 `;
 
 const Form = styled.form`

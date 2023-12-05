@@ -35,7 +35,11 @@ const Left = styled.div`
 `;
 
 const Title = styled.h1`
-  font-size: 4.6em;
+  font-size: 3.65vw;
+
+  @media only screen and (max-width: 1350px) {
+    font-size: 3vw;
+  }
 
   @media only screen and (max-width: 768px) {
     font-size: 2.5em;
@@ -67,10 +71,14 @@ const Line = styled.img`
 
 const Subtitle = styled.h2`
   color: #A3333D;
+  font-size: 2vw;
+  @media only screen and (max-width: 768px) {
+    font-size: 1.5em;
+  }
 `;
 
 const Desc = styled.p`
-  font-size: 1.5em;
+  font-size: 1.5vw;
   color: lightgray;
 
   @media only screen and (max-width: 768px) {
