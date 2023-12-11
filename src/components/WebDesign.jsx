@@ -12,6 +12,7 @@ const Container = styled.div`
   right: 220px;
   z-index: 999;
   @media only screen and (max-width: 768px) {
+    right: 56%;
     top: 70%;
     
   }

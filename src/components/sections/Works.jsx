@@ -48,6 +48,7 @@ const Left = styled.div`
   flex: 1;
   display: flex;
   align-items: center;
+  margin-left: 2%;
 
   @media only screen and (max-width: 768px) {
     padding: 20px;

@@ -86,6 +86,9 @@ const Desc = styled.p`
     font-size: 1.2em;
     line-height: 1.3em;
   }
+  @media only screen and (max-width: 376px) {
+    font-size: 1.1em;
+  }
 `;
 
 const Who = ({ id }) => {

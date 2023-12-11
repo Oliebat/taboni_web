@@ -9,9 +9,10 @@ import 'animate.css';
 const Container = styled.div`
   position: absolute;
   top: 115px;
-  right: 220px;
   z-index: 999;
+  right: 220px;
   @media only screen and (max-width: 768px) {
+    right: 56%;
     top: 70%;
     
   }
