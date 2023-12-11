@@ -52,6 +52,10 @@ const Right = styled.div`
   flex-direction: column;
   justify-content: center;
   gap: 20px;
+  
+  @media only screen and (max-width: 1350px) {
+    margin-right: 2%;
+  }
 
   @media only screen and (max-width: 768px) {
     align-items: center;
