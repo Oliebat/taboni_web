@@ -25,7 +25,7 @@ const Securite = () => {
       <Canvas camera={{  position: [0, 0, 10] }} style={{ cursor: 'grab' }}>
         <Suspense fallback={null}>
           <Stage environment="city" intensity={0.6}>
-          <Safe scale={[0.01, 0.01, 0.01]}/>
+          <Safe scale={[0.015, 0.015, 0.015]}/>
           </Stage>
           <OrbitControls enableZoom={false}  autoRotate />
         </Suspense>
