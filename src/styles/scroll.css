@@ -17,3 +17,7 @@ html.lenis {
   .lenis.lenis-scrolling iframe {
     pointer-events: none;
   }
+
+  .react-cookienotice-root {
+    z-index: 9999;
+  }
