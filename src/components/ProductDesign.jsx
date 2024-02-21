@@ -24,7 +24,7 @@ const ProductDesign = () => {
       <Canvas style={{ cursor: 'grab' }}>
         <Suspense fallback={null}>
           <Stage environment="city" intensity={0.6}>
-          <Mobile scale={[0.6, 0.6, 0.6]} />
+          <Mobile scale={[0.06, 0.06, 0.06]} />
           </Stage>
           <OrbitControls enableZoom={false} autoRotate />
         </Suspense>
