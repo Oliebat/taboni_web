@@ -100,6 +100,10 @@ const DetailsPanel = styled.div`
       color: #f0f0f0;
     }
   }
+  h3 {
+    font-size: 2rem;
+    margin-bottom: 2%;
+  }
 
   ${PanelItem}:hover & {
     opacity: 1;
@@ -138,18 +142,6 @@ const Projets = [
     title: "Marc Levy",
     description: "Site web de l'auteur Marc Levy",
     lien: "https://www.marclevy.com/"
-  },
-  {
-    src: "https://picsum.photos/seed/project8/800/600",
-    title: "Projet 8",
-    description: "Description du projet 8",
-    lien: "https://www.google.com"
-  },
-  {
-    src: "https://picsum.photos/seed/project9/800/600",
-    title: "Projet 9",
-    description: "Description du projet 9",
-    lien: "https://www.google.com"
   }
 ];
 
@@ -258,7 +250,7 @@ const Portfolio = () => {
   }, []);
 
   return (
-    <PortfolioSection ref={sectionRef} className="portfolio">
+    <PortfolioSection ref={sectionRef} className="portfolio" id="portfolio">
       <PortfolioTitle ref={titleRef} className="portfolio_title text-stroke parallax">
         Projets
       </PortfolioTitle>

@@ -88,7 +88,7 @@ const Subtitle = styled.h2`
 `;
 
 const Desc = styled.p`
-  font-size: 1.2vw;
+  font-size: 1.5vw;
   color: lightgray;
   @media only screen and (max-width: 768px) {
     text-align: left;
