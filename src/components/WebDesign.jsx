@@ -24,7 +24,7 @@ const WebDesign = () => {
     <>
       <Canvas style={{ cursor: 'grab' }}>
         <Suspense fallback={null}>
-          <Stage environment="city" intensity={0.6}>
+          <Stage environment="city" intensity={4}>
             <Mac scale={[0.6, 0.6, 0.6]} />
           </Stage>
           <OrbitControls enableZoom={false} autoRotate />

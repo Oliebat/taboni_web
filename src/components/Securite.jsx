@@ -1,10 +1,11 @@
-import React, { Suspense } from "react";
+import React, { Suspense  } from "react";
 import { OrbitControls, Stage } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
-import Safe from "./objects/Safe";
+import Padlock from "./objects/Padlock";
 import styled from "styled-components";
 import Desc from "./Desc";
 import 'animate.css';
+
 
 
 const Container = styled.div`
@@ -19,13 +20,17 @@ const Container = styled.div`
   }
 `;
 
+
+
 const Securite = () => {
+
+
   return (
     <>
       <Canvas camera={{  position: [0, 0, 10] }} style={{ cursor: 'grab' }}>
         <Suspense fallback={null}>
-          <Stage environment="city" intensity={0.6}>
-          <Safe scale={[0.06, 0.06, 0.06]} />
+          <Stage environment="city" intensity={0.01}>
+          <Padlock scale={[0.001, 0.001, 0.001]} />
           </Stage>
           <OrbitControls enableZoom={false}  autoRotate />
         </Suspense>

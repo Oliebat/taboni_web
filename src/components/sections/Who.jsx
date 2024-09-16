@@ -146,7 +146,7 @@ const Who = ({ id }) => {
         <Left>
           <Canvas ref={cube} camera={{ position: [5, 5, 5], fov: 25 }} style={{ cursor: 'grab' }}>
             <Suspense fallback={null}>
-              <ambientLight intensity={0.5} />
+              <ambientLight intensity={1.5} />
               <directionalLight position={[3, 2, 1]} />
               <Cube />
               <OrbitControls enableZoom={false} autoRotate />

@@ -532,7 +532,7 @@ const handleModalClose = () => {
               required
             />
             {/* <Turnstile siteKey='0x4AAAAAAAM0j9-Umz6Vic_K' /> */}
-            <Button ref={buttonForm} customWidth="100%" type="submit"><span>Envoyer</span></Button>
+            <Button ref={buttonForm} $customWidth="100%" type="submit"><span>Envoyer</span></Button>
             {success && (
               <SuccessMessage startFadeOut={startFadeOut}>
                 Votre message a été envoyé. Nous vous répondrons bientôt !

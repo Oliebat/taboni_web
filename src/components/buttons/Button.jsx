@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 const Button = styled.button`
-  width: ${({ customWidth }) => customWidth || "170px"};
+  width: ${({ $customWidth }) => $customWidth || "170px"};
   pointer-events: auto;
   cursor: pointer;
   background: #e7e7e7;
@@ -20,18 +20,18 @@ const Button = styled.button`
   overflow: hidden;
   color: #fff;
   transition: color 0.4s cubic-bezier(0.3, 1, 0.8, 1); 
+
   @media only screen and (max-width: 1350px) {
     width: 150px;
     padding: 0.8rem 1.3rem;
     font-size: 0.65rem;
   }
+
   @media only screen and (max-width: 768px) {
     letter-spacing: 0;
     width: 125px;
     font-size: 0.58rem;
     padding: 0.7rem 1.2rem;
-    
-
   }
 
   &::before,
@@ -64,6 +64,5 @@ const Button = styled.button`
     position: relative;
   }
 `;
-
 
 export default Button;

@@ -4,6 +4,7 @@ import Contact from "./components/sections/Contact";
 import Hero from "./components/sections/Hero";
 import Who from "./components/sections/Who";
 import Works from "./components/sections/Works";
+import Portfolio from "./components/sections/Portfolio";
 import Scroll from "./components/Scroll";
 import "./styles/scroll.css"
 import CookieBanner from "./cookies/CookieNotice";
@@ -43,6 +44,7 @@ function App() {
           <Hero id="home" />
           <Who id="studio" />
           <Works id="works" />
+          <Portfolio id="portfolio" />
           <Contact id="contact" />
         </main>
       </Container>

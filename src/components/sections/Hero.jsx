@@ -215,14 +215,14 @@ const Hero = ({ id }) => {
           <Canvas>
             <Suspense fallback={null}>
               <OrbitControls enableZoom={false} />
-              <ambientLight intensity={1} />
+              <ambientLight intensity={2} />
               <directionalLight position={[3, 2, 1]} />
               <Sphere args={[1, 100, 200]} scale={2.4}>
                 <MeshDistortMaterial
                   color="#5DA7C5"
                   attach="material"
                   distort={0.5}
-                  speed={2}
+                  speed={1.75}
                 />
               </Sphere>
             </Suspense>
