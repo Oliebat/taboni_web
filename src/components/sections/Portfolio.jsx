@@ -237,7 +237,7 @@ const Portfolio = () => {
             start: "top 5%",
             end: "top 50%",
             scrub: true,
-            markers: true,
+            markers: false,
           }
         }
       );
