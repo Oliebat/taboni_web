@@ -15,6 +15,11 @@ const PortfolioSection = styled.section`
   display: flex;
   flex-wrap: nowrap;
   overflow: hidden;
+
+  @media only screen and (max-width: 768px) {
+    height: auto;
+    overflow: visible;
+  }
 `;
 
 const PortfolioTitle = styled.h2`
@@ -29,6 +34,14 @@ const PortfolioTitle = styled.h2`
   display: inline-block;
   opacity: 0;
   white-space: nowrap;
+
+  @media only screen and (max-width: 768px) {
+    font-size: 12rem;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    position: fixed;
+    z-index: 10;
+  }
 `;
 
 const PanelsContainer = styled.div`
@@ -36,6 +49,12 @@ const PanelsContainer = styled.div`
   flex-wrap: nowrap;
   height: 100%;
   width: fit-content;
+
+  @media only screen and (max-width: 768px) {
+    flex-direction: column;
+    width: 100%;
+    height: auto;
+  }
 `;
 
 const Panel = styled.div`
@@ -50,6 +69,13 @@ const Panel = styled.div`
   background-color: transparent;
   overflow: hidden;
   position: relative;
+
+  @media only screen and (max-width: 768px) {
+    flex: none;
+    width: 100%;
+    height: 100vh;
+    padding: 2rem;
+  }
 `;
 
 const PanelItem = styled.div`
@@ -58,6 +84,11 @@ const PanelItem = styled.div`
   margin: 0 auto;
   position: relative;
   cursor: pointer;
+
+  @media only screen and (max-width: 768px) {
+    height: 70%;
+    width: 90%;
+  }
 `;
 
 const PanelImg = styled.img`
@@ -108,6 +139,18 @@ const DetailsPanel = styled.div`
   ${PanelItem}:hover & {
     opacity: 1;
   }
+
+  @media only screen and (max-width: 768px) {
+    opacity: 1;
+    position: relative;
+    top: auto;
+    left: auto;
+    transform: none;
+    width: 100%;
+    height: auto;
+    background-color: rgba(0, 0, 0, 0.8);
+    padding: 1rem;
+  }
 `;
 
 // Données des Projets
@@ -152,99 +195,143 @@ const Portfolio = () => {
   const titleRef = useRef(null);
   const panelsRef = useRef([]);
   const imagesRef = useRef([]);
-  const firstImageRef = useRef(null); // Référence pour la première image
+  
 
   useEffect(() => {
     const section = sectionRef.current;
     const title = titleRef.current;
     const panels = panelsRef.current;
     const images = imagesRef.current;
-    const firstImage = firstImageRef.current; // Récupère la première image
 
-    const totalPanels = panels.length;
-    const gap = 300;
-    const panelWidth = gap + panels[0]?.offsetWidth;
-    const totalWidth = panelWidth * totalPanels;
+    const isMobile = window.innerWidth <= 768;
 
-    const panelsContainer = gsap.utils.toArray('.panels-container')[0];
-    if (panelsContainer) {
-      panelsContainer.style.width = `${totalWidth}px`;
-    }
-
-    // Timeline principale pour le défilement horizontal
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: section,
-        pin: true,
-        scrub: 1,
-        start: "top top",
-        end: () => `+=${totalWidth - window.innerWidth}`,
-        markers: false,
-      },
-      defaults: { ease: "none", duration: 4 }
-    });
-
-    // Animation du titre
-    gsap.to(title, {
-      opacity: 1,
-      duration: 1,
-      ease: "power2.out",
-      scrollTrigger: {
-        trigger: section,
-        start: "top center",
-        end: "top top",
-        scrub: true,
-        markers: false,
-      }
-    });
-
-    tl.to(title, { x: 2000 })
-      .to(panelsContainer, { x: () => -(totalWidth - window.innerWidth) }, 0);
-
-    // Animation individuelle pour chaque image
-    images.forEach((img, index) => {
-      gsap.fromTo(img, 
-        { opacity: 0, scale: 2, x: "100%" },
-        {
-          opacity: 1,
-          scale: 1,
-          x: 0,
-          duration: 0.8,
-          ease: "power2.out",
+    if (isMobile) {
+      // Animation pour mobile (défilement vertical)
+      panels.forEach((panel, index) => {
+        gsap.to(panel, {
           scrollTrigger: {
-            trigger: img,
-            start: "left center",
-            end: "right center",
-            containerAnimation: tl,
-            scrub: true
-          }
-        }
-      );
-    });
-
-    // Animation de fondu spécifique pour la première image
-    if (firstImage) {
-      gsap.fromTo(firstImage, 
-        { opacity: 0, scale: 2, x: "100%" },
-        { 
-          opacity: 1,
-          scale: 1,
-          x: 0,
-          duration: 0.8,
-          ease: "power2.out",
-          scrollTrigger: {
-            trigger: firstImage,
-            start: "top 5%",
-            end: "top 50%",
+            trigger: panel,
+            start: "top bottom",
+            end: "bottom top",
             scrub: true,
-            markers: false,
-          }
+          },
+          y:-index * 100 + "vh",
+          x: -300,
+          ease: "none",
+        });
+      });
+
+      // Animation du titre sur mobile
+      gsap.to(title, {
+        opacity: 1,
+        duration: 1,
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: section,
+          start: "top center",
+          end: "bottom top",
+          scrub: true,
         }
-      );
+      });
+
+      // Animation des images sur mobile
+      images.forEach((img) => {
+        gsap.fromTo(img, 
+          { opacity: 0, scale: 0.5 },
+          {
+            opacity: 1,
+            scale: 1,
+            duration: 0.8,
+            ease: "power2.out",
+            scrollTrigger: {
+              trigger: img,
+              start: "top bottom",
+              end: "center center",
+              scrub: true
+            }
+          }
+        );
+      });
+    } else {
+      // Animation pour desktop (défilement horizontal)
+      const totalPanels = panels.length;
+      const gap = 300;
+      const panelWidth = gap + panels[0]?.offsetWidth;
+      const totalWidth = panelWidth * totalPanels;
+
+      const panelsContainer = gsap.utils.toArray('.panels-container')[0];
+      if (panelsContainer) {
+        panelsContainer.style.width = `${totalWidth}px`;
+      }
+
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: section,
+          pin: true,
+          scrub: 1,
+          start: "top top",
+          end: () => `+=${totalWidth - window.innerWidth}`,
+          markers: false,
+        },
+        defaults: { ease: "none", duration: 4 }
+      });
+
+      gsap.to(title, {
+        opacity: 1,
+        duration: 1,
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: section,
+          start: "top center",
+          end: "top top",
+          scrub: true,
+        }
+      });
+
+      tl.to(title, { x: 2000 })
+        .to(panelsContainer, { x: () => -(totalWidth - window.innerWidth) }, 0);
+
+      images.forEach((img, index) => {
+        // Animation spéciale pour la première image
+        if (index === 0) {
+          gsap.fromTo(img, 
+            { opacity: 0, x: "-200%", scale: 1 },
+            {
+              opacity: 1,
+              x: "0%",
+              duration: 1.5,
+              ease: "power2.out",
+              scrollTrigger: {
+                trigger: img,
+                start: "top bottom",
+                end: "center center",
+                scrub: true
+              }
+            }
+          );
+        } else {
+          gsap.fromTo(img, 
+            { opacity: 0, scale: 2, x: 0 },
+            {
+              opacity: 1,
+              scale: 1,
+              x: 0,
+              duration: 0.8,
+              ease: "power2.out",
+              scrollTrigger: {
+                trigger: img,
+                start: "left center",
+                end: "right center",
+                containerAnimation: tl,
+                scrub: true
+              }
+            }
+          );
+        }
+      });
     }
 
     return () => {
-      tl.kill();
       ScrollTrigger.getAll().forEach(t => t.kill());
     };
   }, []);
@@ -266,10 +353,7 @@ const Portfolio = () => {
                 className="panel-img"
                 src={projet.src}
                 alt={`Project ${index + 1}`}
-                ref={el => {
-                  imagesRef.current[index] = el;
-                  if (index === 0) firstImageRef.current = el; // Assigne la première image
-                }}
+                ref={el => imagesRef.current[index] = el}
               />
               <DetailsPanel>
                 <h3>{projet.title}</h3>
