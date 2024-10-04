@@ -51,7 +51,9 @@ const Left = styled.div`
   margin-left: 2%;
 
   @media only screen and (max-width: 768px) {
-    padding: 20px;
+    /* padding: 20px; */
+    margin-left: 0;
+    justify-content: center;
   }
 `;
 
@@ -97,7 +99,7 @@ const ListItem = styled.li`
   @media only screen and (max-width: 768px) {
     color: white;
     -webkit-text-stroke: 0px;
-    font-size: 2.5em;
+    font-size: 4.5rem;
 
     ::after {
       width: 0; 
@@ -116,6 +118,10 @@ const ListItem = styled.li`
 
 const Right = styled.div`
   flex: 1;
+
+  @media only screen and (max-width: 768px) {
+    display: none;
+  }
 `;
 
 const Works = ({ id }) => {
