@@ -87,6 +87,9 @@ const Panel = styled.div`
 			margin-bottom: 0;
 		}
 	}
+  @media only screen and (max-width: 450px) {
+    height: 11rem;
+  }
 `
 
 const PanelItem = styled.div`
@@ -165,6 +168,9 @@ const DetailsPanel = styled.div`
 		background-color: rgba(0, 0, 0, 0.8);
 		border-radius: 0 0 5% 5%;
 	}
+  @media only screen and (max-width: 450px) {
+    inset: auto 0 -12rem 0;
+  }
 `
 
 // Données des Projets
