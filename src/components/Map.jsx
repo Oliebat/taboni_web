@@ -34,7 +34,16 @@ const CursorCircle = styled.div`
   background-position: center;
 `;
 
-const colors = ["#b84a5b", "#8e2d5d", "#641e5f", "#3a0f61", "#2C065D"];
+const baseColors = [
+  "#b74265",  // Couleur du bouton "ENVOYER"
+  "#8e1b5e",  // Transition
+  "#650e57",  // Transition
+  "#4a0e4e",  // Début de votre palette originale
+  "#610c61", 
+  "#780e78", 
+  "#9c27b0",
+  "#4b0082"   // Couleur de fond (violet foncé)
+];
 const cityImages = {
   Paris: "./img/paris.jpg",
   Nice: "./img/nice.jpg",
@@ -114,22 +123,24 @@ const Map = () => {
       }}
     >
       <CursorContainer style={{ display: isActive ? 'block' : 'none' }}>
-        {[...Array(4)].map((_, i) => (
-          <CursorCircle
-            key={i}
-            ref={(el) => (circles.current[i] = el)}
-            style={{
-              backgroundColor: hoveredCity ? 'transparent' : colors[i],
-              backgroundImage: hoveredCity && i === 0 ? `url(${cityImages[hoveredCity]})` : 'none',
-              width: hoveredCity ? expandedCursorSize : cursorSize,
-              height: hoveredCity ? expandedCursorSize : cursorSize,
-              filter: hoveredCity && i === 0 ? 'none' : `blur(${i * 2}px)`,
-              opacity: hoveredCity ? (i === 0 ? 1 : 0.5) : 0.5,
-              transition: `all 0.3s ease-out`,
-            }}
-          />
-        ))}
-      </CursorContainer>
+  {[...Array(4)].map((_, i) => (
+    <CursorCircle
+      key={i}
+      ref={(el) => (circles.current[i] = el)}
+      style={{
+        backgroundColor: hoveredCity ? 'transparent' : baseColors[i],
+        backgroundImage: hoveredCity && i === 0 ? `url(${cityImages[hoveredCity]})` : 'none',
+        width: hoveredCity ? expandedCursorSize * 0.75 : cursorSize * 0.75,  // Make circles 25% smaller
+        height: hoveredCity ? expandedCursorSize * 0.75 : cursorSize * 0.75, // Make circles 25% smaller
+        filter: i === 0 ? 'none' : `blur(${i * 5}px)`,  // Increase blur effect on background circles
+        opacity: hoveredCity ? (i === 0 ? 1 : 0.5) : 1,
+        transition: `all 0.3s ease-out`,
+        zIndex: i === 0 ? 1 : 0,  // Main cursor stays on top
+      }}
+    />
+  ))}
+</CursorContainer>
+
       <ComposableMap
         projection="geoAzimuthalEqualArea"
         projectionConfig={{
