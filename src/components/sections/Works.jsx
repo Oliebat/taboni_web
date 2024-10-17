@@ -113,7 +113,7 @@ const ListItem = styled.li`
     }
   }
   @media only screen and (max-width: 450px) {
-    font-size: 3.5rem;
+    font-size: 3rem;
   }
 
 `;

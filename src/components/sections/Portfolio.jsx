@@ -47,6 +47,9 @@ const PortfolioTitle = styled.h2`
 		position: relative;
 		margin-bottom: 4rem;
 	}
+	@media only screen and (max-width: 640px) {
+		font-size: 4rem;
+	}
 `
 
 const PanelsContainer = styled.div`
@@ -87,7 +90,7 @@ const Panel = styled.div`
 			margin-bottom: 0;
 		}
 	}
-  @media only screen and (max-width: 450px) {
+  @media only screen and (max-width: 640px) {
     height: 11rem;
   }
 `
@@ -170,6 +173,7 @@ const DetailsPanel = styled.div`
 	}
   @media only screen and (max-width: 450px) {
     inset: auto 0 -12rem 0;
+		text-align: center;
   }
 `
 
@@ -179,38 +183,38 @@ const Projets = [
   {
     src: "./img/cabnow.png",
     title: "CabNow",
-    description: "Site web de Chauffeur VTC avec réservation en ligne",
+    description: "Site web de Chauffeur VTC avec réservation en ligne.",
     lien: "https://cabnowriviera.fr/"
   },
   {
     src: "./img/mcb.png",
     title: "MCB - Photographie",
-    description: "Site web de photographe professionnel",
+    description: "Site web de photographe professionnel.",
     lien: "https://mariecharlottebana.fr/"
   },
   {
     src: "./img/lescarsrapides.png",
     title: "Les Cars Rapides",
-    description: "Site web chauffeur VTC avec formulaire de contact", 
+    description: "Site web chauffeur VTC avec formulaire de contact.", 
     lien: "https://les-cars-rapides.fr/"
   },
   {
     src: "./img/9juillet.png",
     title: "Institut 9 Juillet",
-    description: "Site web de l'institut de beauté 9 Juillet",
+    description: "Site web de l'institut de beauté 9 Juillet.",
     lien: "https://institut-neuf-juillet.fr/"
   },
   {
     src: "./img/marclevy.png",
     title: "Marc Levy",
-    description: "Site web de l'auteur Marc Levy",
+    description: "Site web de l'auteur Marc Levy.",
     lien: "https://www.marclevy.com/",
     feat: "En collaboration avec Octevia"
   },
   {
     src: "./img/sipourbox.png",
     title: "SipourBox",
-    description: "Site web d'abonnement de livres'",
+    description: "Site web d'abonnement de livres.",
     lien: "https://www.sipourbox.com/",
     feat: "En collaboration avec Octevia"
   }
