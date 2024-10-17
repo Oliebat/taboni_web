@@ -110,7 +110,10 @@ const Navbar = () => {
 	const clipCircle = useRef(null)
 
 	useEffect(() => {
-		const items = list.current.querySelectorAll('li')
+		if (typeof window === 'undefined') return
+
+		const items = list.current?.querySelectorAll('li')
+		if (!items) return
 
 		gsap.set(items, { yPercent: 100 })
 		gsap.set(logo.current, { opacity: 0 })
@@ -133,21 +136,30 @@ const Navbar = () => {
 		const mouse = { x: pos.x, y: pos.y }
 		const speed = 0.2
 
-		const xSet = gsap.quickSetter(clipCircle.current, 'cx')
-		const ySet = gsap.quickSetter(clipCircle.current, 'cy')
-
-		window.addEventListener('mousemove', (e) => {
-			mouse.x = e.x
-			mouse.y = e.y
-		})
-
-		gsap.ticker.add(() => {
+		let animationFrame
+		const animate = () => {
 			const dt = 1.0 - Math.pow(1.0 - speed, gsap.ticker.deltaRatio())
 			pos.x += (mouse.x - pos.x) * dt
 			pos.y += (mouse.y - pos.y) * dt
-			xSet(pos.x)
-			ySet(pos.y)
-		})
+			if (clipCircle.current) {
+				clipCircle.current.setAttribute('cx', pos.x)
+				clipCircle.current.setAttribute('cy', pos.y)
+			}
+			animationFrame = requestAnimationFrame(animate)
+		}
+
+		const handleMouseMove = (e) => {
+			mouse.x = e.clientX
+			mouse.y = e.clientY
+		}
+
+		window.addEventListener('mousemove', handleMouseMove)
+		animate()
+
+		return () => {
+			window.removeEventListener('mousemove', handleMouseMove)
+			cancelAnimationFrame(animationFrame)
+		}
 	}, [])
 
 	return (
