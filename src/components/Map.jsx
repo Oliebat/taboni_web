@@ -36,9 +36,9 @@ const CursorCircle = styled.div`
 
 const colors = ["#b84a5b", "#8e2d5d", "#641e5f", "#3a0f61", "#2C065D"];
 const cityImages = {
-  Paris: "../../public/img/paris.jpg",
-  Nice: "../../public/img/nice.jpg",
-  Rouen: "../../public/img/rouen.png"
+  Paris: "./img/paris.jpg",
+  Nice: "./img/nice.jpg",
+  Rouen: "./img/rouen.png"
 };
 
 const Map = () => {
