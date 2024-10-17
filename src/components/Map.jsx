@@ -35,14 +35,14 @@ const CursorCircle = styled.div`
 `;
 
 const baseColors = [
-  "#b74265",  // Couleur du bouton "ENVOYER"
-  "#8e1b5e",  // Transition
-  "#650e57",  // Transition
-  "#4a0e4e",  // Début de votre palette originale
-  "#610c61", 
+  "#b74265",
+  "#8e1b5e",
+  "#650e57",
+  "#4a0e4e",
+  "#610c61",
   "#780e78", 
   "#9c27b0",
-  "#4b0082"   // Couleur de fond (violet foncé)
+  "#4b0082"
 ];
 const cityImages = {
   Paris: "./img/paris.jpg",
@@ -102,7 +102,7 @@ const Map = () => {
       gsap.to(circle, {
         width: cursorSize,
         height: cursorSize,
-        duration: 0.3,
+        duration: 0.6,
         ease: "power2.out",
       });
     });
@@ -130,12 +130,12 @@ const Map = () => {
       style={{
         backgroundColor: hoveredCity ? 'transparent' : baseColors[i],
         backgroundImage: hoveredCity && i === 0 ? `url(${cityImages[hoveredCity]})` : 'none',
-        width: hoveredCity ? expandedCursorSize * 0.75 : cursorSize * 0.75,  // Make circles 25% smaller
-        height: hoveredCity ? expandedCursorSize * 0.75 : cursorSize * 0.75, // Make circles 25% smaller
-        filter: i === 0 ? 'none' : `blur(${i * 5}px)`,  // Increase blur effect on background circles
+        width: hoveredCity ? expandedCursorSize * 0.75 : cursorSize * 0.75,  
+        height: hoveredCity ? expandedCursorSize * 0.75 : cursorSize * 0.75, 
+        filter: i === 0 ? 'none' : `blur(${i * 15}px)`,
         opacity: hoveredCity ? (i === 0 ? 1 : 0.5) : 1,
         transition: `all 0.3s ease-out`,
-        zIndex: i === 0 ? 1 : 0,  // Main cursor stays on top
+        zIndex: i === 0 ? 1 : 0,
       }}
     />
   ))}
