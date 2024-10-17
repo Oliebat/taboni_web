@@ -34,7 +34,7 @@ const CursorCircle = styled.div`
   background-position: center;
 `;
 
-const colors = ["#c32d27", "#f5c63f", "#457ec4", "#356fdb"];
+const colors = ["#b84a5b", "#8e2d5d", "#641e5f", "#3a0f61", "#2C065D"];
 const cityImages = {
   Paris: "../../public/img/paris.jpg",
   Nice: "../../public/img/nice.jpg",
@@ -162,23 +162,34 @@ const Map = () => {
                 strokeWidth: 2,
                 strokeLinecap: "round"
               }}
-              onMouseEnter={() => handleCityHover(name)}
-              onMouseLeave={handleCityLeave}
             >
-              <text x="-8" textAnchor="end" alignmentBaseline="middle" fill="white" style={{ zIndex: 50 }}>
+              <text 
+                x="-8" 
+                textAnchor="end" 
+                alignmentBaseline="middle" 
+                fill="white" 
+                style={{ zIndex: 50, cursor: 'pointer' }}
+                onMouseEnter={() => handleCityHover(name)}
+                onMouseLeave={handleCityLeave}
+              >
                 {name}
               </text>
             </Annotation>
             <Marker coordinates={coordinates}>
-              <circle
-                r={4}
-                fill="white"
-                stroke="#fff"
-                strokeWidth={2}
-                onMouseEnter={() => handleCityHover(name)}
-                onMouseLeave={handleCityLeave}
-                style={{ cursor: 'pointer' }}
-              />
+              <g>
+                <circle
+                  r={25}
+                  fill="transparent"
+                  onMouseEnter={() => handleCityHover(name)}
+                  onMouseLeave={handleCityLeave}
+                />
+                <circle
+                  r={4}
+                  fill="white"
+                  stroke="#fff"
+                  strokeWidth={2}
+                />
+              </g>
             </Marker>
           </React.Fragment>
         ))}
