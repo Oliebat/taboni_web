@@ -1,78 +1,189 @@
-import React from "react";
+import React, { useRef, useEffect, useState } from "react";
+import styled from 'styled-components';
+import { gsap } from 'gsap';
 import {
   ComposableMap,
   Geographies,
   Geography,
   Annotation,
-  ZoomableGroup
+  Marker
 } from "react-simple-maps";
 
+const MapContainer = styled.div`
+  position: relative;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+`;
+
+const CursorContainer = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 9999;
+`;
+
+const CursorCircle = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  border-radius: 50%;
+  transition: width 0.3s ease-out, height 0.3s ease-out, filter 0.3s ease-out, background-image 0.3s ease-out;
+  background-size: cover;
+  background-position: center;
+`;
+
+const colors = ["#c32d27", "#f5c63f", "#457ec4", "#356fdb"];
+const cityImages = {
+  Paris: "../../public/img/paris.jpg",
+  Nice: "../../public/img/nice.jpg",
+  Rouen: "../../public/img/rouen.png"
+};
+
 const Map = () => {
+  const [isActive, setIsActive] = useState(false);
+  const [hoveredCity, setHoveredCity] = useState(null);
+  const circles = useRef([]);
+  const cursorSize = 40;
+  const expandedCursorSize = cursorSize * 2;
+
+  useEffect(() => {
+    const moveCircles = (x, y) => {
+      if (circles.current.length < 1) return;
+      circles.current.forEach((circle, i) => {
+        gsap.to(circle, {
+          x: x - (hoveredCity ? expandedCursorSize : cursorSize) / 2,
+          y: y - (hoveredCity ? expandedCursorSize : cursorSize) / 2,
+          duration: 0.2,
+          ease: "power2.out",
+          delay: i * 0.02,
+        });
+      });
+    };
+
+    const handleMouseMove = (e) => {
+      if (isActive) {
+        moveCircles(e.clientX, e.clientY);
+      }
+    };
+
+    window.addEventListener("mousemove", handleMouseMove);
+
+    return () => {
+      window.removeEventListener("mousemove", handleMouseMove);
+    };
+  }, [isActive, hoveredCity, cursorSize, expandedCursorSize]);
+
+  const handleCityHover = (city) => {
+    setHoveredCity(city);
+    circles.current.forEach((circle) => {
+      gsap.to(circle, {
+        width: expandedCursorSize,
+        height: expandedCursorSize,
+        duration: 0.3,
+        ease: "power2.out",
+      });
+    });
+  };
+
+  const handleCityLeave = () => {
+    setHoveredCity(null);
+    circles.current.forEach((circle) => {
+      gsap.to(circle, {
+        width: cursorSize,
+        height: cursorSize,
+        duration: 0.3,
+        ease: "power2.out",
+      });
+    });
+  };
+
+  const cities = [
+    { name: "Paris", coordinates: [2.3522, 48.8566] },
+    { name: "Nice", coordinates: [7.2619, 43.7102] },
+    { name: "Rouen", coordinates: [1.0993, 49.4432] }
+  ];
+
   return (
-    <ComposableMap
-      projection="geoAzimuthalEqualArea"
-      projectionConfig={{
-        rotate: [-10.0, -52.0, 0],
-        center: [-5, -3],
-        scale: 1600
+    <MapContainer
+      onMouseEnter={() => setIsActive(true)}
+      onMouseLeave={() => {
+        setIsActive(false);
+        setHoveredCity(null);
       }}
-      style={{width:"100%", height:"100%"}}
     >
-      <Geographies
-        geography="/features.json"
-        fill="#2C065D"
-        stroke="#FFFFFF"
-        strokeWidth={0.5}
-      >
-        {({ geographies }) =>
-          geographies.map((geo) => (
-            <Geography key={geo.rsmKey} geography={geo} />
-          ))
-        }
-      </Geographies>
-      <Annotation
-        subject={[2.3522, 48.8566]}
-        dx={-90}
-        dy={-30}
-        connectorProps={{
-          stroke: "white",
-          strokeWidth: 2,
-          strokeLinecap: "round"
+      <CursorContainer style={{ display: isActive ? 'block' : 'none' }}>
+        {[...Array(4)].map((_, i) => (
+          <CursorCircle
+            key={i}
+            ref={(el) => (circles.current[i] = el)}
+            style={{
+              backgroundColor: hoveredCity ? 'transparent' : colors[i],
+              backgroundImage: hoveredCity && i === 0 ? `url(${cityImages[hoveredCity]})` : 'none',
+              width: hoveredCity ? expandedCursorSize : cursorSize,
+              height: hoveredCity ? expandedCursorSize : cursorSize,
+              filter: hoveredCity && i === 0 ? 'none' : `blur(${i * 2}px)`,
+              opacity: hoveredCity ? (i === 0 ? 1 : 0.5) : 0.5,
+              transition: `all 0.3s ease-out`,
+            }}
+          />
+        ))}
+      </CursorContainer>
+      <ComposableMap
+        projection="geoAzimuthalEqualArea"
+        projectionConfig={{
+          rotate: [-10.0, -52.0, 0],
+          center: [-5, -3],
+          scale: 1600
         }}
+        style={{ width: "100%", height: "100%" }}
       >
-        <text x="-8" textAnchor="end" alignmentBaseline="middle" fill="white">
-          {"Paris"}
-        </text>
-      </Annotation>
-      <Annotation
-      subject={[7.2619, 43.7102]} // Coordonnées pour Nice
-      dx={-90}
-      dy={-30}
-      connectorProps={{
-        stroke: "white",
-        strokeWidth: 2,
-        strokeLinecap: "round"
-      }}
-    >
-      <text x="-8" textAnchor="end" alignmentBaseline="middle" fill="white">
-        {"Nice"}
-      </text>
-    </Annotation>
-    <Annotation
-      subject={[1.0993, 49.4432]} // Coordonnées pour Rouen
-      dx={-90}
-      dy={-30}
-      connectorProps={{
-        stroke: "white",
-        strokeWidth: 2,
-        strokeLinecap: "round"
-      }}
-    >
-      <text x="-8" textAnchor="end" alignmentBaseline="middle" fill="white">
-        {"Rouen"}
-      </text>
-    </Annotation>
-    </ComposableMap>
+        <Geographies
+          geography="/features.json"
+          fill="#2C065D"
+          stroke="#FFFFFF"
+          strokeWidth={0.5}
+        >
+          {({ geographies }) =>
+            geographies.map((geo) => (
+              <Geography key={geo.rsmKey} geography={geo} />
+            ))
+          }
+        </Geographies>
+        {cities.map(({ name, coordinates }) => (
+          <React.Fragment key={name}>
+            <Annotation
+              subject={coordinates}
+              dx={-90}
+              dy={-30}
+              connectorProps={{
+                stroke: "white",
+                strokeWidth: 2,
+                strokeLinecap: "round"
+              }}
+              onMouseEnter={() => handleCityHover(name)}
+              onMouseLeave={handleCityLeave}
+            >
+              <text x="-8" textAnchor="end" alignmentBaseline="middle" fill="white" style={{ zIndex: 50 }}>
+                {name}
+              </text>
+            </Annotation>
+            <Marker coordinates={coordinates}>
+              <circle
+                r={4}
+                fill="white"
+                stroke="#fff"
+                strokeWidth={2}
+                onMouseEnter={() => handleCityHover(name)}
+                onMouseLeave={handleCityLeave}
+                style={{ cursor: 'pointer' }}
+              />
+            </Marker>
+          </React.Fragment>
+        ))}
+      </ComposableMap>
+    </MapContainer>
   );
 };
 
