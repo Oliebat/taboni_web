@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from "react";
 import styled from "styled-components";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import CardSpotlight from "../objects/CardSpotlight";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -22,6 +23,7 @@ const PortfolioSection = styled.section`
 		overflow: visible;
 		flex-direction: column;
 		padding: 0 2rem;
+		margin-bottom: 50%;
 	}
 `
 
@@ -73,7 +75,7 @@ const Panel = styled.div`
 	align-content: center;
 	justify-content: center;
 	height: 100%;
-	padding: 5rem 3rem 2rem 5rem;
+	padding: 3rem 3rem 2rem 5rem;
 	background-color: transparent;
 	overflow: hidden;
 	position: relative;
@@ -86,7 +88,7 @@ const Panel = styled.div`
 		margin-bottom: 14rem;
 		overflow: visible;
 
-		&:last-child() {
+		&:last-child {
 			margin-bottom: 0;
 		}
 	}
@@ -96,7 +98,7 @@ const Panel = styled.div`
 `
 
 const PanelItem = styled.div`
-	height: 55%;
+	height: 70%;
 	width: 70%;
 	margin: 0 auto;
 	position: relative;
@@ -124,58 +126,58 @@ const PanelImg = styled.img`
 	}
 `
 
-const DetailsPanel = styled.div`
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-	padding: 2rem;
-	background-color: rgba(0, 0, 0, 0.7);
-	color: white;
-	position: absolute;
-	top: 65%;
-	left: 95%;
-	transform: translateX(-50%);
-	width: 50%;
-	height: 25%;
-	transition: opacity 0.8s ease;
-	border-radius: 5%;
+// const DetailsPanel = styled.div`
+// 	display: flex;
+// 	flex-direction: column;
+// 	justify-content: center;
+// 	align-items: center;
+// 	padding: 2rem;
+// 	background-color: rgba(0, 0, 0, 0.7);
+// 	color: white;
+// 	position: absolute;
+// 	top: 65%;
+// 	left: 95%;
+// 	transform: translateX(-50%);
+// 	width: 50%;
+// 	height: 25%;
+// 	transition: opacity 0.8s ease;
+// 	border-radius: 5%;
 
-	a {
-		display: inline-flex;
-		align-items: center;
-		margin-top: 2%;
-		color: white;
-		text-decoration: none;
-		font-weight: bold;
-		transition: color 0.6s ease;
+// 	a {
+// 		display: inline-flex;
+// 		align-items: center;
+// 		margin-top: 2%;
+// 		color: white;
+// 		text-decoration: none;
+// 		font-weight: bold;
+// 		transition: color 0.6s ease;
 
-		&:hover {
-			color: #f0f0f0;
-		}
-	}
-	h3 {
-		font-size: 2rem;
-		margin-bottom: 2%;
-	}
-  p {
-    margin: 0.5rem;
-  }
+// 		&:hover {
+// 			color: #f0f0f0;
+// 		}
+// 	}
+// 	h3 {
+// 		font-size: 2rem;
+// 		margin-bottom: 2%;
+// 	}
+//   p {
+//     margin: 0.5rem;
+//   }
 
-	@media only screen and (max-width: 768px) {
-		opacity: 1;
-		inset: auto 0 -10rem 0;
-		transform: none;
-		width: auto;
-		height: auto;
-		background-color: rgba(0, 0, 0, 0.8);
-		border-radius: 0 0 5% 5%;
-	}
-  @media only screen and (max-width: 450px) {
-    inset: auto 0 -12rem 0;
-		text-align: center;
-  }
-`
+// 	@media only screen and (max-width: 768px) {
+// 		opacity: 1;
+// 		inset: auto 0 -10rem 0;
+// 		transform: none;
+// 		width: auto;
+// 		height: auto;
+// 		background-color: rgba(0, 0, 0, 0.8);
+// 		border-radius: 0 0 5% 5%;
+// 	}
+//   @media only screen and (max-width: 450px) {
+//     inset: auto 0 -12rem 0;
+// 		text-align: center;
+//   }
+// `
 
 // Données des Projets
 
@@ -360,17 +362,18 @@ const Portfolio = () => {
           >
             <PanelItem>
               <PanelImg 
+								loading="lazy"
                 className="panel-img"
                 src={projet.src}
                 alt={`Project ${index + 1}`}
                 ref={el => imagesRef.current[index] = el}
               />
-              <DetailsPanel>
-                <h3>{projet.title}</h3>
-                <p>{projet.description}</p>
-                <p>{projet.feat}</p>
-                <a href={projet.lien} target="_blank" rel="noopener noreferrer">Voir le projet</a>
-              </DetailsPanel>
+              <CardSpotlight
+                title={projet.title}
+                description={projet.description}
+                feat={projet.feat}
+                lien={projet.lien}
+              />
             </PanelItem>
           </Panel>
         ))}
