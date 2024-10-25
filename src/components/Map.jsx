@@ -44,6 +44,7 @@ const baseColors = [
   "#9c27b0",
   "#4b0082"
 ];
+
 const cityImages = {
   Paris: "./img/paris.jpg",
   Nice: "./img/nice.jpg",
@@ -53,6 +54,7 @@ const cityImages = {
 const Map = () => {
   const [isActive, setIsActive] = useState(false);
   const [hoveredCity, setHoveredCity] = useState(null);
+  const [isOverContact, setIsOverContact] = useState(false);
   const circles = useRef([]);
   const cursorSize = 40;
   const expandedCursorSize = cursorSize * 2;
@@ -60,6 +62,15 @@ const Map = () => {
   useEffect(() => {
     const moveCircles = (x, y) => {
       if (circles.current.length < 1) return;
+
+      // Vérifier si on est sur BoxContact
+      const element = document.elementFromPoint(x, y);
+      if (element?.closest('.box-contact')) {
+        setIsOverContact(true);
+      } else {
+        setIsOverContact(false);
+      }
+
       circles.current.forEach((circle, i) => {
         gsap.to(circle, {
           x: x - (hoveredCity ? expandedCursorSize : cursorSize) / 2,

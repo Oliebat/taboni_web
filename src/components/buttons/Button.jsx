@@ -19,7 +19,7 @@ const Button = styled.button`
   border-radius: 0.5rem;
   overflow: hidden;
   color: #fff;
-  transition: color 0.4s cubic-bezier(0.3, 1, 0.8, 1); 
+  transition: color 0.8s cubic-bezier(0.3, 1, 0.8, 1); 
 
   @media only screen and (max-width: 1350px) {
     width: 150px;
@@ -49,7 +49,7 @@ const Button = styled.button`
     width: 120%;
     left: -10%;
     transform: skew(30deg);
-    transition: transform 0.4s cubic-bezier(0.3, 1, 0.8, 1);
+    transition: transform 0.8s cubic-bezier(0.3, 1, 0.8, 1);
   }
 
   &:hover::before {
