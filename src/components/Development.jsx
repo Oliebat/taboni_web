@@ -3,7 +3,8 @@ import { OrbitControls } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
 import Atom from "./objects/Atom";
 import styled from "styled-components";
-import Desc from "./Desc";
+// import Desc from "./Desc";
+import CardSpotlight from "../components/objects/CardSpotlight";
 
 
 const Container = styled.div`
@@ -27,8 +28,15 @@ const Development = () => {
         </Suspense>
       </Canvas>
       <Container className="animate__animated animate__fadeIn">
-      <Desc frontText="Des solutions sur mesure pour répondre précisément à vos besoins spécifiques." 
-        backText="Taboni Web" />
+      <CardSpotlight
+        title="Développement"
+        description="Des solutions sur mesure pour répondre précisément à vos besoins spécifiques."
+        maxWidth="24rem"
+        textAlign="center"
+        titleSize="1.8rem"
+      />
+      {/* <Desc frontText="Des solutions sur mesure pour répondre précisément à vos besoins spécifiques." 
+        backText="Taboni Web" /> */}
       </Container>
     </>
   );

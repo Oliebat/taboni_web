@@ -3,8 +3,9 @@ import { Canvas } from "@react-three/fiber";
 import React, { Suspense } from "react";
 import styled from "styled-components";
 import Mac from "./objects/Mac";
-import Desc from "./Desc";
+// import Desc from "./Desc";
 import 'animate.css';
+import CardSpotlight from "../components/objects/CardSpotlight";
 
 const Container = styled.div`
   position: absolute;
@@ -31,9 +32,16 @@ const WebDesign = () => {
         </Suspense>
       </Canvas>
       <Container className="animate__animated animate__fadeIn animate__slow">
-      <Desc frontText="Distinguez-vous en ligne grâce à nos conceptions web uniques.
+      <CardSpotlight
+        title="Solutions Web"
+        description="Distinguez-vous en ligne grâce à nos conceptions web uniques. Site ou maintenance Wordpress, site sur mesure avec un framework JS, nous vous accompagnons dans votre projet."
+        maxWidth="24rem"
+        textAlign="center"
+        titleSize="1.8rem"
+      />
+      {/* <Desc frontText="Distinguez-vous en ligne grâce à nos conceptions web uniques.
       Site ou maintenance Wordpress, site sur mesure avec un framework JS, nous vous accompagnons dans votre projet." 
-        backText="Taboni Web" />
+        backText="Taboni Web" /> */}
       </Container>
     </>
   );

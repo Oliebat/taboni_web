@@ -1,6 +1,7 @@
 import React, { useRef, useState } from "react";
 import styled from "styled-components";
 
+// Tous les styled components restent exactement les mêmes
 const CardContainer = styled.div`
   position: relative;
   max-width: 20rem;
@@ -20,6 +21,14 @@ const CardContainer = styled.div`
 		bottom: -8rem;
 		left: 0;
   }
+
+  ${props => props.$isStatic && `
+    position: relative;
+    bottom: initial;
+		transform: translateY(-50%);
+    left: 40%;
+    max-width: ${props.$maxWidth || '20rem'};
+  `}
 `;
 
 const Spotlight = styled.div`
@@ -51,27 +60,38 @@ const CardTitle = styled.h3`
     font-size: 1.5rem;
     text-align: center;
   }
+
+  ${props => props.$textAlign && `
+    text-align: ${props.$textAlign};
+  `}
+  ${props => props.$fontSize && `
+    font-size: ${props.$fontSize};
+  `}
 `;
 
 const CardDescription = styled.p`
-  font-size: 0.875rem;
+  font-size: 1rem;
   color: #f0f0f0;
   margin: 0.5rem 0;
 
   @media only screen and (max-width: 768px) {
     text-align: center;
   }
+
+  ${props => props.$textAlign && `
+    text-align: ${props.$textAlign};
+  `}
 `;
 
 const CardLink = styled.a`
   color: #3b82f6;
   text-decoration: none;
   display: inline-block;
-	transition: opacity 0.6s ease;
+  transition: opacity 0.6s ease;
   
   &:hover {
     text-decoration: none;
-		opacity: 0.8;
+    opacity: 0.8;
   }
 
   @media only screen and (max-width: 768px) {
@@ -81,12 +101,23 @@ const CardLink = styled.a`
   }
 `;
 
-// Le reste du composant reste identique
-const CardSpotlight = ({ title, description, feat, lien }) => {
+const CardSpotlight = ({ 
+  title, 
+  description, 
+  feat, 
+  lien,
+  // Nouveaux props optionnels pour l'usage statique
+  maxWidth,
+  textAlign,
+  titleSize 
+}) => {
   const divRef = useRef(null);
   const [isFocused, setIsFocused] = useState(false);
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const [opacity, setOpacity] = useState(0);
+
+  // Détermine si c'est un usage statique
+  const isStatic = Boolean(maxWidth || textAlign);
 
   const handleMouseMove = (e) => {
     if (!divRef.current || isFocused) return;
@@ -123,6 +154,8 @@ const CardSpotlight = ({ title, description, feat, lien }) => {
       onBlur={handleBlur}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
+      $isStatic={isStatic}
+      $maxWidth={maxWidth}
     >
       <Spotlight
         style={{
@@ -133,12 +166,18 @@ const CardSpotlight = ({ title, description, feat, lien }) => {
       <IconWrapper>
         {/* If you have an icon library, you can use an icon here */}
       </IconWrapper>
-      <CardTitle>{title}</CardTitle>
-      <CardDescription>{description}</CardDescription>
-      {feat && <CardDescription>{feat}</CardDescription>}
-      <CardLink href={lien} target="_blank" rel="noopener noreferrer">
-        Voir le projet
-      </CardLink>
+      <CardTitle $textAlign={textAlign} $fontSize={titleSize}>
+        {title}
+      </CardTitle>
+      <CardDescription $textAlign={textAlign}>
+        {description}
+      </CardDescription>
+      {feat && <CardDescription $textAlign={textAlign}>{feat}</CardDescription>}
+      {lien && (
+        <CardLink href={lien} target="_blank" rel="noopener noreferrer">
+          Voir le projet
+        </CardLink>
+      )}
     </CardContainer>
   );
 };

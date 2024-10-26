@@ -3,8 +3,9 @@ import { OrbitControls, Stage } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
 import Padlock from "./objects/Padlock";
 import styled from "styled-components";
-import Desc from "./Desc";
+// import Desc from "./Desc";
 import 'animate.css';
+import CardSpotlight from "../components/objects/CardSpotlight";
 
 
 
@@ -36,8 +37,15 @@ const Securite = () => {
         </Suspense>
       </Canvas>
       <Container className="animate__animated animate__fadeIn animate__slow">
-        <Desc frontText="Protégez votre présence en ligne avec nos solutions de sécurité robustes." 
-          backText="Taboni Web" />
+      <CardSpotlight
+        title="Sécurité Robuste"
+        description="Protégez votre présence en ligne avec nos solutions de sécurité robustes."
+        maxWidth="24rem"
+        textAlign="center"
+        titleSize="1.8rem"
+      />
+        {/* <Desc frontText="Protégez votre présence en ligne avec nos solutions de sécurité robustes." 
+          backText="Taboni Web" /> */}
         </Container>
     </>
   );
