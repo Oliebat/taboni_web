@@ -183,38 +183,38 @@ const PanelImg = styled.img`
 
 const Projets = [
   {
-    src: "./img/cabnow.png",
+    src: "./img/cabnow.webp",
     title: "CabNow",
     description: "Site web de Chauffeur VTC avec réservation en ligne.",
     lien: "https://cabnowriviera.fr/"
   },
   {
-    src: "./img/mcb.png",
+    src: "./img/mcb.webp",
     title: "MCB - Photographie",
     description: "Site web de photographe professionnel.",
     lien: "https://mariecharlottebana.fr/"
   },
   {
-    src: "./img/lescarsrapides.png",
+    src: "./img/lescarsrapides.webp",
     title: "Les Cars Rapides",
     description: "Site web chauffeur VTC avec formulaire de contact.", 
     lien: "https://les-cars-rapides.fr/"
   },
   {
-    src: "./img/9juillet.png",
+    src: "./img/9juillet.webp",
     title: "Institut 9 Juillet",
     description: "Site web de l'institut de beauté 9 Juillet.",
     lien: "https://institut-neuf-juillet.fr/"
   },
   {
-    src: "./img/marclevy.png",
+    src: "./img/marclevy.webp",
     title: "Marc Levy",
     description: "Site web de l'auteur Marc Levy.",
     lien: "https://www.marclevy.com/",
     feat: "En collaboration avec Octevia"
   },
   {
-    src: "./img/sipourbox.png",
+    src: "./img/sipourbox.webp",
     title: "SipourBox",
     description: "Site web d'abonnement de livres.",
     lien: "https://www.sipourbox.com/",

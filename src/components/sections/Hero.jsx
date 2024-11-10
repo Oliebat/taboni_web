@@ -203,7 +203,7 @@ const Hero = ({ id }) => {
         <Left>
           <Title ref={title}>Solutions web & mobile sur-mesure</Title>
           <WhatWeDo ref={whatwedo}>
-            <Line src="./img/line.png" />
+            <Line src="./img/line.webp" />
             <Subtitle>Ce que nous faisons</Subtitle>
           </WhatWeDo>
           <Desc ref={desc}>
@@ -227,7 +227,7 @@ const Hero = ({ id }) => {
               </Sphere>
             </Suspense>
           </Canvas>
-          <Img src="./img/earth.png" />
+          <Img src="./img/earth.webp" />
         </Right>
       </Container>
     </Section>

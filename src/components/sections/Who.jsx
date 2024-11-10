@@ -156,7 +156,7 @@ const Who = ({ id }) => {
         <Right>
           <Title className="whoAnimatedItems">Dépassez les limites du cadre établi.</Title>
           <WhatWeDo className="whoAnimatedItems">
-            <Line src="./img/line.png" />
+            <Line src="./img/line.webp" />
             <Subtitle>
               Qu'est ce que Taboni Web ?
             </Subtitle>

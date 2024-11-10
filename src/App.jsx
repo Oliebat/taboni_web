@@ -18,7 +18,7 @@ const Container = styled.div`
   opacity: 0;
 
   color: white;
-  background: center/cover no-repeat url("./img/bg.jpeg");
+  background: center/cover no-repeat url("./img/bg.webp");
 
   
   scrollbar-width: none;

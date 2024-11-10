@@ -47,9 +47,9 @@ const baseColors = [
 ];
 
 const cityImages = {
-  Paris: "./img/paris.jpg",
-  Nice: "./img/nice.jpg",
-  Rouen: "./img/rouen.png"
+  Paris: "./img/paris.webp",
+  Nice: "./img/nice.webp",
+  Rouen: "./img/rouen.webp"
 };
 
 const Map = () => {
