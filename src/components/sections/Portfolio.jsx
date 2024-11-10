@@ -1,10 +1,10 @@
-import React, { useEffect, useRef } from "react";
-import styled from "styled-components";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import CardSpotlight from "../objects/CardSpotlight";
+import React, { useEffect, useRef } from 'react'
+import styled from 'styled-components'
+import { gsap } from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import CardSpotlight from '../objects/CardSpotlight'
 
-gsap.registerPlugin(ScrollTrigger);
+gsap.registerPlugin(ScrollTrigger)
 
 // Styled Components
 
@@ -92,9 +92,9 @@ const Panel = styled.div`
 			margin-bottom: 0;
 		}
 	}
-  @media only screen and (max-width: 640px) {
-    height: 11rem;
-  }
+	@media only screen and (max-width: 640px) {
+		height: 11rem;
+	}
 `
 
 const PanelItem = styled.div`
@@ -182,63 +182,62 @@ const PanelImg = styled.img`
 // Données des Projets
 
 const Projets = [
-  {
-    src: "./img/cabnow.webp",
-    title: "CabNow",
-    description: "Site web de Chauffeur VTC avec réservation en ligne.",
-    lien: "https://cabnowriviera.fr/"
-  },
-  {
-    src: "./img/mcb.webp",
-    title: "MCB - Photographie",
-    description: "Site web de photographe professionnel.",
-    lien: "https://mariecharlottebana.fr/"
-  },
-  {
-    src: "./img/lescarsrapides.webp",
-    title: "Les Cars Rapides",
-    description: "Site web chauffeur VTC avec formulaire de contact.", 
-    lien: "https://les-cars-rapides.fr/"
-  },
-  {
-    src: "./img/9juillet.webp",
-    title: "Institut 9 Juillet",
-    description: "Site web de l'institut de beauté 9 Juillet.",
-    lien: "https://institut-neuf-juillet.fr/"
-  },
-  {
-    src: "./img/marclevy.webp",
-    title: "Marc Levy",
-    description: "Site web de l'auteur Marc Levy.",
-    lien: "https://www.marclevy.com/",
-    feat: "En collaboration avec Octevia"
-  },
-  {
-    src: "./img/sipourbox.webp",
-    title: "SipourBox",
-    description: "Site web d'abonnement de livres.",
-    lien: "https://www.sipourbox.com/",
-    feat: "En collaboration avec Octevia"
-  }
-
-];
+	{
+		src: './img/cabnow.webp',
+		title: 'CabNow',
+		description: 'Site web de Chauffeur VTC avec réservation en ligne.',
+		lien: 'https://cabnowriviera.fr/',
+	},
+	{
+		src: './img/mcb.webp',
+		title: 'MCB - Photographie',
+		description: 'Site web de photographe professionnel.',
+		lien: 'https://mariecharlottebana.fr/',
+	},
+	{
+		src: './img/lescarsrapides.webp',
+		title: 'Les Cars Rapides',
+		description: 'Site web chauffeur VTC avec formulaire de contact.',
+		lien: 'https://les-cars-rapides.fr/',
+	},
+	{
+		src: './img/9juillet.webp',
+		title: 'Institut 9 Juillet',
+		description: "Site web de l'institut de beauté 9 Juillet.",
+		lien: 'https://institut-neuf-juillet.fr/',
+	},
+	{
+		src: './img/marclevy.webp',
+		title: 'Marc Levy',
+		description: "Site web de l'auteur Marc Levy.",
+		lien: 'https://www.marclevy.com/',
+		feat: 'En collaboration avec Octevia',
+	},
+	{
+		src: './img/sipourbox.webp',
+		title: 'SipourBox',
+		description: "Site web d'abonnement de livres.",
+		lien: 'https://www.sipourbox.com/',
+		feat: 'En collaboration avec Octevia',
+	},
+]
 
 // Composant Portfolio
 
 const Portfolio = () => {
-  const sectionRef = useRef(null);
-  const titleRef = useRef(null);
-  const panelsRef = useRef([]);
-  const imagesRef = useRef([]);
+	const sectionRef = useRef(null)
+	const titleRef = useRef(null)
+	const panelsRef = useRef([])
+	const imagesRef = useRef([])
 
-  useEffect(() => {
-    const section = sectionRef.current;
-    const title = titleRef.current;
-    const panels = panelsRef.current;
-    const images = imagesRef.current;
-    const isMobile = window.innerWidth <= 768;
+	useEffect(() => {
+		const section = sectionRef.current
+		const title = titleRef.current
+		const panels = panelsRef.current
+		const images = imagesRef.current
+		const isMobile = window.innerWidth <= 768
 
-    if (isMobile) {
+		if (isMobile) {
 			panels.forEach((panel) => {
 				const direction = panel.classList.contains('right') ? 100 : -100
 
@@ -343,45 +342,48 @@ const Portfolio = () => {
 			})
 		}
 
-    return () => {
-      ScrollTrigger.getAll().forEach(t => t.kill());
-    };
-  }, []);
+		return () => {
+			ScrollTrigger.getAll().forEach((t) => t.kill())
+		}
+	}, [])
 
-  return (
-    <PortfolioSection ref={sectionRef} className="portfolio" id="portfolio">
-      <PortfolioTitle ref={titleRef} className="portfolio_title text-stroke parallax">
-        Projets
-      </PortfolioTitle>
-      <PanelsContainer className="panels-container">
-        {Projets.map((projet, index) => (
-          <Panel 
-            key={index} 
-            className={`panel ${index % 2 !== 0 ? 'right' : 'left'}`} 
-            ref={el => panelsRef.current[index] = el}
-          >
-            <PanelItem>
-              <PanelImg 
-								loading="lazy"
-                className="panel-img"
-                src={projet.src}
-                alt={`Project ${index + 1}`}
-                ref={el => imagesRef.current[index] = el}
-              />
-              <CardSpotlight
-                title={projet.title}
-                description={projet.description}
-                feat={projet.feat}
-                lien={projet.lien}
-              />
-            </PanelItem>
-          </Panel>
-        ))}
-      </PanelsContainer>
-    </PortfolioSection>
-  );
-};
+	return (
+		<PortfolioSection ref={sectionRef} className='portfolio' id='portfolio'>
+			<PortfolioTitle
+				ref={titleRef}
+				className='portfolio_title text-stroke parallax'
+			>
+				Projets
+			</PortfolioTitle>
+			<PanelsContainer className='panels-container'>
+				{Projets.map((projet, index) => (
+					<Panel
+						key={index}
+						className={`panel ${
+							index % 2 !== 0 ? 'right' : 'left'
+						}`}
+						ref={(el) => (panelsRef.current[index] = el)}
+					>
+						<PanelItem>
+							<PanelImg
+								loading='lazy'
+								className='panel-img'
+								src={projet.src}
+								alt={`Project ${index + 1}`}
+								ref={(el) => (imagesRef.current[index] = el)}
+							/>
+							<CardSpotlight
+								title={projet.title}
+								description={projet.description}
+								feat={projet.feat}
+								lien={projet.lien}
+							/>
+						</PanelItem>
+					</Panel>
+				))}
+			</PanelsContainer>
+		</PortfolioSection>
+	)
+}
 
-export default Portfolio;
-
-
+export default Portfolio

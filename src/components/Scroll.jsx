@@ -5,48 +5,48 @@ import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger'
 
 if (typeof window !== 'undefined') {
-  // reset scroll position
-  window.scrollTo(0, 0)
-  window.history.scrollRestoration = 'manual'
+	// reset scroll position
+	window.scrollTo(0, 0)
+	window.history.scrollRestoration = 'manual'
 
-  gsap.defaults({ ease: 'none' })
-  gsap.registerPlugin(ScrollTrigger)
-  ScrollTrigger.clearScrollMemory('manual')
+	gsap.defaults({ ease: 'none' })
+	gsap.registerPlugin(ScrollTrigger)
+	ScrollTrigger.clearScrollMemory('manual')
 
-  // merge rafs
-  gsap.ticker.lagSmoothing(0)
-  gsap.ticker.remove(gsap.updateRoot)
-  Tempus?.add((time) => {
-    gsap.updateRoot(time / 1000)
-  }, 0)
+	// merge rafs
+	gsap.ticker.lagSmoothing(0)
+	gsap.ticker.remove(gsap.updateRoot)
+	Tempus?.add((time) => {
+		gsap.updateRoot(time / 1000)
+	}, 0)
 }
 
 export default function Scroll({ children }) {
-  const lenis = useLenis(ScrollTrigger.update)
+	const lenis = useLenis(ScrollTrigger.update)
 
-  // useEffect(() => {
-  //   ScrollTrigger.refresh()
+	// useEffect(() => {
+	//   ScrollTrigger.refresh()
 
-  //   const onHashChangeStart = (url) => {
-  //     url = '#' + url.split('#').pop()
-  //     lenis.scrollTo(url)
-  //   }
+	//   const onHashChangeStart = (url) => {
+	//     url = '#' + url.split('#').pop()
+	//     lenis.scrollTo(url)
+	//   }
 
-  //   Router.events.on('hashChangeStart', onHashChangeStart)
+	//   Router.events.on('hashChangeStart', onHashChangeStart)
 
-  //   return () => {
-  //     Router.events.off('hashChangeStart', onHashChangeStart)
-  //   }
-  // }, [lenis])
+	//   return () => {
+	//     Router.events.off('hashChangeStart', onHashChangeStart)
+	//   }
+	// }, [lenis])
 
-  return (
-    <ReactLenis
-      root
-      options={{
-        lerp: 0.1,
-      }}
-    >
-      {children}
-    </ReactLenis>
-  )
+	return (
+		<ReactLenis
+			root
+			options={{
+				lerp: 0.1,
+			}}
+		>
+			{children}
+		</ReactLenis>
+	)
 }

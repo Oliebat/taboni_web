@@ -1,23 +1,23 @@
 html.lenis {
-    height: auto;
-  }
-  
-  .lenis.lenis-smooth {
-    scroll-behavior: auto;
-  }
-  
-  .lenis.lenis-smooth [data-lenis-prevent] {
-    overscroll-behavior: contain;
-  }
-  
-  .lenis.lenis-stopped {
-    overflow: hidden;
-  }
-  
-  .lenis.lenis-scrolling iframe {
-    pointer-events: none;
-  }
+	height: auto;
+}
 
-  .react-cookienotice-root {
-    z-index: 9999;
-  }
+.lenis.lenis-smooth {
+	scroll-behavior: auto;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+	overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+	overflow: hidden;
+}
+
+.lenis.lenis-scrolling iframe {
+	pointer-events: none;
+}
+
+.react-cookienotice-root {
+	z-index: 9999;
+}
