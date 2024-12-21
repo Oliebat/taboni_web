@@ -5,7 +5,7 @@ import Map from '../Map'
 import Button from '../buttons/Button'
 import UpButton from '../buttons/UpButton'
 import { FaGithub, FaLinkedin } from 'react-icons/fa'
-import { Box } from '@react-three/drei'
+// import { Box } from '@react-three/drei'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger'
 
