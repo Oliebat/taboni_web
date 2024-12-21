@@ -4,7 +4,6 @@ import styled, { css, keyframes } from 'styled-components'
 import Map from '../Map'
 import Button from '../buttons/Button'
 import UpButton from '../buttons/UpButton'
-// import { Turnstile } from '@marsidev/react-turnstile'
 import { FaGithub, FaLinkedin } from 'react-icons/fa'
 import { Box } from '@react-three/drei'
 import { gsap } from 'gsap'
@@ -83,11 +82,21 @@ const Right = styled.div`
 		display: none;
 	}
 `
+
 const UpButtonWrapper = styled.div`
 	position: absolute;
 	bottom: 0;
 	right: 0;
 	z-index: 2;
+`
+
+const fadeOut = keyframes`
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
 `
 
 const ModalBackground = styled.div`
@@ -96,24 +105,33 @@ const ModalBackground = styled.div`
 	left: 0;
 	width: 100%;
 	height: 100%;
-	background: rgba(0, 0, 0, 0.5); // Semi-transparent background
+	background: rgba(0, 0, 0, 0.5);
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	visibility: ${({ showModal }) => (showModal ? 'visible' : 'hidden')};
-	animation: ${({ animatingOut }) => (animatingOut ? tvOffEffect : fadeIn)}
-		0.3s forwards;
+	opacity: 0;
+	pointer-events: none;
+	transition: opacity 0.3s ease-in-out;
+	z-index: 1000;
+
+	${({ showModal }) =>
+		showModal &&
+		css`
+			opacity: 1;
+			pointer-events: all;
+		`}
 `
 
 const ModalContent = styled.div`
 	width: 80%;
 	max-width: 800px;
-	background: rgba(255, 255, 255, 0.1); // Glassmorphism effect
-	backdrop-filter: blur(10px); // Making the background blurred
+	background: rgba(255, 255, 255, 0.1);
+	backdrop-filter: blur(10px);
 	border-radius: 10px;
 	padding: 20px;
 	position: relative;
 	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+	color: white;
 `
 
 const CloseButton = styled.span`
@@ -155,6 +173,7 @@ const BoxContact = styled.div`
 	a:hover {
 		color: #cccccc;
 	}
+
 	@media only screen and (max-width: 768px) {
 		bottom: 4%;
 		display: block;
@@ -163,9 +182,6 @@ const BoxContact = styled.div`
 		height: 25px;
 	}
 `
-
-const githubUrl = 'https://github.com/Oliebat'
-const linkedinUrl = 'https://www.linkedin.com/in/cyril-bationo-690721121'
 
 const Footer = styled.footer`
 	position: absolute;
@@ -180,47 +196,13 @@ const Footer = styled.footer`
 	color: white;
 	font-weight: 500;
 	font-size: 14px;
+
 	@media only screen and (max-width: 768px) {
 		display: block;
 		font-size: 10px;
 		text-align: center;
 		height: 25px;
 	}
-`
-
-const currentYear = new Date().getFullYear()
-
-const fadeIn = keyframes`
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-`
-
-const fadeOut = keyframes`
-  from {
-    opacity: 1;
-  }
-  to {
-    opacity: 0;
-  }
-`
-
-const tvOffEffect = keyframes`
-  0% {
-    transform: scaleY(1);
-    opacity: 1;
-  }
-  80% {
-    transform: scaleY(0.05);
-    opacity: 1;
-  }
-  100% {
-    transform: scaleY(0);
-    opacity: 0;
-  }
 `
 
 const SuccessMessage = styled.div`
@@ -230,6 +212,10 @@ const SuccessMessage = styled.div`
 			animation: ${fadeOut} 2s forwards;
 		`}
 `
+
+const githubUrl = 'https://github.com/Oliebat'
+const linkedinUrl = 'https://www.linkedin.com/in/cyril-bationo-690721121'
+const currentYear = new Date().getFullYear()
 
 const scrollToSection = (id) => {
 	const element = document.getElementById(id)
@@ -242,12 +228,11 @@ const scrollToSection = (id) => {
 
 const Contact = ({ id }) => {
 	const formRef = useRef(null)
-	const modalRef = useRef(null)
 	const [success, setSuccess] = useState(false)
 	const [errorMessage, setErrorMessage] = useState(null)
 	const [startFadeOut, setStartFadeOut] = useState(false)
 	const [showModal, setShowModal] = useState(false)
-	const [animatingOut, setAnimatingOut] = useState(false)
+
 	const APP_SERVICE_ID = import.meta.env.VITE_REACT_APP_SERVICE_ID
 	const APP_TEMPLATE_ID = import.meta.env.VITE_REACT_APP_TEMPLATE_ID
 	const APP_PUBLIC_KEY = import.meta.env.VITE_REACT_APP_PUBLIC_KEY
@@ -262,59 +247,10 @@ const Contact = ({ id }) => {
 	const inputEmail = useRef(null)
 	const inputMessage = useRef(null)
 
-	// const elements = useRef([]);
-
 	useEffect(() => {
-		// elements.current.push(formRef.current, map.current, boxContact.current, right.current, footer.current)
-		// console.log(map?.current)
-
-		// elements.current.forEach((element) => {
-		//   const tl = gsap.timeline({
-		//     defaults: {
-		//       ease: 'sine.out',
-		//       duration: 1.2
-		//     },
-		//     scrollTrigger: {
-		//       trigger: elements.current,
-		//       start: 'top bottom',
-		//       end: '80% bottom',
-		//       scrub: 2,
-		//     },
-		//   });
-
-		//   tl.fromTo(
-		//     formRef.current,
-		//     { x: -20, opacity: 0 },
-		//     { x: 0, opacity: 1, stagger: 0.2 }, 1
-		//   );
-		//   tl.fromTo(
-		//     map.current,
-		//     { x: -20, opacity: 0 },
-		//     { x: 0, opacity: 1, stagger: 0.2 }, 2
-		//   );
-		//   tl.fromTo(
-		//     boxContact.current,
-		//     { x: -20, opacity: 0 },
-		//     { x: 0, opacity: 1, stagger: 0.2 }, 3
-		//   );
-		//   tl.fromTo(
-		//     right.current,
-		//     { x: -20, opacity: 0 },
-		//     { x: 0, opacity: 1, stagger: 0.2 }, 4
-		//   );
-		//   tl.fromTo(
-		//     footer.current,
-		//     { x: -20, opacity: 0 },
-		//     { x: 0, opacity: 1, stagger: 0.2 }, 5
-		//   );
-
-		// })
-
 		gsap.fromTo(
 			right.current,
-			{
-				opacity: 0,
-			},
+			{ opacity: 0 },
 			{
 				opacity: 1,
 				ease: 'power4.out',
@@ -329,9 +265,7 @@ const Contact = ({ id }) => {
 
 		gsap.fromTo(
 			formRef.current,
-			{
-				opacity: 0,
-			},
+			{ opacity: 0 },
 			{
 				opacity: 1,
 				ease: 'power4.out',
@@ -346,10 +280,7 @@ const Contact = ({ id }) => {
 
 		gsap.fromTo(
 			inputName.current,
-			{
-				y: 20,
-				opacity: 0,
-			},
+			{ y: 20, opacity: 0 },
 			{
 				y: 0,
 				opacity: 1,
@@ -365,10 +296,7 @@ const Contact = ({ id }) => {
 
 		gsap.fromTo(
 			inputEmail.current,
-			{
-				y: 20,
-				opacity: 0,
-			},
+			{ y: 20, opacity: 0 },
 			{
 				y: 0,
 				opacity: 1,
@@ -384,10 +312,7 @@ const Contact = ({ id }) => {
 
 		gsap.fromTo(
 			inputMessage.current,
-			{
-				y: 20,
-				opacity: 0,
-			},
+			{ y: 20, opacity: 0 },
 			{
 				y: 0,
 				opacity: 1,
@@ -403,10 +328,7 @@ const Contact = ({ id }) => {
 
 		gsap.fromTo(
 			buttonForm.current,
-			{
-				y: 20,
-				opacity: 0,
-			},
+			{ y: 20, opacity: 0 },
 			{
 				y: 0,
 				opacity: 1,
@@ -422,10 +344,7 @@ const Contact = ({ id }) => {
 
 		gsap.fromTo(
 			titleForm.current,
-			{
-				x: -20,
-				opacity: 0,
-			},
+			{ x: -20, opacity: 0 },
 			{
 				x: 0,
 				opacity: 1,
@@ -441,10 +360,7 @@ const Contact = ({ id }) => {
 
 		gsap.fromTo(
 			boxContact.current,
-			{
-				y: 20,
-				opacity: 0,
-			},
+			{ y: 20, opacity: 0 },
 			{
 				y: 0,
 				opacity: 1,
@@ -460,10 +376,7 @@ const Contact = ({ id }) => {
 
 		gsap.fromTo(
 			footer.current,
-			{
-				y: 20,
-				opacity: 0,
-			},
+			{ y: 20, opacity: 0 },
 			{
 				y: 0,
 				opacity: 1,
@@ -476,37 +389,14 @@ const Contact = ({ id }) => {
 				},
 			}
 		)
-	})
-
-	useEffect(() => {
-		if (animatingOut && modalRef.current) {
-			const handleAnimationEnd = () => {
-				setShowModal(false)
-				setAnimatingOut(false)
-			}
-
-			modalRef.current.addEventListener(
-				'animationend',
-				handleAnimationEnd
-			)
-
-			return () => {
-				if (modalRef.current) {
-					modalRef.current.removeEventListener(
-						'animationend',
-						handleAnimationEnd
-					)
-				}
-			}
-		}
-	}, [animatingOut])
+	}, [])
 
 	const handleModalOpen = () => {
 		setShowModal(true)
 	}
 
 	const handleModalClose = () => {
-		setAnimatingOut(true)
+		setShowModal(false)
 	}
 
 	const handleSubmit = (e) => {
@@ -571,7 +461,6 @@ const Contact = ({ id }) => {
 							rows={10}
 							required
 						/>
-						{/* <Turnstile siteKey='0x4AAAAAAAM0j9-Umz6Vic_K' /> */}
 						<Button
 							ref={buttonForm}
 							$customWidth='100%'
@@ -622,83 +511,73 @@ const Contact = ({ id }) => {
 						marginLeft: '2px',
 					}}
 				>
-					{' '}
 					Mentions légales
 				</span>
 				.
 			</Footer>
 
-			{showModal && (
-				<ModalBackground
-					ref={modalRef}
-					showModal={showModal}
-					animatingOut={animatingOut}
-					onClick={handleModalClose}
-				>
-					<ModalContent onClick={(e) => e.stopPropagation()}>
-						<CloseButton onClick={handleModalClose}>✖</CloseButton>
-						<section>
-							<h2>Edition du site</h2>
-							<p>
-								Le présent site, accessible à l’URL{' '}
-								<LegalLink
-									href='https://taboniweb.com'
-									target='_blank'
-									rel='noopener noreferrer'
-								>
-									taboniweb.com
-								</LegalLink>{' '}
-								(le « Site »), est édité par :
-							</p>
-							<p>
-								Cyril Bationo, résidant à NICE, de nationalité
-								Française (France).
-							</p>
-						</section>
+			<ModalBackground showModal={showModal} onClick={handleModalClose}>
+				<ModalContent onClick={(e) => e.stopPropagation()}>
+					<CloseButton onClick={handleModalClose}>✖</CloseButton>
+					<section>
+						<h2>Edition du site</h2>
+						<p>
+							Le présent site, accessible à l'URL{' '}
+							<LegalLink
+								href='https://taboniweb.com'
+								target='_blank'
+								rel='noopener noreferrer'
+							>
+								taboniweb.com
+							</LegalLink>{' '}
+							(le « Site »), est édité par :
+						</p>
+						<p>
+							Cyril Bationo, résidant à NICE, de nationalité
+							Française (France).
+						</p>
+					</section>
 
-						<section>
-							<h2>Hébergement</h2>
-							<p>
-								Le Site est hébergé par la société OVH SAS,
-								située 2 rue Kellermann - BP 80157 - 59053
-								Roubaix Cedex 1, (contact téléphonique ou email
-								: 1007).
-							</p>
-						</section>
+					<section>
+						<h2>Hébergement</h2>
+						<p>
+							Le Site est hébergé par la société OVH SAS, située 2
+							rue Kellermann - BP 80157 - 59053 Roubaix Cedex 1,
+							(contact téléphonique ou email : 1007).
+						</p>
+					</section>
 
-						<section>
-							<h2>Directeur de publication</h2>
-							<p>
-								Le Directeur de la publication du Site est Cyril
-								Bationo.
-							</p>
-						</section>
+					<section>
+						<h2>Directeur de publication</h2>
+						<p>
+							Le Directeur de la publication du Site est Cyril
+							Bationo.
+						</p>
+					</section>
 
-						<section>
-							<h2>Nous contacter</h2>
-							<p>
-								Par email :{' '}
-								<LegalLink href='mailto:contact@taboniweb.com'>
-									contact@taboniweb.com
-								</LegalLink>
-							</p>
-						</section>
+					<section>
+						<h2>Nous contacter</h2>
+						<p>
+							Par email :{' '}
+							<LegalLink href='mailto:contact@taboniweb.com'>
+								contact@taboniweb.com
+							</LegalLink>
+						</p>
+					</section>
 
-						<section>
-							<h2>Données personnelles</h2>
-							<p>
-								Le traitement de vos données à caractère
-								personnel est régi par notre Charte du respect
-								de la vie privée, disponible depuis la section
-								"Charte de Protection des Données Personnelles",
-								conformément au Règlement Général sur la
-								Protection des Données 2016/679 du 27 avril 2016
-								(« RGPD »).
-							</p>
-						</section>
-					</ModalContent>
-				</ModalBackground>
-			)}
+					<section>
+						<h2>Données personnelles</h2>
+						<p>
+							Le traitement de vos données à caractère personnel
+							est régi par notre Charte du respect de la vie
+							privée, disponible depuis la section "Charte de
+							Protection des Données Personnelles", conformément
+							au Règlement Général sur la Protection des Données
+							2016/679 du 27 avril 2016 (« RGPD »).
+						</p>
+					</section>
+				</ModalContent>
+			</ModalBackground>
 		</Section>
 	)
 }
