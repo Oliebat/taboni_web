@@ -100,26 +100,26 @@ const fadeOut = keyframes`
 `
 
 const ModalBackground = styled.div`
-	position: fixed;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	background: rgba(0, 0, 0, 0.5);
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	opacity: 0;
-	pointer-events: none;
-	transition: opacity 0.3s ease-in-out;
-	z-index: 1000;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease-in-out;
+  z-index: 1000;
 
-	${({ showModal }) =>
-		showModal &&
-		css`
-			opacity: 1;
-			pointer-events: all;
-		`}
+  ${props =>
+    props.$isOpen &&
+    css`
+      opacity: 1;
+      pointer-events: all;
+    `}
 `
 
 const ModalContent = styled.div`
@@ -516,7 +516,7 @@ const Contact = ({ id }) => {
 				.
 			</Footer>
 
-			<ModalBackground showModal={showModal} onClick={handleModalClose}>
+			<ModalBackground $isOpen={showModal} onClick={handleModalClose}>
 				<ModalContent onClick={(e) => e.stopPropagation()}>
 					<CloseButton onClick={handleModalClose}>✖</CloseButton>
 					<section>
