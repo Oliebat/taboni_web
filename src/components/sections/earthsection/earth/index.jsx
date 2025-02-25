@@ -4,7 +4,7 @@ import { TextureLoader } from 'three/src/loaders/TextureLoader';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
-
+// Enregistrer le plugin ScrollTrigger
 gsap.registerPlugin(ScrollTrigger);
 
 const EarthMesh = ({ scrollRef }) => {
