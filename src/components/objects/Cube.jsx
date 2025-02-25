@@ -6,7 +6,7 @@ const Cube = () => {
 	const textRef = useRef()
 	useFrame(
 		(state) =>
-			(textRef.current.position.x = Math.sin(state.clock.elapsedTime) * 6)
+			(textRef.current.position.x = Math.sin(state.clock.elapsedTime) * 2)
 	)
 	return (
 		<mesh>

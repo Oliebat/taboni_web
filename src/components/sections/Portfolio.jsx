@@ -126,59 +126,6 @@ const PanelImg = styled.img`
 	}
 `
 
-// const DetailsPanel = styled.div`
-// 	display: flex;
-// 	flex-direction: column;
-// 	justify-content: center;
-// 	align-items: center;
-// 	padding: 2rem;
-// 	background-color: rgba(0, 0, 0, 0.7);
-// 	color: white;
-// 	position: absolute;
-// 	top: 65%;
-// 	left: 95%;
-// 	transform: translateX(-50%);
-// 	width: 50%;
-// 	height: 25%;
-// 	transition: opacity 0.8s ease;
-// 	border-radius: 5%;
-
-// 	a {
-// 		display: inline-flex;
-// 		align-items: center;
-// 		margin-top: 2%;
-// 		color: white;
-// 		text-decoration: none;
-// 		font-weight: bold;
-// 		transition: color 0.6s ease;
-
-// 		&:hover {
-// 			color: #f0f0f0;
-// 		}
-// 	}
-// 	h3 {
-// 		font-size: 2rem;
-// 		margin-bottom: 2%;
-// 	}
-//   p {
-//     margin: 0.5rem;
-//   }
-
-// 	@media only screen and (max-width: 768px) {
-// 		opacity: 1;
-// 		inset: auto 0 -10rem 0;
-// 		transform: none;
-// 		width: auto;
-// 		height: auto;
-// 		background-color: rgba(0, 0, 0, 0.8);
-// 		border-radius: 0 0 5% 5%;
-// 	}
-//   @media only screen and (max-width: 450px) {
-//     inset: auto 0 -12rem 0;
-// 		text-align: center;
-//   }
-// `
-
 // Données des Projets
 
 const Projets = [
@@ -195,12 +142,6 @@ const Projets = [
 		lien: 'https://mariecharlottebana.fr/',
 	},
 	{
-		src: './img/lescarsrapides.webp',
-		title: 'Les Cars Rapides',
-		description: 'Site web chauffeur VTC avec formulaire de contact.',
-		lien: 'https://les-cars-rapides.fr/',
-	},
-	{
 		src: './img/9juillet.webp',
 		title: 'Institut 9 Juillet',
 		description: "Site web de l'institut de beauté 9 Juillet.",
@@ -211,13 +152,6 @@ const Projets = [
 		title: 'Marc Levy',
 		description: "Site web de l'auteur Marc Levy.",
 		lien: 'https://www.marclevy.com/',
-		feat: 'En collaboration avec Octevia',
-	},
-	{
-		src: './img/sipourbox.webp',
-		title: 'SipourBox',
-		description: "Site web d'abonnement de livres.",
-		lien: 'https://www.sipourbox.com/',
 		feat: 'En collaboration avec Octevia',
 	},
 ]
@@ -253,7 +187,7 @@ const Portfolio = () => {
 						trigger: panel,
 						start: 'top bottom',
 						end: 'bottom 90%',
-						scrub: 1,
+						scrub: 0.5,
 					},
 				})
 			})
@@ -273,7 +207,7 @@ const Portfolio = () => {
 				scrollTrigger: {
 					trigger: section,
 					pin: true,
-					scrub: 1,
+					scrub: 0.5,
 					start: 'top top',
 					end: () => `+=${totalWidth - window.innerWidth}`,
 					// markers: false,
@@ -295,7 +229,7 @@ const Portfolio = () => {
 
 			tl.to(title, { x: 2000 }).to(
 				panelsContainer,
-				{ x: () => -(totalWidth - window.innerWidth) },
+				{ x: () => -(totalWidth) },
 				0
 			)
 

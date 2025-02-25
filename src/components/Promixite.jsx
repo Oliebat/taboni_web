@@ -27,7 +27,8 @@ const Proximite = () => {
 			>
 				<Suspense fallback={null}>
 					<Stage environment='city' intensity={0.3}>
-						<Handshake scale={[0.05, 0.05, 0.05]} />
+					<Handshake scale={[0.02, 0.02, 0.02]} />
+
 					</Stage>
 					<OrbitControls enableZoom={false} autoRotate />
 				</Suspense>
