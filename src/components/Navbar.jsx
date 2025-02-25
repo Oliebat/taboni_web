@@ -211,7 +211,7 @@ const Navbar = () => {
 						<ListItem onClick={() => scrollToSection('studio')}>
 							Studio
 						</ListItem>
-						<ListItem onClick={() => scrollToSection('works')}>
+						<ListItem onClick={() => scrollToSection('value')}>
 							Compétences
 						</ListItem>
 						<ListItem onClick={() => scrollToSection('portfolio')}>

@@ -3,14 +3,13 @@ import styled from 'styled-components'
 import Contact from './components/sections/Contact'
 import Hero from './components/sections/Hero'
 import Who from './components/sections/Who'
-import Works from './components/sections/Works'
 import Portfolio from './components/sections/Portfolio'
 import Scroll from './components/Scroll'
 import './styles/scroll.css'
 import CookieBanner from './cookies/CookieNotice'
 import gsap from 'gsap'
 import Navbar from './components/Navbar'
-import { ModelsProvider, useModelsLoaded } from './context/ModelContext'
+import Value from './components/sections/Value'
 
 const Container = styled.div`
   min-height: 100vh;
@@ -26,17 +25,14 @@ const Container = styled.div`
   }
 `
 
-// Optionnel : si vous souhaitez afficher un loader pendant le préchargement
-function AppContent() {
+function App() {
   const ref = useRef(null)
-
 
   useEffect(() => {
     if (ref.current) {
       gsap.to(ref.current, { opacity: 1, duration: 1, ease: 'sine.out' })
     }
   }, [])
-
 
   return (
     <Scroll>
@@ -45,21 +41,13 @@ function AppContent() {
         <main>
           <Hero id='home' />
           <Who id='studio' />
-          <Works id='works' />
+          <Value id='value' />
           <Portfolio id='portfolio' />
           <Contact id='contact' />
         </main>
       </Container>
       <CookieBanner />
     </Scroll>
-  )
-}
-
-function App() {
-  return (
-    <ModelsProvider>
-      <AppContent />
-    </ModelsProvider>
   )
 }
 
