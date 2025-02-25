@@ -4,22 +4,22 @@ import { TextureLoader } from 'three/src/loaders/TextureLoader';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
-// Enregistrer le plugin ScrollTrigger
 gsap.registerPlugin(ScrollTrigger);
 
-const EarthMesh = ({ scrollRef }) => {
+const EarthMesh = ({ velocityRef }) => {
   const meshRef = useRef(null);
-  
   const [color, normal, aoMap] = useLoader(TextureLoader, [
     './img/color.jpg',
     './img/normal.png',
     './img/occlusion.jpg'
   ]);
 
-  
-  useFrame(() => {
-    if (meshRef.current && scrollRef.current) {
-      meshRef.current.rotation.y = scrollRef.current.progress;
+  useFrame((state, delta) => {
+    if (meshRef.current) {
+      // On ajoute la vitesse actuelle à la rotation
+      meshRef.current.rotation.y += velocityRef.current;
+      // On applique un frottement pour ralentir progressivement (0.9 = 10% de perte à chaque frame)
+      velocityRef.current *= 0.9;
     }
   });
 
@@ -37,8 +37,8 @@ const EarthMesh = ({ scrollRef }) => {
 
 const Earth = () => {
   const containerRef = useRef(null);
-  const scrollRef = useRef({ progress: 0 });
-  const canvasRef = useRef(null);
+  const velocityRef = useRef(0);
+  const lastProgressRef = useRef(0);
 
   useEffect(() => {
     const scrollTrigger = ScrollTrigger.create({
@@ -47,7 +47,10 @@ const Earth = () => {
       end: 'bottom top',
       scrub: true,
       onUpdate: (self) => {
-        scrollRef.current.progress = self.progress;
+        const newProgress = self.progress;
+        const delta = newProgress - lastProgressRef.current;
+        lastProgressRef.current = newProgress;
+        velocityRef.current += delta * 0.2;
       }
     });
 
@@ -61,8 +64,8 @@ const Earth = () => {
       ref={containerRef} 
       style={{ width: '100%', height: '100vh', position: 'absolute', top: 0, left: 0, zIndex: 0 }}
     >
-      <Canvas ref={canvasRef}>
-        <EarthMesh scrollRef={scrollRef} />
+      <Canvas>
+        <EarthMesh velocityRef={velocityRef} />
       </Canvas>
     </div>
   );
