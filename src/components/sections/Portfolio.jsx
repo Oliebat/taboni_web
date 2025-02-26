@@ -234,45 +234,25 @@ const Portfolio = () => {
 			)
 
 			images.forEach((img, index) => {
-				// Animation spéciale pour la première image
-				if (index === 0) {
-					gsap.fromTo(
-						img,
-						{ opacity: 0, x: '-200%', scale: 1 },
-						{
-							opacity: 1,
-							x: '0%',
-							duration: 3,
-							ease: 'power2.out',
-							scrollTrigger: {
-								trigger: img,
-								start: 'top bottom',
-								end: 'center center',
-								scrub: true,
-							},
-						}
-					)
-				} else {
-					gsap.fromTo(
-						img,
-						{ opacity: 0, scale: 2, x: 0 },
-						{
-							opacity: 1,
-							scale: 1,
-							x: 0,
-							duration: 1.4,
-							ease: 'power2.out',
-							scrollTrigger: {
-								trigger: img,
-								start: 'left center',
-								end: 'right center',
-								containerAnimation: tl,
-								scrub: true,
-								// markers: true,
-							},
-						}
-					)
-				}
+				gsap.fromTo(
+					img,
+					{ opacity: 0, scale: 2, x: 0 },
+					{
+						opacity: 1,
+						scale: 1,
+						x: 0,
+						duration: 1.4,
+						ease: 'power2.out',
+						scrollTrigger: {
+							trigger: img,
+							start: 'left center',
+							end: 'right center',
+							containerAnimation: tl,
+							scrub: true,
+							// markers: true,
+						},
+					}
+				)
 			})
 		}
 

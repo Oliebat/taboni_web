@@ -9,7 +9,8 @@ const Earth = lazy(() => import('./earthsection/earth/index'));
 
 
 const Section = styled.section`
-  margin-top: 15rem;
+  margin-top: 20rem;
+  margin-bottom: 20rem;
   position: relative;
   width: 100%;
   height: 100vh;
