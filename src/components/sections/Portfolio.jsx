@@ -19,7 +19,7 @@ const PortfolioSection = styled.section`
 
 	@media only screen and (max-width: 768px) {
 		width: auto;
-		height: auto;
+		height: 200vh;
 		overflow: visible;
 		flex-direction: column;
 		padding: 0 2rem;
@@ -63,7 +63,8 @@ const PanelsContainer = styled.div`
 	@media only screen and (max-width: 768px) {
 		flex-direction: column;
 		width: 100%;
-		height: auto;
+		height: 100%;
+		overflow: hidden;
 	}
 `
 
