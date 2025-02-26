@@ -16,9 +16,8 @@ const Section = styled.section`
   overflow: hidden;
 
   @media (max-width: 768px) {
-    margin-bottom: 20rem;
     height: auto;
-    min-height: 140vh;
+    min-height: 180vh;
   }
 `;
 
