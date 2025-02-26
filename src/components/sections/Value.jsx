@@ -9,6 +9,7 @@ const Earth = lazy(() => import('./earthsection/earth/index'));
 
 
 const Section = styled.section`
+  margin-top: 15rem;
   position: relative;
   width: 100%;
   height: 100vh;
@@ -18,6 +19,7 @@ const Section = styled.section`
   @media (max-width: 768px) {
     height: auto;
     min-height: 180vh;
+    margin-top: 20rem;
   }
 `;
 

@@ -64,7 +64,6 @@ const PanelsContainer = styled.div`
 		flex-direction: column;
 		width: 100%;
 		height: auto;
-		overflow: visible;
 	}
 `
 
