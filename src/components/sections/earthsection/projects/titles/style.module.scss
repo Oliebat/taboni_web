@@ -13,14 +13,14 @@
         cursor: default;
         position: relative;
         z-index: 2;
-        min-height: 13rem;
         
         @media (max-width: 768px) {
             flex: 1;
             display: flex;
             align-items: center;
             cursor: pointer;
-            transition: background-color 0.3s;
+            transition: background-color 0.6s;
+            min-height: 13rem;
         }
         
         /* Style pour l'élément actif en mobile */
