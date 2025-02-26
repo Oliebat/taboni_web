@@ -3,7 +3,7 @@
     border-top: 1px solid rgba(183, 171, 152, 0.25);
     
     @media (max-width: 768px) {
-        height: 100vh;
+        height: auto;
         display: flex;
         flex-direction: column;
     }
