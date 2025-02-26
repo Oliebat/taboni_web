@@ -18,7 +18,7 @@ const Section = styled.section`
   @media (max-width: 768px) {
     margin-bottom: 20rem;
     height: auto;
-    min-height: 130vh;
+    min-height: 140vh;
   }
 `;
 

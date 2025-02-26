@@ -34,6 +34,7 @@ export default function Descriptions({data, selectedProject}) {
                         className={`${styles.description} ${activeClass}`}
                         style={{
                             clipPath: isSelected ? "inset(0 0 0)" : "inset(50% 0 50%)",
+                            // Pour mobile: utiliser flex et min-height dans le CSS, mais garder hauteur proportionnelle ici
                             height: isMobile ? `${100 / data.length}%` : 'auto'
                         }}
                     >
