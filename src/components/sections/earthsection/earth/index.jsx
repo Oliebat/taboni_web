@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import { Canvas, useLoader, useFrame } from '@react-three/fiber';
 import { TextureLoader } from 'three/src/loaders/TextureLoader';
 import gsap from 'gsap';
@@ -6,7 +6,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 gsap.registerPlugin(ScrollTrigger);
 
-const EarthMesh = ({ velocityRef }) => {
+const EarthMesh = ({ velocityRef, scale }) => {
   const meshRef = useRef(null);
   const [color, normal, aoMap] = useLoader(TextureLoader, [
     './img/color.jpg',
@@ -16,9 +16,7 @@ const EarthMesh = ({ velocityRef }) => {
 
   useFrame((state, delta) => {
     if (meshRef.current) {
-      // On ajoute la vitesse actuelle à la rotation
       meshRef.current.rotation.y += velocityRef.current;
-      // On applique un frottement pour ralentir progressivement (0.9 = 10% de perte à chaque frame)
       velocityRef.current *= 0.9;
     }
   });
@@ -27,7 +25,7 @@ const EarthMesh = ({ velocityRef }) => {
     <>
       <ambientLight intensity={0.1} />
       <directionalLight intensity={3.5} position={[1, 0, -0.25]} />
-      <mesh ref={meshRef} scale={2.85}>
+      <mesh ref={meshRef} scale={scale}>
         <sphereGeometry args={[1, 64, 64]} />
         <meshStandardMaterial map={color} normalMap={normal} aoMap={aoMap} />
       </mesh>
@@ -39,6 +37,28 @@ const Earth = () => {
   const containerRef = useRef(null);
   const velocityRef = useRef(0);
   const lastProgressRef = useRef(0);
+  const [scale, setScale] = useState(2.85);
+
+
+  useEffect(() => {
+    const handleResize = () => {
+
+      if (window.innerWidth <= 768) {
+        setScale(1.8);
+      } else {
+        setScale(2.85);
+      }
+    };
+
+
+    handleResize();
+
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
 
   useEffect(() => {
     const scrollTrigger = ScrollTrigger.create({
@@ -62,10 +82,17 @@ const Earth = () => {
   return (
     <div 
       ref={containerRef} 
-      style={{ width: '100%', height: '100vh', position: 'absolute', top: 0, left: 0, zIndex: 0 }}
+      style={{ 
+        width: '100%', 
+        height: '100vh', 
+        position: 'absolute', 
+        top: 0, 
+        left: 0, 
+        zIndex: 0 
+      }}
     >
       <Canvas>
-        <EarthMesh velocityRef={velocityRef} />
+        <EarthMesh velocityRef={velocityRef} scale={scale} />
       </Canvas>
     </div>
   );

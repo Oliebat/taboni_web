@@ -14,6 +14,12 @@ const Section = styled.section`
   height: 100vh;
   scroll-snap-align: start;
   overflow: hidden;
+
+  @media (max-width: 768px) {
+    margin-bottom: 20rem;
+    height: auto;
+    min-height: 130vh;
+  }
 `;
 
 const Value = () => {

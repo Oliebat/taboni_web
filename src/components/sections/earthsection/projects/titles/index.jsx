@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import styles from "./style.module.scss";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -6,24 +6,59 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 gsap.registerPlugin(ScrollTrigger);
 
 export default function Titles({ data, setSelectedProject }) {
+  const [isMobile, setIsMobile] = useState(false);
+  const [activeIndex, setActiveIndex] = useState(null);
+  
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+
+  const handleTitleClick = (index) => {
+    if (isMobile) {
+
+      if (activeIndex === index) {
+        setActiveIndex(null);
+        setSelectedProject(null);
+      } else {
+
+        setActiveIndex(index);
+        setSelectedProject(index);
+      }
+    }
+  };
+
   return (
     <div className={styles.titles}>
       {data.map((project, i) => (
-        <Title key={i} data={{ ...project, i }} setSelectedProject={setSelectedProject} />
+        <Title 
+          key={i} 
+          data={{ ...project, i }} 
+          setSelectedProject={setSelectedProject}
+          isMobile={isMobile}
+          isActive={activeIndex === i}
+          onClick={() => handleTitleClick(i)}
+        />
       ))}
     </div>
   );
 }
 
-function Title({ data, setSelectedProject }) {
+function Title({ data, setSelectedProject, isMobile, isActive, onClick }) {
   const { title, i } = data;
   const container = useRef(null);
-  const textRefs = useRef([]); // Stocker les deux <p>
+  const textRefs = useRef([]);
 
   useEffect(() => {
     if (!container.current) return;
 
-    const texts = gsap.utils.toArray(textRefs.current); // Récupérer les deux <p>
+    const texts = gsap.utils.toArray(textRefs.current);
 
     gsap.fromTo(
       texts,
@@ -52,13 +87,16 @@ function Title({ data, setSelectedProject }) {
   }, []);
 
   return (
-    <div ref={container} className={styles.title}>
+    <div 
+      ref={container} 
+      className={`${styles.title} ${isActive ? styles.active : ''}`}
+      onClick={onClick}
+    >
       <div
         className={styles.wrapper}
-        onMouseOver={() => setSelectedProject(i)}
-        onMouseLeave={() => setSelectedProject(null)}
+        onMouseOver={() => !isMobile && setSelectedProject(i)}
+        onMouseLeave={() => !isMobile && setSelectedProject(null)}
       >
-        {/* Les deux <p> ont le même effet */}
         <p ref={(el) => (textRefs.current[0] = el)} className={styles.animatedText}>
           {title}
         </p>
