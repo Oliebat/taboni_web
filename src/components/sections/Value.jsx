@@ -27,7 +27,7 @@ const Section = styled.section`
 const Value = () => {
   return (
     <Section id="value">
-      <Suspense fallback={<div>Chargement de la Terre...</div>}>
+      <Suspense fallback={<div></div>}>
         <Earth />
       </Suspense>
       <Projects />

@@ -250,7 +250,7 @@ const Portfolio = () => {
 						end: 'top+=20% top',
 						scrub: 1,
 						immediateRender: false,
-						markers: true,
+						// markers: true,
 					},
 				});
 				
