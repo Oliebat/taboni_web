@@ -19,7 +19,7 @@ const PortfolioSection = styled.section`
 
 	@media only screen and (max-width: 768px) {
 		width: auto;
-		height: 200vh;
+		height: 230vh;
 		overflow: visible;
 		flex-direction: column;
 		padding: 0 2rem;
