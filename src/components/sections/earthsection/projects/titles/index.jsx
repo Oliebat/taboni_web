@@ -91,11 +91,11 @@ function Title({ data, setSelectedProject, isMobile, isActive, onClick }) {
       ref={container} 
       className={`${styles.title} ${isActive ? styles.active : ''}`}
       onClick={onClick}
+      onMouseOver={() => !isMobile && setSelectedProject(i)}
+      onMouseLeave={() => !isMobile && setSelectedProject(null)}
     >
       <div
         className={styles.wrapper}
-        onMouseOver={() => !isMobile && setSelectedProject(i)}
-        onMouseLeave={() => !isMobile && setSelectedProject(null)}
       >
         <p ref={(el) => (textRefs.current[0] = el)} className={styles.animatedText}>
           {title}
