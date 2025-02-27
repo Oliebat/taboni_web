@@ -95,6 +95,11 @@ const Desc = styled.p`
   }
 `;
 
+const Highlight = styled.span`
+  font-weight: bold;
+
+`;
+
 const Who = ({ id }) => {
   const scrollToSection = (id) => {
     const element = document.getElementById(id);
@@ -162,8 +167,11 @@ const Who = ({ id }) => {
             </Subtitle>
           </WhatWeDo>
           <Desc className="whoAnimatedItems">
-          Taboni Web : bien plus qu'une expertise en développement web, c'est une aventure au cœur de l'innovation technologique. Doté d'un flair pour le design et une maîtrise des langages modernes comme JavaScript, React et Node.js, je façonne des sites dynamiques et réactifs. 
-          <br></br>Chaque projet est une toile où se mêlent performance, créativité et précision technique. Je collabore étroitement avec mes clients pour métamorphoser des visions en réalités digitales percutantes. Partenaire agile, je guide chaque étape avec une promesse de qualité et de pertinence dans l'écosystème numérique d'aujourd'hui.
+            <Highlight>Développeur web Fullstack</Highlight>, basé à <Highlight>Nice</Highlight>, je mets mon <Highlight>expertise</Highlight> en développement et design de sites au service de vos projets. <Highlight>Réfléchi</Highlight>, <Highlight>organisé</Highlight> et <Highlight>proactif</Highlight>, je prends en charge vos demandes avec une <Highlight>attention aux détails</Highlight> et un souci constant de la <Highlight>qualité</Highlight> pour respecter vos attentes et vos délais.
+
+            <br></br>Ma mission est de créer des sites web <Highlight>ergonomiques</Highlight>, <Highlight>rapides</Highlight> et <Highlight>intuitifs</Highlight> pour offrir une <Highlight>expérience utilisateur fluide</Highlight> et agréable. <br></br>Je m'assure que chaque interface respecte les <Highlight>normes d'accessibilité</Highlight> et de <Highlight>compatibilité</Highlight> entre navigateurs afin de garantir l'accessibilité au plus grand nombre.
+
+            <br></br>Fort d'une <Highlight>solide expérience</Highlight> en développement front-end et back-end, je maîtrise plusieurs frameworks, CMS et technologies (<Highlight>React</Highlight>, <Highlight>WordPress</Highlight>, <Highlight>Symfony</Highlight>, etc.) pour répondre à vos <Highlight>besoins spécifiques</Highlight> et concrétiser vos projets.
           </Desc>
           <Button className="whoAnimatedItems" onClick={() => scrollToSection("works")}><span>Voir plus</span></Button>
         </Right>

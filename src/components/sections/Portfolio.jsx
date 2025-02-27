@@ -234,7 +234,37 @@ const Portfolio = () => {
 				0
 			)
 
-			images.forEach((img, index) => {
+			if (panels[0]) {
+				gsap.set(panels[0], { 
+					opacity: 0,
+					y: 30 
+				});
+				
+				gsap.to(panels[0], {
+					opacity: 1,
+					y: 0,
+					ease: 'power2.inOut',
+					scrollTrigger: {
+						trigger: section,
+						start: 'top center',
+						end: 'top+=20% top',
+						scrub: 1,
+						immediateRender: false,
+						markers: true,
+					},
+				});
+				
+				if (images[0]) {
+					gsap.set(images[0], { 
+						opacity: 1, 
+						scale: 1, 
+						x: 0,
+						transformOrigin: 'center center'
+					});
+				}
+			}
+
+			images.slice(1).forEach((img, index) => {
 				gsap.fromTo(
 					img,
 					{ opacity: 0, scale: 2, x: 0 },
@@ -245,7 +275,7 @@ const Portfolio = () => {
 						duration: 1.4,
 						ease: 'power2.out',
 						scrollTrigger: {
-							trigger: img,
+							trigger: panels[index + 1],
 							start: 'left center',
 							end: 'right center',
 							containerAnimation: tl,
@@ -282,7 +312,7 @@ const Portfolio = () => {
 						<PanelItem>
 							<PanelImg
 								loading='lazy'
-								className='panel-img'
+								className={`panel-img ${index === 0 ? 'first-image' : ''}`}
 								src={projet.src}
 								alt={`Project ${index + 1}`}
 								ref={(el) => (imagesRef.current[index] = el)}
