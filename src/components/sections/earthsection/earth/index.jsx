@@ -3,6 +3,7 @@ import { Canvas, useLoader, useFrame } from '@react-three/fiber';
 import { TextureLoader } from 'three/src/loaders/TextureLoader';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import * as THREE from 'three';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -14,8 +15,16 @@ const EarthMesh = ({ velocityRef, scale }) => {
     './img/occlusion.jpg'
   ]);
 
+  useEffect(() => {
+    if (meshRef.current) {
+      // Incliner la Terre de 23.5 degrés sur l'axe X
+      meshRef.current.rotation.x = THREE.MathUtils.degToRad(23.5);
+    }
+  }, []);
+
   useFrame((state, delta) => {
     if (meshRef.current) {
+      // Rotation autour de l'axe Y (axe déjà incliné)
       meshRef.current.rotation.y += velocityRef.current;
       velocityRef.current *= 0.9;
     }
@@ -23,7 +32,7 @@ const EarthMesh = ({ velocityRef, scale }) => {
 
   return (
     <>
-      <ambientLight intensity={0.1} />
+      <ambientLight intensity={0.2} />
       <directionalLight intensity={3.5} position={[1, 0, -0.25]} />
       <mesh ref={meshRef} scale={scale}>
         <sphereGeometry args={[1, 64, 64]} />
@@ -39,17 +48,14 @@ const Earth = () => {
   const lastProgressRef = useRef(0);
   const [scale, setScale] = useState(2.85);
 
-
   useEffect(() => {
     const handleResize = () => {
-
       if (window.innerWidth <= 768) {
         setScale(1.8);
       } else {
         setScale(2.85);
       }
     };
-
 
     handleResize();
 
