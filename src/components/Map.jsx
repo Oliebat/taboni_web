@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState } from 'react'
+import React, { useRef, useEffect, useState, useCallback, memo } from 'react'
 import styled from 'styled-components'
 import { gsap } from 'gsap'
 import {
@@ -21,7 +21,7 @@ const CursorContainer = styled.div`
 	top: 0;
 	left: 0;
 	pointer-events: none;
-	z-index: 9999;
+	z-index: 5;
 `
 
 const CursorCircle = styled.div`
@@ -33,25 +33,84 @@ const CursorCircle = styled.div`
 		background-image 0.3s ease-out;
 	background-size: cover;
 	background-position: center;
-	will-change: transform, width, height; // Optimisation des performances
+	will-change: transform, width, height;
 `
 
-const baseColors = [
-	'#b74265',
-	'#8e1b5e',
-	'#650e57',
-	'#4a0e4e',
-	'#610c61',
-	'#780e78',
-	'#9c27b0',
-	'#4b0082',
-]
-
-const cityImages = {
-	Paris: './img/paris.webp',
-	Nice: './img/nice.webp',
-	Rouen: './img/rouen.webp',
+// Configuration
+const CONFIG = {
+	cursorSize: 40,
+	baseColors: [
+		'#b74265',
+		'#8e1b5e',
+		'#650e57',
+		'#4a0e4e',
+		'#610c61',
+		'#780e78',
+		'#9c27b0',
+		'#4b0082',
+	],
+	cityImages: {
+		Paris: './img/paris.webp',
+		Nice: './img/nice.webp',
+		Rouen: './img/rouen.webp',
+	},
+	cities: [
+		{ name: 'Paris', coordinates: [2.3522, 48.8566] },
+		{ name: 'Nice', coordinates: [7.2619, 43.7102] },
+		{ name: 'Rouen', coordinates: [1.0993, 49.4432] },
+	],
+	mapProjection: {
+		rotate: [-10.0, -52.0, 0],
+		center: [-5, -3],
+		scale: 1600,
+	}
 }
+
+// Composant mémoïsé pour les marqueurs de villes
+const CityMarker = memo(({ name, coordinates, onHover, onLeave }) => (
+	<React.Fragment>
+		<Annotation
+			subject={coordinates}
+			dx={-90}
+			dy={-30}
+			connectorProps={{
+				stroke: 'white',
+				strokeWidth: 2,
+				strokeLinecap: 'round',
+			}}
+		>
+			<text
+				x='-8'
+				textAnchor='end'
+				alignmentBaseline='middle'
+				fill='white'
+				style={{ zIndex: 50, cursor: 'pointer' }}
+				onMouseEnter={() => onHover(name)}
+				onMouseLeave={onLeave}
+			>
+				{name}
+			</text>
+		</Annotation>
+		<Marker coordinates={coordinates}>
+			<g>
+				<circle
+					r={25}
+					fill='transparent'
+					onMouseEnter={() => onHover(name)}
+					onMouseLeave={onLeave}
+				/>
+				<circle
+					r={4}
+					fill='white'
+					stroke='#fff'
+					strokeWidth={2}
+				/>
+			</g>
+		</Marker>
+	</React.Fragment>
+))
+
+CityMarker.displayName = 'CityMarker';
 
 const Map = () => {
 	const [isActive, setIsActive] = useState(false)
@@ -60,56 +119,14 @@ const Map = () => {
 	const [isInsideMap, setIsInsideMap] = useState(false)
 	const circles = useRef([])
 	const mapContainerRef = useRef(null)
-	const cursorSize = 40
+	const cursorSize = CONFIG.cursorSize
 	const expandedCursorSize = cursorSize * 2
 	const resizeTimeoutRef = useRef(null)
 	const lastCursorPos = useRef({ x: 0, y: 0 })
+	const animationFrameRef = useRef(null)
 
-	useEffect(() => {
-		const moveCircles = (x, y) => {
-			if (circles.current.length < 1) return
-
-			const mapRect = mapContainerRef.current?.getBoundingClientRect()
-			if (!mapRect) return
-
-			const isInside =
-				x >= mapRect.left &&
-				x <= mapRect.right &&
-				y >= mapRect.top &&
-				y <= mapRect.bottom
-
-			setIsInsideMap(isInside)
-			if (!isInside) return
-
-			// Stocker la dernière position valide du curseur
-			lastCursorPos.current = { x, y }
-
-			const element = document.elementFromPoint(x, y)
-			setIsOverContact(!!element?.closest('.box-contact'))
-
-			// Animation plus fluide pour le mouvement
-			circles.current.forEach((circle, i) => {
-				gsap.to(circle, {
-					x: x - (hoveredCity ? expandedCursorSize : cursorSize) / 2,
-					y: y - (hoveredCity ? expandedCursorSize : cursorSize) / 2,
-					duration: 0.15, // Légèrement plus rapide
-					ease: 'power1.out', // Courbe d'animation plus douce
-					delay: i * 0.01, // Délai plus court entre les cercles
-				})
-			})
-		}
-
-		const handleMouseMove = (e) => {
-			if (isActive) {
-				moveCircles(e.clientX, e.clientY)
-			}
-		}
-
-		window.addEventListener('mousemove', handleMouseMove)
-		return () => window.removeEventListener('mousemove', handleMouseMove)
-	}, [isActive, hoveredCity, cursorSize, expandedCursorSize])
-
-	const handleCityHover = (city) => {
+	// Mémoiser les fonctions de gestion des événements
+	const handleCityHover = useCallback((city) => {
 		// Annuler tout redimensionnement en cours
 		if (resizeTimeoutRef.current) {
 			clearTimeout(resizeTimeoutRef.current)
@@ -119,6 +136,8 @@ const Map = () => {
 
 		// Animation de redimensionnement plus fluide
 		circles.current.forEach((circle, i) => {
+			if (!circle) return;
+			
 			const delay = i * 0.02
 			gsap.to(circle, {
 				width: expandedCursorSize,
@@ -139,14 +158,16 @@ const Map = () => {
 				},
 			})
 		})
-	}
+	}, [expandedCursorSize])
 
-	const handleCityLeave = () => {
+	const handleCityLeave = useCallback(() => {
 		// Délai court avant de retirer la ville survolée
 		resizeTimeoutRef.current = setTimeout(() => {
 			setHoveredCity(null)
 
 			circles.current.forEach((circle, i) => {
+				if (!circle) return;
+				
 				const delay = i * 0.02
 				gsap.to(circle, {
 					width: cursorSize,
@@ -168,33 +189,150 @@ const Map = () => {
 				})
 			})
 		}, 50) // Petit délai pour éviter les changements trop rapides
-	}
+	}, [cursorSize])
 
-	const cities = [
-		{ name: 'Paris', coordinates: [2.3522, 48.8566] },
-		{ name: 'Nice', coordinates: [7.2619, 43.7102] },
-		{ name: 'Rouen', coordinates: [1.0993, 49.4432] },
-	]
+	// Fonction optimisée de déplacement des cercles
+	const moveCircles = useCallback((x, y) => {
+		if (circles.current.length < 1) return;
+
+		// Vérifier si nous sommes à l'intérieur de la section Contact
+		const contactSection = document.getElementById('contact')
+		const contactRect = contactSection?.getBoundingClientRect()
+		const mapRect = mapContainerRef.current?.getBoundingClientRect()
+		
+		if (!mapRect || !contactRect) return;
+
+		const isInsideContact = 
+			x >= contactRect.left &&
+			x <= contactRect.right &&
+			y >= contactRect.top &&
+			y <= contactRect.bottom;
+			
+		const isInMap = 
+			x >= mapRect.left &&
+			x <= mapRect.right &&
+			y >= mapRect.top &&
+			y <= mapRect.bottom;
+
+		setIsInsideMap(isInMap);
+		
+		// Si nous ne sommes pas dans la section Contact, désactiver l'affichage
+		if (!isInsideContact) {
+			setIsActive(false);
+			return;
+		} else {
+			setIsActive(true);
+		}
+
+		// Stocker la dernière position valide du curseur
+		lastCursorPos.current = { x, y };
+
+		const element = document.elementFromPoint(x, y);
+		setIsOverContact(!!element?.closest('.box-contact'));
+
+		// Animation plus fluide pour le mouvement
+		circles.current.forEach((circle, i) => {
+			if (!circle) return;
+			
+			gsap.to(circle, {
+				x: x - (hoveredCity ? expandedCursorSize : cursorSize) / 2,
+				y: y - (hoveredCity ? expandedCursorSize : cursorSize) / 2,
+				duration: 0.15, 
+				ease: 'power1.out', 
+				delay: i * 0.01,
+			});
+		});
+	}, [cursorSize, expandedCursorSize, hoveredCity]);
+
+	// Optimiser le gestionnaire de souris avec requestAnimationFrame
+	useEffect(() => {
+		let mouseX = 0;
+		let mouseY = 0;
+		let isMoving = false;
+
+		const handleMouseMove = (e) => {
+			mouseX = e.clientX;
+			mouseY = e.clientY;
+			
+			if (!isMoving) {
+				isMoving = true;
+				
+				// Utiliser requestAnimationFrame pour limiter les mises à jour
+				animationFrameRef.current = requestAnimationFrame(function updatePosition() {
+					moveCircles(mouseX, mouseY);
+					
+					if (isMoving) {
+						animationFrameRef.current = requestAnimationFrame(updatePosition);
+					} else {
+						isMoving = false;
+					}
+				});
+			}
+		};
+
+		const handleMouseStop = () => {
+			if (animationFrameRef.current) {
+				cancelAnimationFrame(animationFrameRef.current);
+				isMoving = false;
+			}
+		};
+
+		window.addEventListener('mousemove', handleMouseMove);
+		window.addEventListener('mouseleave', handleMouseStop);
+		
+		return () => {
+			window.removeEventListener('mousemove', handleMouseMove);
+			window.removeEventListener('mouseleave', handleMouseStop);
+			
+			if (animationFrameRef.current) {
+				cancelAnimationFrame(animationFrameRef.current);
+			}
+			
+			if (resizeTimeoutRef.current) {
+				clearTimeout(resizeTimeoutRef.current);
+			}
+		};
+	}, [moveCircles]);
 
 	return (
-		<MapContainer
-			ref={mapContainerRef}
-			onMouseEnter={() => {
-				setIsActive(true)
-				setIsInsideMap(true)
-			}}
-			onMouseLeave={() => {
-				setIsActive(false)
-				setHoveredCity(null)
-				setIsInsideMap(false)
-			}}
-		>
+		<>
+			<MapContainer ref={mapContainerRef}>
+				<ComposableMap
+					projection='geoAzimuthalEqualArea'
+					projectionConfig={CONFIG.mapProjection}
+					style={{ width: '100%', height: '100%' }}
+				>
+					<Geographies
+						geography='/features.json'
+						fill='#2C065D'
+						stroke='#FFFFFF'
+						strokeWidth={0.5}
+					>
+						{({ geographies }) =>
+							geographies.map((geo) => (
+								<Geography 
+									key={geo.rsmKey} 
+									geography={geo}
+								/>
+							))
+						}
+					</Geographies>
+					
+					{CONFIG.cities.map(({ name, coordinates }) => (
+						<CityMarker
+							key={name}
+							name={name}
+							coordinates={coordinates}
+							onHover={handleCityHover}
+							onLeave={handleCityLeave}
+						/>
+					))}
+				</ComposableMap>
+			</MapContainer>
+
 			<CursorContainer
 				style={{
-					display:
-						isActive && isInsideMap && !isOverContact
-							? 'block'
-							: 'none',
+					display: isActive ? 'block' : 'none',
 				}}
 			>
 				{[...Array(4)].map((_, i) => (
@@ -204,10 +342,10 @@ const Map = () => {
 						style={{
 							backgroundColor: hoveredCity
 								? 'transparent'
-								: baseColors[i],
+								: CONFIG.baseColors[i],
 							backgroundImage:
 								hoveredCity && i === 0
-									? `url(${cityImages[hoveredCity]})`
+									? `url(${CONFIG.cityImages[hoveredCity]})`
 									: 'none',
 							width: hoveredCity
 								? expandedCursorSize * 0.75
@@ -223,73 +361,7 @@ const Map = () => {
 					/>
 				))}
 			</CursorContainer>
-
-			{/* Reste du code de la map inchangé */}
-			<ComposableMap
-				projection='geoAzimuthalEqualArea'
-				projectionConfig={{
-					rotate: [-10.0, -52.0, 0],
-					center: [-5, -3],
-					scale: 1600,
-				}}
-				style={{ width: '100%', height: '100%' }}
-			>
-				<Geographies
-					geography='/features.json'
-					fill='#2C065D'
-					stroke='#FFFFFF'
-					strokeWidth={0.5}
-				>
-					{({ geographies }) =>
-						geographies.map((geo) => (
-							<Geography key={geo.rsmKey} geography={geo} />
-						))
-					}
-				</Geographies>
-				{cities.map(({ name, coordinates }) => (
-					<React.Fragment key={name}>
-						<Annotation
-							subject={coordinates}
-							dx={-90}
-							dy={-30}
-							connectorProps={{
-								stroke: 'white',
-								strokeWidth: 2,
-								strokeLinecap: 'round',
-							}}
-						>
-							<text
-								x='-8'
-								textAnchor='end'
-								alignmentBaseline='middle'
-								fill='white'
-								style={{ zIndex: 50, cursor: 'pointer' }}
-								onMouseEnter={() => handleCityHover(name)}
-								onMouseLeave={handleCityLeave}
-							>
-								{name}
-							</text>
-						</Annotation>
-						<Marker coordinates={coordinates}>
-							<g>
-								<circle
-									r={25}
-									fill='transparent'
-									onMouseEnter={() => handleCityHover(name)}
-									onMouseLeave={handleCityLeave}
-								/>
-								<circle
-									r={4}
-									fill='white'
-									stroke='#fff'
-									strokeWidth={2}
-								/>
-							</g>
-						</Marker>
-					</React.Fragment>
-				))}
-			</ComposableMap>
-		</MapContainer>
+		</>
 	)
 }
 

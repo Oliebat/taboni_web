@@ -3,6 +3,7 @@ import emailjs from '@emailjs/browser'
 import styled, { css, keyframes } from 'styled-components'
 import Map from '../Map'
 import Button from '../buttons/Button'
+import MagneticIcon from '../buttons/MagneticIcon'
 import UpButton from '../buttons/UpButton'
 import { FaGithub, FaLinkedin } from 'react-icons/fa'
 // import { Box } from '@react-three/drei'
@@ -87,7 +88,7 @@ const UpButtonWrapper = styled.div`
 	position: absolute;
 	bottom: 0;
 	right: 0;
-	z-index: 2;
+	z-index: 10;
 `
 
 const fadeOut = keyframes`
@@ -163,11 +164,13 @@ const BoxContact = styled.div`
 	color: white;
 	font-weight: 500;
 	font-size: 1.75em;
+	z-index: 10;
 
 	& a {
 		color: white;
 		margin: 0 10px;
 		transition: color 0.3s;
+		z-index: 10;
 	}
 
 	a:hover {
@@ -196,6 +199,7 @@ const Footer = styled.footer`
 	color: white;
 	font-weight: 500;
 	font-size: 14px;
+	z-index: 10;
 
 	@media only screen and (max-width: 768px) {
 		display: block;
@@ -479,20 +483,13 @@ const Contact = ({ id }) => {
 						)}
 					</Form>
 					<BoxContact ref={boxContact}>
-						<a
-							href={githubUrl}
-							target='_blank'
-							rel='noopener noreferrer'
-						>
+						<MagneticIcon href={githubUrl}>
 							<FaGithub />
-						</a>
-						<a
-							href={linkedinUrl}
-							target='_blank'
-							rel='noopener noreferrer'
-						>
+						</MagneticIcon>
+						
+						<MagneticIcon href={linkedinUrl}>
 							<FaLinkedin />
-						</a>
+						</MagneticIcon>
 					</BoxContact>
 				</Left>
 				<Right ref={right}>
