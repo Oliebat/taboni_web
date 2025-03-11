@@ -158,7 +158,7 @@ const Who = ({ id }) => {
             <Suspense fallback={null}>
               <ambientLight intensity={1.5} />
               <directionalLight position={[3, 2, 1]} />
-              <Cube />
+                <Cube scrollTriggerRef={section} />
               <OrbitControls enableZoom={false} autoRotate />
             </Suspense>
           </Canvas>

@@ -4,13 +4,12 @@ import { TextureLoader } from 'three/src/loaders/TextureLoader'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
-// Enregistrement du plugin
 gsap.registerPlugin(ScrollTrigger)
 
 const Earth = ({ scrollTriggerRef }) => {
   const meshRef = useRef(null)
   
-  // Chargement des textures
+
   const [colorMap, normalMap, aoMap] = useLoader(TextureLoader, [
     './textures/earth/color.jpg',
     './textures/earth/normal.png',
@@ -19,7 +18,7 @@ const Earth = ({ scrollTriggerRef }) => {
 
   useEffect(() => {
     if (meshRef.current && scrollTriggerRef.current) {
-      // Animation avec GSAP
+
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: scrollTriggerRef.current,
@@ -35,7 +34,7 @@ const Earth = ({ scrollTriggerRef }) => {
       })
       
       return () => {
-        // Nettoyage au démontage
+
         if (tl.scrollTrigger) {
           tl.scrollTrigger.kill()
         }
@@ -43,10 +42,10 @@ const Earth = ({ scrollTriggerRef }) => {
     }
   }, [scrollTriggerRef])
   
-  // Animation légère continue
+
   useFrame(() => {
     if (meshRef.current) {
-      // Petite rotation continue pour donner vie à la Terre
+
       meshRef.current.rotation.y += 0.001
     }
   })
