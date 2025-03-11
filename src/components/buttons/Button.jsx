@@ -33,6 +33,23 @@ const Button = styled.button`
 		font-size: 0.58rem;
 		padding: 0.7rem 1.2rem;
 	}
+	
+	@media only screen and (min-width: 1800px) {
+		width: ${({ $customWidth }) => $customWidth || '220px'};
+		padding: 1.2rem 1.8rem;
+		font-size: 0.85rem;
+		letter-spacing: 0.06rem;
+		border-radius: 0.6rem;
+	}
+	
+
+	@media only screen and (min-width: 2560px) {
+		width: ${({ $customWidth }) => $customWidth || '260px'};
+		padding: 1.4rem 2rem;
+		font-size: 1rem;
+		letter-spacing: 0.07rem;
+		border-radius: 0.7rem;
+	}
 
 	&::before,
 	&::after {

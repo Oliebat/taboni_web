@@ -49,7 +49,7 @@ const Title = styled.h1`
 `
 
 const Form = styled.form`
-	width: 500px;
+	width: 31.25rem;
 	display: flex;
 	flex-direction: column;
 	gap: 25px;
@@ -57,6 +57,10 @@ const Form = styled.form`
 
 	@media only screen and (max-width: 768px) {
 		width: 300px;
+	}
+
+	@media only screen and (min-width: 1800px) {
+		width: 40rem;
 	}
 `
 

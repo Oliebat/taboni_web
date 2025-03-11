@@ -21,9 +21,14 @@ const Section = styled.div`
 const Container = styled.div`
   height: 100vh;
   scroll-snap-align: center;
-  width: 1400px;
+  width: 100%;
+  max-width: 1400px;
   display: flex;
   justify-content: space-between;
+
+  @media only screen and (min-width: 2560px) {
+    max-width: 80%;
+  }
 `;
 
 const Left = styled.div`
