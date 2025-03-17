@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useRef } from 'react'
 import styled, { keyframes } from 'styled-components'
 
 const blinkHide = keyframes`
@@ -95,13 +95,70 @@ const Eye = styled.svg`
 		stroke-width: 1.5px;
 	}
 
+	.eye__iris {
+		fill: #000;
+		stroke: none;
+	}
+
 	.eye__lashes-down {
 		opacity: 0;
 	}
 `
+
 const currentYear = new Date().getFullYear()
 
 const UpButton = ({ onClick }) => {
+	// Références pour accéder aux éléments DOM
+	const eyeRef = useRef(null)
+	const irisRef = useRef(null)
+	const innerRef = useRef(null)
+	
+	// Effet pour gérer le suivi du curseur
+	useEffect(() => {
+		const eye = eyeRef.current
+		const iris = irisRef.current
+		const inner = innerRef.current
+		
+		if (!eye || !iris || !inner) return
+		
+		const handleMouseMove = (event) => {
+			// Obtenir la position de l'œil
+			const eyeRect = eye.getBoundingClientRect()
+			const eyeCenterX = eyeRect.left + eyeRect.width / 2
+			const eyeCenterY = eyeRect.top + eyeRect.height / 2
+			
+			// Calculer la distance entre le curseur et le centre de l'œil
+			const dx = event.clientX - eyeCenterX
+			const dy = event.clientY - eyeCenterY
+			
+			// Limiter le mouvement de l'iris à l'intérieur de l'œil
+			const maxDistance = 4 // Limite du mouvement de l'iris
+			const distance = Math.sqrt(dx * dx + dy * dy)
+			
+			let moveX = dx
+			let moveY = dy
+			
+			if (distance > maxDistance) {
+				moveX = (dx / distance) * maxDistance
+				moveY = (dy / distance) * maxDistance
+			}
+			
+			// Déplacer l'iris et le cercle intérieur
+			iris.setAttribute('cx', 35 + moveX)
+			iris.setAttribute('cy', 35.31 + moveY)
+			
+			// Déplacer légèrement le cercle intérieur aussi pour un effet plus naturel
+			inner.setAttribute('cx', 35 + moveX * 0.5)
+			inner.setAttribute('cy', 35.31 + moveY * 0.5)
+		}
+		
+		document.addEventListener('mousemove', handleMouseMove)
+		
+		return () => {
+			document.removeEventListener('mousemove', handleMouseMove)
+		}
+	}, [])
+	
 	return (
 		<Button className='button button--surtur' onClick={onClick}>
 			<TextCircle className='textcircle' viewBox='0 0 500 500'>
@@ -123,6 +180,7 @@ const UpButton = ({ onClick }) => {
 				</text>
 			</TextCircle>
 			<Eye
+				ref={eyeRef}
 				aria-hidden='true'
 				className='eye'
 				width='70'
@@ -142,8 +200,8 @@ const UpButton = ({ onClick }) => {
 					className='eye__lashes-down'
 					d='M35 61.818v-8.836 8.836zM49.537 59.237l-3.31-8.193 3.31 8.193zM20.522 58.936l3.31-8.193-3.31 8.193z'
 				/>
-				<circle className='eye__iris' cx='35' cy='35.31' r='5.221' />
-				<circle className='eye__inner' cx='35' cy='35.31' r='10.041' />
+				<circle ref={irisRef} className='eye__iris' cx='35' cy='35.31' r='5.221' />
+				<circle ref={innerRef} className='eye__inner' cx='35' cy='35.31' r='10.041' />
 			</Eye>
 		</Button>
 	)
