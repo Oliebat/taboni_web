@@ -108,12 +108,12 @@ const Eye = styled.svg`
 const currentYear = new Date().getFullYear()
 
 const UpButton = ({ onClick }) => {
-	// Références pour accéder aux éléments DOM
+
 	const eyeRef = useRef(null)
 	const irisRef = useRef(null)
 	const innerRef = useRef(null)
 	
-	// Effet pour gérer le suivi du curseur
+
 	useEffect(() => {
 		const eye = eyeRef.current
 		const iris = irisRef.current
@@ -121,35 +121,61 @@ const UpButton = ({ onClick }) => {
 		
 		if (!eye || !iris || !inner) return
 		
+		const DEFAULT_IRIS_X = 35;
+		const DEFAULT_IRIS_Y = 35.31;
+		
 		const handleMouseMove = (event) => {
-			// Obtenir la position de l'œil
-			const eyeRect = eye.getBoundingClientRect()
-			const eyeCenterX = eyeRect.left + eyeRect.width / 2
-			const eyeCenterY = eyeRect.top + eyeRect.height / 2
+
+			if (!eye || !iris || !inner) return;
 			
-			// Calculer la distance entre le curseur et le centre de l'œil
-			const dx = event.clientX - eyeCenterX
-			const dy = event.clientY - eyeCenterY
-			
-			// Limiter le mouvement de l'iris à l'intérieur de l'œil
-			const maxDistance = 4 // Limite du mouvement de l'iris
-			const distance = Math.sqrt(dx * dx + dy * dy)
-			
-			let moveX = dx
-			let moveY = dy
-			
-			if (distance > maxDistance) {
-				moveX = (dx / distance) * maxDistance
-				moveY = (dy / distance) * maxDistance
+			try {
+
+				const eyeRect = eye.getBoundingClientRect()
+				if (!eyeRect) return;
+				
+				const eyeCenterX = eyeRect.left + eyeRect.width / 2
+				const eyeCenterY = eyeRect.top + eyeRect.height / 2
+				
+				const dx = event.clientX - eyeCenterX
+				const dy = event.clientY - eyeCenterY
+				
+
+				const maxDistance = 4
+				const distance = Math.sqrt(dx * dx + dy * dy)
+				
+				let moveX = dx
+				let moveY = dy
+				
+				if (distance > maxDistance) {
+					moveX = (dx / distance) * maxDistance
+					moveY = (dy / distance) * maxDistance
+				}
+				
+				// Calculate new positions
+				const newIrisX = DEFAULT_IRIS_X + moveX;
+				const newIrisY = DEFAULT_IRIS_Y + moveY;
+				const newInnerX = DEFAULT_IRIS_X + moveX * 0.5;
+				const newInnerY = DEFAULT_IRIS_Y + moveY * 0.5;
+				
+				if (!isNaN(newIrisX) && !isNaN(newIrisY)) {
+
+					iris.setAttribute('cx', newIrisX.toString())
+					iris.setAttribute('cy', newIrisY.toString())
+				}
+				
+				if (!isNaN(newInnerX) && !isNaN(newInnerY)) {
+
+					inner.setAttribute('cx', newInnerX.toString())
+					inner.setAttribute('cy', newInnerY.toString())
+				}
+			} catch (error) {
+				console.error('Error in eye movement calculation:', error);
+
+				iris.setAttribute('cx', DEFAULT_IRIS_X.toString())
+				iris.setAttribute('cy', DEFAULT_IRIS_Y.toString())
+				inner.setAttribute('cx', DEFAULT_IRIS_X.toString())
+				inner.setAttribute('cy', DEFAULT_IRIS_Y.toString())
 			}
-			
-			// Déplacer l'iris et le cercle intérieur
-			iris.setAttribute('cx', 35 + moveX)
-			iris.setAttribute('cy', 35.31 + moveY)
-			
-			// Déplacer légèrement le cercle intérieur aussi pour un effet plus naturel
-			inner.setAttribute('cx', 35 + moveX * 0.5)
-			inner.setAttribute('cy', 35.31 + moveY * 0.5)
 		}
 		
 		document.addEventListener('mousemove', handleMouseMove)
