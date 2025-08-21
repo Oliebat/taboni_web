@@ -99,8 +99,8 @@ const Panel = styled.div`
 `
 
 const PanelItem = styled.div`
-	height: 70%;
-	width: 70%;
+	height: 80%;
+	width: 65%;
 	margin: 0 auto;
 	position: relative;
 	cursor: pointer;
