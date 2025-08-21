@@ -39,7 +39,7 @@ const Left = styled.div`
   }
 `;
 
-const Title = styled.h1`
+const Title = styled.h2`
   font-size: 3.65vw;
 
   @media only screen and (max-width: 1350px) {

@@ -131,6 +131,25 @@ const PanelImg = styled.img`
 
 const Projets = [
 	{
+		src: './img/jmnga.webp',
+		title: 'JMNGA Services - Agence de voyage',
+		description: 'Site web d\'agence de voyage.',
+		lien: 'https://jmnga-services.com/',
+
+	},
+	{
+		src: './img/smarttouch.webp',
+		title: 'Smart Touch - Ecrans LED ET film PDLC',
+		description: 'Site web de vente d\'écrans LED et film PDLC.',
+		lien: 'https://smart-touch.fr/',
+	},
+	{
+		src: './img/baratte.webp',
+		title: 'Site e-commerce Baratte',
+		description: 'Site e-commerce de vente de parquets',
+		lien: 'http://parquet-baratte.fr/',
+	},
+	{
 		src: './img/cabnow.webp',
 		title: 'CabNow',
 		description: 'Site web de Chauffeur VTC avec réservation en ligne.',
